@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Produto,Categoria,Usuario,ImagemProduto
 from datetime import datetime,date
 
@@ -244,29 +244,62 @@ def produtos(request):
         'produtos': produtos_,
         'imagens_produtos': imagens_produtos
     })
-def produto_edit(request,id):
+def produto_edit(request, id):
+
     usuario_id = request.session.get('usuario_id')
-    user=Usuario.objects.filter(id=usuario_id).first()
-    if user :
-        if user.tipo_usuario != "Admisnitrador":
-            redirect('perfil')
-    produto_=None
-    imagens=None
-    try:
-      
-      produto_=Produto.objects.filter(id=id)
-      imagens=ImagemProduto.objects.filter(produto=id)
-      print(imagens.values())
+    user = Usuario.objects.filter(id=usuario_id).first()
 
+    # Usuário inválido ou não administrador
+    if not user:
+        return redirect('login')
 
+    if user.tipo_usuario != "Administrador":
+        return redirect('perfil')
 
-   
+    # Carregar produto
+    produto = get_object_or_404(Produto, id=id)
 
-    except Exception as e :
-        print("Erro:",e)
-   
+    # Carregar imagens do produto
+    imagens = ImagemProduto.objects.filter(produto=produto)
 
-    return render(request,"./loja/static/html/administrador/produto_edit.html",{'produto':produto_.first(),"imagens":imagens})
+    # Carregar categorias
+    categorias = Categoria.objects.all()
+    # Carrega todas as marcas
+    marcas=Produto.objects.values_list('marca',flat=True).distinct().order_by('marca')
+    # 🚀 Se for POST, atualizar dados
+    if request.method == "POST":
+
+        try:
+            produto.nome = request.POST.get("nome")
+            produto.marca = request.POST.get("marca")
+            produto.ml = request.POST.get("ml")
+            produto.preco = request.POST.get("preco")
+            produto.estoque = request.POST.get("estoque")
+            produto.tamanho = request.POST.get("tamanho")
+
+            # Foreign Key → precisa puxar o objeto categoria
+            categoria_nome = request.POST.get("categoria")
+            if categoria_nome:
+                categoria_obj = Categoria.objects.filter(nome=categoria_nome).first()
+                if categoria_obj:
+                    produto.categoria = categoria_obj
+
+            produto.save()
+
+            return redirect('produto_editar', id=id)
+
+        except Exception as e:
+            print("Erro ao atualizar:", e)
+
+    return render(request,
+        "./loja/static/html/administrador/produto_edit.html",
+        {
+            'produto': produto,
+            'imagens': imagens,
+            'categorias': categorias,
+            'marcas':marcas
+        }
+    )
 def criar_produto(request):
     usuario_id = request.session.get('usuario_id')
     user = Usuario.objects.filter(id=usuario_id).first()

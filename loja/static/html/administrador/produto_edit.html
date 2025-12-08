@@ -1,63 +1,136 @@
 {% extends './administracao.html' %}
 {% load static %}
-{% block conteudo%}
+{% block conteudo %}
 <div>
    <div class="produto_edit">
-    <form action="" method="post">
+    <form id="formProduto" action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
     {% if produto %}
         {% if produto.imagem_principal %}
         <div class="carrosel_imagens_produtos">
             <div class="imagens_carrosel_produtos" id="imagens_carrosel_produtos">
-              <img src="{{produto.imagem_principal.url }}" alt="">
-              {% if imagens %}
+                {% if imagens %}
+               {% for imagem in imagens %}
+                 <div >
+                  <img src="{{ imagem.imagem.url }}" alt="" class="imagem_exibicao" id="imagem_{{ forloop.counter }}" hidden>
+                
+                  </div>
+                {% endfor %}
                 {% for imagem in imagens %}
-              <img src="{{ imagem.imagem.url }}" alt="">
+                 <div >
+                  <button class="botaoimagem_{{ forloop.counter }}">{{ forloop.counter  }} IMAGEM</button>
+                  <input type="file" name="entrada_imagem_{{ forloop.counter }}">
+                  </div>
                 {% endfor %}
               {% endif %}
+             
+              
             </div>
-            <button type="button" id="antes"><i class="fa-duotone fa-solid fa-arrow-down"></i></button>
-            <button type="button" id="depois" ><i class="fa-duotone fa-solid fa-arrow-down"></i></button>
-
         </div>
-        <div class="adicionar_remover">
-        <button type="button" class="adicionar"><i class="fa-solid fa-plus"></i></button>
-        <button type="button"   class="lixeira_"><img src="{% static 'imagens/lixeira.png' %}" alt=""></button>
-        </div>
-        {%else%}
-            <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="">
         {% endif %}
-        <p>NOME: <input type="text" value="{{produto.nome}}"></p>
-        <p>SKU: {{produto.sku}}</p>
-        <p>MARCA: <input type="text" value="{{produto.marca}}"></p>
-        <p>CATEGORIA:<input type="text" value="{{produto.categoria}}"></p>
-        <p>ML: <input type="text" value="{{produto.ml}}"></p>
-         <p>PREÇO: <input type="text" value="{{produto.preco}}"></p>
-         <p>ESTOQUE: <input type="text" value="{{produto.estoque}}"></p>
-         <p>TAMANHO: <input type="text" value="{{produto.tamanho}}"></p>
-         <p>AVALIAÇÃO MEDIA:{{produto.avaliacao_media}}</p>
-         <p>DATA DE CADASTRO:{{produto.data_cadastro}}</p>
-         <button type="submit">SALVAR</button>
+
+        <!-- CAMPOS COM ERRO EM CIMA -->
+        <p class="erro" id="erro_nome"></p>
+        <p>NOME: <input type="text" id="nome" name="nome" value="{{produto.nome}}"></p>
+
+        <p>SKU: <input type="text" value="{{produto.sku}}" disabled></p>
+
+        <p class="erro" id="erro_marca"></p>
+        <p>MARCA: 
+        <select name="marcas" id="marcas">
+            {% for marca in  marcas %}
+             <option value="{{marca}}"
+            {% if produto.marca == marca %}selected {% endif %} class="marca">{{marca}}</option>
+            {% endfor %}
+        </select></p>
+
+        <p class="erro" id="erro_categoria"></p>
+        <p>CATEGORIA: 
+         <select name="categorias" id="categorias">
+          {% for categoria in categorias %}
+            <option value="{{categoria.nome}}"
+            {% if categoria.nome == produto.categoria %}selected {% endif %} class="categoria">{{categoria.nome}}</option>
+                 
+          {% endfor %}
+         </select>
+        </p>
+
+        <p class="erro" id="erro_ml"></p>
+        <p>ML: <input type="text" id="ml" value="{{produto.ml}}"></p>
+
+        <p class="erro" id="erro_preco"></p>
+        <p>PREÇO: <input type="text" id="preco" value="{{produto.preco}}"></p>
+
+        <p class="erro" id="erro_estoque"></p>
+        <p>ESTOQUE: <input type="text" id="estoque" value="{{produto.estoque}}"></p>
+
+        <p class="erro" id="erro_tamanho"></p>
+        <p>TAMANHO: <input type="text" id="tamanho" value="{{produto.tamanho}}"></p>
+
+        <p>AVALIAÇÃO MEDIA: <input type="text" value="{{produto.avaliacao_media}}" disabled></p>
+        <p>DATA DE CADASTRO: <input type="text" value="{{produto.data_cadastro|date:'Y-m-d'}}" disabled></p>
+
+        <div class="botao_salvar">
+             <button class="salvar-button" type="submit">SALVAR</button>
+        </div>
      </form>
-    {%else%}
+    {% else %}
      <h1>Produto não encotrado</h1>
     {% endif %}
-
-
    </div>
 </div>
-<script>
-const slides = document.getElementById('imagens_carrosel_produtos')
-const totalSlides= slides.children.length
-let index=0
 
-  document.getElementById('depois').addEventListener('click', () => {
-    index = (index + 1) % totalSlides;
-    slides.style.transform = `translateX(${-300 * index}px)`;
-  });
-  document.getElementById('antes').addEventListener('click', () => {
-    index = (index - 1 + totalSlides) % totalSlides;
-    slides.style.transform = `translateX(${-300 * index}px)`;
-  });
+<style>
+    .erro {
+        color: red;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        height: 16px;
+    }
+</style>
+
+<script>
+
+// ------------- VALIDAÇÃO DOS CAMPOS -------------
+document.getElementById("formProduto").addEventListener("submit", function(e){
+    
+    let erros = 0;
+
+    function validar(idInput, idErro, msg){
+        let valor = document.getElementById(idInput).value.trim();
+        if(valor === ""){
+            document.getElementById(idErro).innerText = msg;
+            erros++;
+        } else {
+            document.getElementById(idErro).innerText = "";
+        }
+    }
+
+    validar("nome", "erro_nome", "O nome não pode estar vazio");
+    validar("marca", "erro_marca", "A marca é obrigatória");
+    validar("categoria", "erro_categoria", "A categoria é obrigatória");
+    validar("ml", "erro_ml", "O campo ML é obrigatório");
+    validar("preco", "erro_preco", "O preço é obrigatório");
+    validar("estoque", "erro_estoque", "O estoque é obrigatório");
+    validar("tamanho", "erro_tamanho", "O tamanho é obrigatório");
+
+    if(erros > 0){
+        e.preventDefault(); // impede o submit
+    }
+});
+document.querySelectorAll("button[class^='botaoimagem_']").forEach(botao => {
+    botao.addEventListener("click", function(e){
+        e.preventDefault();  // impede o submit do form
+        
+        let num = this.classList[0].split("_")[1];  
+        console.log("Botão clicado:", num);
+
+        // Exibe somente a imagem correspondente
+        document.querySelectorAll("[id^='imagem_']").forEach(img => img.hidden = true);
+        document.getElementById("imagem_" + num).hidden = false;
+    });
+});
 </script>
 
-{% endblock  %}
+{% endblock %}

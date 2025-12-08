@@ -9,7 +9,7 @@ from loja.models import Produto, Categoria, ImagemProduto
 
 
 class Command(BaseCommand):
-    help = "Gera produtos falsos com imagem principal e imagens extras"
+    help = "Gera produtos falsos com imagem principal e exatamente 4 imagens extras"
 
     def handle(self, *args, **kwargs):
         fake = Faker('pt_BR')
@@ -36,7 +36,7 @@ class Command(BaseCommand):
                 imagem_principal_file = ContentFile(img_response.content, name=f"{slug}-principal.jpg")
             except Exception as e:
                 print("Erro ao baixar imagem principal:", e)
-                imagem_principal_file = None
+                continue  # Sem imagem principal, não cria o produto
 
             # Criar produto com imagem principal
             produto = Produto.objects.create(
@@ -52,22 +52,20 @@ class Command(BaseCommand):
                 ativo=True,
                 tamanho=random.choice(["P", "M", "G", "GG", "Único", None]),
                 ml=f"{random.randint(30, 1000)}ml",
-                imagem_principal=imagem_principal_file,  # <-- AQUI É DEFINIDA
+                imagem_principal=imagem_principal_file,
             )
 
-            # Criar imagens extras
-            quantidade_imagens = random.randint(1, 5)
-
-            for i in range(quantidade_imagens):
+            # Criar exatamente 4 imagens extras
+            for i in range(4):
                 try:
                     response = requests.get(url_imagem)
-                    imagem_file = ContentFile(response.content, name=f"{produto.slug}-{i}.jpg")
+                    imagem_file = ContentFile(response.content, name=f"{produto.slug}-extra-{i}.jpg")
 
                     ImagemProduto.objects.create(
                         produto=produto,
                         imagem=imagem_file
                     )
                 except Exception as e:
-                    print(f"Erro ao baixar imagem extra para {produto.nome}: {e}")
+                    print(f"Erro ao baixar imagem extra {i} para {produto.nome}: {e}")
 
-        self.stdout.write(self.style.SUCCESS("Produtos criados com imagem principal e extras!"))
+        self.stdout.write(self.style.SUCCESS("Produtos criados com 1 imagem principal e 4 extras!"))

@@ -63,7 +63,7 @@ class Usuario(models.Model):
     imagem_usuario = models.ImageField(
         upload_to='usuarios/',
         null=True,
-        blank=True
+        blank=True,
     )
 
     nome = models.CharField(max_length=30)
