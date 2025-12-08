@@ -1,0 +1,156 @@
+a{
+  text-decoration: none;
+  color: #F1E5AC;
+}
+h1{
+    color:rgba(224, 190, 139) ;
+}
+.opcoes_perfil{
+    margin: 0;
+    font-family: 'Times New Roman';
+    background-color:#af8a5c ;
+    padding: 0;
+    height: auto;
+    display: flex;
+    font-family: 'Times New Roman';
+    color: #F1E5AC;
+
+}
+.opcoes_perfil ul{
+    color: #F1E5AC;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    background-color: rgba(27, 27, 27);
+    margin: 10px;
+    width: fit-content;
+    border-radius: 20px;
+    
+}
+.opcoes_perfil li{
+   font-family: 'Times New Roman';
+   font-size: 20px;
+   padding: 5px;
+   width: auto;
+   height: auto;
+   align-items: center;
+   justify-items: center;
+   
+}
+.opcoes_perfil li:hover{
+    background-color: rgba(156, 137, 107);
+    border-radius: 20px;
+    
+}
+.opcoes_perfil li {
+    margin: 25px 20px  ;
+    
+}
+.dados_menus{
+    width: 100%;
+ 
+}
+.dados_pessoais{
+    background-color: rgb(230, 230, 230);
+    width: fit-content;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: rgb(43, 41, 41);
+    display: flex;
+    flex-direction: column;
+
+}
+.dados_pessoais p{
+    margin: 10px;
+    font-size: large;
+     color: rgba(224, 190, 139);
+     width: fit-content;
+}
+.dados_pessoais input,option{
+     margin: 1px;
+     padding: 5px;
+     width: 200px;
+     border-radius: 20px;
+}
+.enderecos{
+     
+     border-radius: 20px;
+     align-items: center;
+      width: fit-content;
+}
+.enderecos p{
+    padding: 5px;
+    width: auto;
+    margin: 10px;
+
+}
+.endereco{
+    display: flex;
+    background-color: rgb(43, 41, 41);
+    border-radius: 20px;
+    color: rgba(224, 190, 139);
+
+}
+.endereco div{
+    margin: 5px;
+
+    color: #F1E5AC;
+    
+
+}
+.enderecos button{
+    width: 100%;
+    border-radius: 10px;
+    font-size: auto;
+    padding: 5px;
+    margin-top: 20px;
+    background-color:rgb(255, 255, 255) ;
+    display: flex;
+}
+.dados_pessoais input,p{
+    width: 90%;
+}
+.endereco button{
+    font-size: large;
+}
+.endereco input{
+    border-radius: 10px;
+    font-size: large;
+    width: 100%;
+}
+
+
+@media (max-width: 800px) {
+.dados_pessoais{
+    display: flex;
+    flex-direction: column;
+}
+.endereco{
+    display: flex;
+    flex-direction: column;
+}
+
+.opcoes_perfil li{
+ margin: 0;
+ padding: 0;
+ justify-content: center;
+ align-content: center;
+ width: fit-content;
+}
+.opcoes_perfil ul{
+    width: 50%;
+}
+.BOTOES{
+    align-content: center;
+    justify-content: center;
+    font-size: 10px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+.BOTOES button{
+    margin: 0px 10px;
+}
+}

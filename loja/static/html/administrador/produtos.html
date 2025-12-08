@@ -1,0 +1,62 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo%}
+<div>
+    <ul class="gerenciamento_produtos">
+        <form action="" method="post" class="form_pesquisar_usuarios">
+        <select name="filtro" id="filtro">
+            <option value="NOME">NOME</option>
+            <option value="CPF">MARCA</option>
+       </option>
+        </select>
+        <input type="search" name="pesquisar_usuarios" id="">
+        <button type="button" onclick="window.location.href='{% url 'produto_criar' %}'" class="BUTTON_CRIAR_USAURIOS"><i class="fa-solid fa-user"></i>  CRIAR PRODUTO</button>
+
+        </form>
+        {% if produtos %}
+       {% for i in produtos %}
+        <li class="produtos_item_">
+            {% if i.imagem_principal %}
+            <img src="{{ i.imagem_principal.url }}" alt="{{ i.nome }}">
+              {% else %}
+              <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="{{ i.nome }}">
+             {% endif %}
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">NOME: {{ i.nome }}</a></p>
+                <p><a href="{% url 'produto_editar' id=i.id %}">SKU: {{ i.sku }}</a></p>
+            </div>
+
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">MARCA: {{ i.marca }}</a></p>
+                <p><a href="{% url 'produto_editar' id=i.id %}">CATEGORIA: {{ i.categoria }}</a></p>
+            </div>
+
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">PREÇO: {{ i.preco }}</a></p>
+                <p><a href="{% url 'produto_editar' id=i.id %}">PREÇO PROMOCIONAL: {{ i.preco_promocional }}</a></p>
+            </div>
+
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">ESTOQUE: {{ i.estoque }}</a></p>
+                <p><a href="{% url 'produto_editar' id=i.id %}">TAMANHO: {{ i.tamanho }}</a></p>
+            </div>
+
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">AVALIAÇÃO MEDIA: {{ i.avaliacao_media }}</a></p>
+                <p>ATIVO: {% if i.ativo %}SIM{% else %}NÃO{% endif %}</p>
+            </div>
+
+            <div>
+                <p><a href="{% url 'produto_editar' id=i.id %}">DATA DE CADASTRO: {{ i.data_cadastro }}</a></p>
+                <p>ML: {{ i.ml }}</p>
+            </div>
+        </li>
+        {% endfor %}
+
+        {%else%}
+                   <h1>NENHUM PRODUTO ENCOTRADO</h1>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock  %}

@@ -1,0 +1,99 @@
+{% load static %}
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NL Importados</title>
+        <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+        
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        <main>
+
+             
+            <div class="cabecalho">
+                <header>
+                    <div class="titulo_logo">
+                    <img class="logo" src="{% static 'imagens/logo.png' %}" alt="Logo NL Importados">
+                    <h1 class="titulo" ur><a href="{% url 'index' %}">NL Importados</a></h1>
+                    </div>
+                    <div class="pesquisar_botoes">
+                    <input type="search" name="pesquisar" placeholder="Pesquisar">
+                    <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button type="button"><a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a></button>
+                    <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </header>
+            {%block tags_navegacao%}
+                <nav class="menus">
+                    <ul class="opcoes">
+                        <li class="opcao">Marcas</li>
+                        <li class="opcao">Eau de Parfum</li>
+                        <li class="opcao">Eau de Toilette</li>
+                        <li class="opcao">Eau de Cologne</li>
+                    </ul>
+                </nav>
+            </div>
+          {%endblock%}
+         {%block content_principal%}
+         <script src="{% static 'javascript/index.js' %}" defer></script>
+        <div class="carrosel">
+            <div class="imagens-carrosel">
+                <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume 1" class="slider">
+                <img src="{% static 'imagens/perfumes_2.jpg' %}" alt="Perfume 2" class="slider">
+                <img src="{% static 'imagens/perfumes_3.jpg' %}" alt="Perfume 3" class="slider">
+            </div>
+        </div>
+        <p class="mais_vendidos">Mais vendidos</p>
+        <div class="carrossel-produtos">
+        <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+            <div class="lista-produtos" id="lista-produtos">
+                {%if produtos%}
+                    {%for produto in produtos%}
+                       <div class="produto-item">
+                        {% if produto.imagem_principal %}
+                           <img src="{{ produto.imagem_principal.url }}" alt="Perfume">
+                           
+                        {%else%}
+                          <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume">
+                        {% endif %}
+
+                        <p class="titulo-produto"><a href="{% url 'produto' slug=produto.slug %}">{{ produto.nome }}</a></p>
+                        <p class="sub-titulo-produto">Subtítulo </p>
+                        <p class="valor-produto">{{ produto.preco }}</p>
+                        </div>
+                    {% endfor %}
+                {%else%}
+                    {% for i in "123456789" %}
+                    <div class="produto-item">
+                        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
+                        <p class="titulo-produto">Produto {{ i }}</p>
+                        <p class="sub-titulo-produto">Subtítulo {{ i }}</p>
+                        <p class="valor-produto">R$ 300,00</p>
+                    </div>
+                    {% endfor %}
+                {%endif%}
+            </div>
+        <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
+        <div id="content">
+        </div>
+         {%endblock%}
+        
+         {% block rodape %}
+           <footer>Rodapé</footer>
+         {% endblock  %}
+            
+        </main>
+
+    </body>
+
+    </html>
+

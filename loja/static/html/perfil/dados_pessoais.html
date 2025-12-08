@@ -1,0 +1,21 @@
+{% extends 'loja/static/html/perfil/perfil.html' %}
+{%load static%}
+{%block opcoes_perfil%}
+{% block dados %}
+  <div class="dados_pessoais">
+      
+     <p class="dados_pessoais_texto">NOME: <input type="text"></p>
+     <p class="dados_pessoais_texto">CPF: <input type="text"></p>
+     <p class="dados_pessoais_texto">GENERO: <select name="GENERO" id="">
+      <option value="MASCULINO">MASCULINO</option>
+      <option value="FEMININO">FEMININO</option>
+      <option value="OUTRO">OUTRO</option>
+     </select></p>
+     <p class="dados_pessoais_texto">DATA DE NASCIEMNTO: <input type="date" name="" id=""></p>
+     <p class="dados_pessoais_texto">TELEFONE: <input type="text"></p>
+     <p class="dados_pessoais_texto">EMAIL: <input type="email" name="" id=""></p>
+  </div>
+
+{% endblock  %}
+{%endblock%}
+

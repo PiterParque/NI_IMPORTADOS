@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração</title>
+    <link rel="stylesheet" href="{% static 'css/administracao.css' %}">
+            <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+</head>
+<body>
+    <h1 class="Titulo">Administração</h1>
+        <div class="principal">
+            <nav class="menus_administracao">
+                <ul>
+                    <li><a href="{% url 'usuarios' %}"><i class="fa-solid fa-user"></i> USUARIOS/CLIENTES</a></li>
+                    <li><a href="{% url 'produtos' %}"><i class="fa-solid fa-bag-shopping"></i> PRODUTOS</a></li>
+                    <li>PEDIDOS</li>
+                </ul>
+            </nav>
+            <div class="conteudo">
+            {% block conteudo%}
+            
+            {% endblock  %}
+            </div>
+        </div>
+
+</body>
+        <footer class="rodape"> <img src="{% static './imagens/logo_1.png' %}" alt=""><img src="{% static './imagens/logo_marca.png' %}" alt=""></footer>
+</html>

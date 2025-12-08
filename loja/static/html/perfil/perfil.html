@@ -1,0 +1,34 @@
+{% extends 'loja/static/html/index.html' %}
+{% load static %}
+{% block content_principal %}
+{% endblock %}
+{%block tags_navegacao%}
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+<div class="opcoes_perfil">
+    
+    <ul>
+        <img src="" alt="">
+        <p class="nome_usuario">Nicolas</p>
+        <li><p class="dados_opcao"><a href="{% url 'dados_pessoais' %}">Dados Pessoais</a></p></li>
+        <li><p class="endereco_opcao"><a href="{% url 'endereco' %}">Endereço</a></p></li>
+        <li><p class="pedidos_texto"><a href="{% url 'pedidos' %}">Pedidos</a></p></li>
+        <li><p class="metodos_pagamento_opcao"><a href="{% url 'metodos_pagamento' %}">Metodos de pagamentos</a></p></li>
+        <li><p class="autenticacao_opcao"><a href="{% url 'autenticacao' %}">Autenticação</a></p></li>
+        <li><p class="notificacao_opcao"><a href="{% url 'notificacao' %}">Notificação</a></p></li>
+        <li><p class="sair_opcao">Sair</p></li>
+    </ul>
+    <div class="dados_menus">
+       
+        {% block dados %}
+        
+        {% endblock  %}
+    </div>
+</div>
+<link rel="stylesheet" href="{% static '/css/estilo_perfil.css' %}">
+
+{% endblock %}
+
+

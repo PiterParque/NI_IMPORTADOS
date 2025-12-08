@@ -1,0 +1,81 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{% url  'tela_logon' %}" class="formulario_logon" method="post">
+        {% csrf_token %}
+        <img class="logo" src="{% static 'imagens/logo.png' %}" alt="Logo NL Importados">
+        <p>Usuario</p>
+        <input type="text" placeholder="USUARIO" name="username">
+        <p>Senha</p>
+        <input type="password" name="password" id="senha" placeholder="SENHA">
+        <button type="submit" class="ENTRAR">ENTRAR</button>
+        <button class="google"><img class="logo" src="{% static 'imagens/google.png' %}" alt="Logo NL Importados">GOOGLE</button>
+    </form> 
+    
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+</body>
+<style>
+body{
+     padding: 0;
+     margin: 0;
+     align-items: center;
+     justify-items: center;
+     background-color: #F1E5AC;
+    }
+.formulario_logon{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+    width: 30%;
+    height: 30%;
+    margin-top:  50px ;
+    color: #F1E5AC; 
+    padding: 10px;
+    border-radius: 20px;
+}
+.formulario_logon button{
+ margin-top:  10px ;
+ padding: 10px;
+   border-radius: 10px;
+   width: 30%;
+}
+.formulario_logon input{
+    width: 100%;
+     height: 30px;
+     border-radius: 10px;
+     font-size: large;
+}
+.formulario_logon p{
+ font-size: 25px;
+ width: 100%;
+ text-align: center;
+
+}
+.ENTRAR{
+   color: #F1E5AC; 
+   background-color: rgb(121, 119, 119);
+}
+.google{
+    display: flex;
+    background-color: rgb(238,25,43);
+    align-items: center;
+    justify-items: center;
+    color: white;
+}
+.google img{
+    width: 20px;
+    height: 20px;
+}
+
+</style>
+</html>

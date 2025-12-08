@@ -1,0 +1,27 @@
+{% extends 'loja/static/html/perfil/perfil.html' %}
+{%load static%}
+{%block opcoes_perfil%}
+{% block dados %}
+<div class="enderecos">
+    <h1>Endereços</h1>
+    <div class="endereco">
+        <div class="numero_rua">
+        <p class="numero">NUMERO: <input type="text" value="150"></p>
+        <p class="rua">RUA: <input type="text" value="jose almeida" class="RUA"></p>
+        </div>
+        <div>
+        <p class="bairro">BAIRRO: <input type="text" value="Alteorsas"></p>
+        <p class="cidade">CIDADE: <input type="text" value="Betim"></p>
+        </div>
+        <div>
+        <p class="estado">ESTADO: <input type="text" value="MG"></p>
+        </div>
+        <div class="BOTOES">
+        <button type="button">PRINCIPAL</button>
+        <button type="button" class="editar">SALVAR</button>
+        <button type="button" class="editar">EXCLUIR</button>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+{%endblock%}

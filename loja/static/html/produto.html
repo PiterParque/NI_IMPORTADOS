@@ -1,0 +1,98 @@
+{% extends './index.html' %}
+{% load static %}
+{% block content_principal %}
+<div class="pagina_Produto">
+
+  <div class="produto-principal">
+
+    <div class="produto-container">
+      <div class="galeria">
+        <div class="thumbnails">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb active" alt="thumb 1">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}"class="thumb" alt="thumb 2">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 3">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 4">
+        </div>
+        
+        <div class="main-image">
+          <button class="btn seta-esquerda"><i class="fa-solid fa-angle-left"></i></button>
+          <img id="imagem-principal" src="{% static 'imagens/perfumes_1.jpg' %}" alt="Imagem principal">
+          <button class="btn seta-direita"><i class="fa-solid fa-angle-left"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="descricao">
+      <p class="nome_produto">La Roche-Posay</p>
+      <p class="sub_titulo_produto">
+        Protetor Solar Facial com Cor Alta Cobertura e Toque Seco FPS 60 La Roche-Posay Anthelios Ultra Cover 3.0
+      </p>
+      <p class="valor_produto">R$ 64,90</p>
+      <div class="comprar_carrinho">
+        <button class="comprar">
+          <p>Comprar</p>
+          <img src="{% static 'imagens/money.png' %}" alt="icone_carrinho" class="icone_carrinho">
+        </button>
+        <button class="button_carrinho">
+          <p>Carrinho</p>
+          <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
+        </button>
+      </div>
+      <p>Consulte o valor e o prazo de entrega.</p>
+      <div class="entrada_cep">
+        <input type="text" placeholder="Digite seu CEP">
+        <button class="calcular_frete">Calcular Frete</button>
+      </div>
+      <p><a href="#">Não sei meu CEP</a></p>
+    </div>
+  </div>
+    <div class="descricao_pruduto_principal">
+      <div class="descricao_pruduto_principal_texto">
+        <p class="titulo_descricao">DESCRIÇÃO</p>
+        <p class="texto_descricao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique fugiat esse nesciunt repellat laudantium delectus placeat voluptatem quod perspiciatis facilis, non impedit dolores. Est similique sed amet, deserunt ipsam ratione.
+        Exercitationem odit commodi vitae dolores, veniam fugit ipsum nostrum amet ab cupiditate sit beatae quaerat debitis alias quas, id aliquid illum harum ullam sequi ipsa dolor officia provident in? Fugiat!
+        Obcaecati esse nam quaerat vitae totam asperiores dolor doloremque, sapiente ad natus minus rem ipsam sed officiis veritatis? Porro amet quidem cumque exercitationem vero consectetur minima facere maiores. Illo, eveniet.
+        Veritatis dignissimos nesciunt eos corrupti facere voluptatibus voluptates modi earum facilis distinctio similique et, quo asperiores accusantium. Distinctio autem nemo, omnis, error doloremque quis velit esse dolore aliquid eveniet amet.
+        Adipisci tempore aliquid velit pariatur quis eligendi sequi, a consequatur repudiandae natus ipsa corporis quas laboriosam fugit iusto sit iure eius? Qui facilis nostrum assumenda totam voluptatibus, similique et maxime?</p>
+      </div>
+    </div>
+      <p class="Tambem_indicado">Tambem indicado</p>
+      <div class="carrossel-produtos">
+      <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+          <div class="lista-produtos" id="lista-produtos">
+              {%if produtos%}
+                  {%for produto in produtos%}
+                      <div class="produto-item">
+                      {% if produto.imagem_principal %}
+                          <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
+                      {%else%}
+                        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume">
+                      {% endif %}
+
+                      <p class="titulo-produto"><a href="{% url 'produto' slug=produto.slug %}">{{ produto.nome }}</a></p>
+                      <p class="sub-titulo-produto">Subtítulo </p>
+                      <p class="valor-produto">{{ produto.preco }}</p>
+                      </div>
+                  {% endfor %}
+              {%else%}
+                  {% for i in "123456789" %}
+                  <div class="produto-item">
+                      <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
+                      <p class="titulo-produto">Produto {{ i }}</p>
+                      <p class="sub-titulo-produto">Subtítulo {{ i }}</p>
+                      <p class="valor-produto">R$ 300,00</p>
+                  </div>
+                  {% endfor %}
+              {%endif%}
+          </div>
+      <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+      </div>
+      <div id="content">
+      </div>
+      
+      
+      </div>
+</div>
+   <script src="{% static 'javascript/produto.js' %}" defer></script>
+
+{% endblock %}

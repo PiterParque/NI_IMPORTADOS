@@ -1,0 +1,55 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo%}
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+
+<div class="tabela">
+ <form action="" method="post" class="form_pesquisar_usuarios">
+  <select name="filtro" id="filtro">
+    <option value="NOME">NOME</option>
+    <option value="CPF">CPF</option>
+    <option value="DATA_DE_NASCIMENTO">DATA DE NASCIMENTO</option>
+    <option value="TELEFONE">TELEFONE</option>
+    <option value="GENERO">GENERO</option>
+    <option value="EMAIL">EMAIL</option>
+    <option value="TIPO_DE_USUARIO">TIPO DE USUARIO</option>
+  </select>
+  <input type="search" name="pesquisar_usuarios" id="">
+  <button type="button" onclick="window.location.href='{% url 'usuario_criar' %}'" class="BUTTON_CRIAR_USAURIOS"><i class="fa-solid fa-user"></i>  CRIAR USUARIO</button>
+  <p class="quantidade_usuarios">Quantidade de Usuarios: {{quantidade_usuarios}}</p>
+  </form>
+
+ <table class="tabela_usuarios">
+ 
+  <tr>
+    <th>NOME</th>
+    <th>CPF</th>
+    <th> DATA DE NASCIEMNTO</th>
+    <th>TELEFONE</th>
+    <th>GENERO</th>
+    <th>EMAIL</th>
+    <th>TIPO DE USUARIO</th>
+    <th>ATIVO</th>
+  
+  {% for usuario in usuarios %}
+    </tr>
+    <td><p><a class="atributo_usuario" href="{% url "usuario" usuario.id %}">{{usuario.nome}}</a></p></td>
+    <td><p><a class="atributo_usuario" href="{% url "usuario" usuario.id %}">{{usuario.CPF}}</a></p></td>
+    <td><p><a class="atributo_usuario"  href="{% url "usuario" usuario.id %}">{{usuario.data_nascimento}}</a></p></td>
+    <td><p><a class="atributo_usuario"  href="{% url "usuario" usuario.id %}">{{usuario.telefone}}</a></p></td>
+    <td><p><a class="atributo_usuario"  href="{% url "usuario" usuario.id %}">{{usuario.genero}}</a></p></td>
+    <td><p><a class="atributo_usuario"  href="{% url "usuario" usuario.id %}">{{usuario.email}}</a></p></td>
+    <td><p><a class="atributo_usuario" href="{% url "usuario" usuario.id %}">{{usuario.tipo_usuario}}</a></p></td>
+    <td><p><a class="atributo_usuario" href="{% url "usuario" usuario.id %}">{% if usuario.ativo == True %}SIM{%else%}Não{%endif%}</a></p></td>
+    </tr>
+   {% endfor %}
+
+
+  </tr>
+
+</table>
+</div>
+{% endblock  %}
