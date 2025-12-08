@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Produto,Categoria,Usuario,ImagemProduto
+from django.core.files.base import ContentFile
+from django.conf import settings
+import os
 from datetime import datetime,date
 
 # Create your views here.
@@ -303,20 +306,13 @@ def produto_edit(request, id):
 def criar_produto(request):
     usuario_id = request.session.get('usuario_id')
     user = Usuario.objects.filter(id=usuario_id).first()
-    categorias = None
-
-    # Verifica se usuário é administrador
-    if user:
-        if user.tipo_usuario != "Administrador":
-            return redirect('perfil')
-    retorno={"retorno":'','sinal_retorno':True}
-    try:
-        categorias = Categoria.objects.all()
-
-        # ---------------------- SE O FORM FOR ENVIADO ----------------------
-        if request.method == 'POST':
-
-            # -------- TEXTOS --------
+    if not user or user.tipo_usuario != "Administrador":
+        return redirect('perfil')
+    retorno = {"retorno": '', "sinal_retorno": True}
+    categorias = Categoria.objects.all()
+    if request.method == 'POST':
+        try:
+            # Dados do formulário
             nome = request.POST.get('nome')
             sku = request.POST.get('sku')
             marca = request.POST.get('marca')
@@ -325,24 +321,29 @@ def criar_produto(request):
             preco = request.POST.get('preco')
             estoque = request.POST.get('estoque')
             tamanho = request.POST.get('tamanho')
-
-           # -------- IMAGENS --------
+            # Imagens recebidas
             imagem_1 = request.FILES.get('imagem_1_principal')
             imagem_2 = request.FILES.get('imagem_2')
             imagem_3 = request.FILES.get('imagem_3')
             imagem_4 = request.FILES.get('imagem_4')
             imagem_5 = request.FILES.get('imagem_5')
+            # Caminho da imagem padrão (corrigido para usar os.path.join e barras corretas)
+            caminho_padrao = os.path.join(settings.BASE_DIR, 'loja', 'static', 'imagens', 'image.jpg')
+            with open(caminho_padrao, "rb") as f:
+                imagem_padrao = ContentFile(f.read(), name="padrao.jpg")
+            # Substitui imagens vazias pela imagem padrão
+            imagens = [
+                imagem_2,
+                imagem_3,
+                imagem_4,
+                imagem_5,
+            ]
+            for i,img in enumerate(imagens):
+                if img == None:
+                    imagens[i]= imagem_padrao
 
-            # lista com todas
-            imagens = [imagem_1, imagem_2, imagem_3, imagem_4, imagem_5]
-
-            # filtrar somente imagens válidas
-            imagens_validas = [img for img in imagens if img is not None and img.size > 0]
-            # LOG (opcional para teste)
-            print("Dados recebidos:")
-            print(nome, sku, marca, categoria_id, ml, preco, estoque, tamanho)
-            print("Imagens:", imagem_1, imagem_2, imagem_3, imagem_4, imagem_5)
-            produto = Produto.objects.create(
+            # Cria o produto com imagem principal
+            produto_ = Produto.objects.create(
                 nome=nome,
                 sku=sku,
                 marca=marca,
@@ -353,21 +354,20 @@ def criar_produto(request):
                 tamanho=tamanho,
                 imagem_principal=imagem_1
             )
-            produto.save()
-            retorno={"retorno":produto.save(),"sinal_retorno":True}
-            if retorno["retorno"] != None:
-                retorno["sinal_retorno"]=False
-                return render(request, "./loja/static/html/administrador/produto_criar.html", {"categorias": categorias,"retorno":retorno})
-            for img in imagens_validas:
-                    i=ImagemProduto.objects.create(
-                        produto=produto,
-                        imagem=img
-                    )
-                    retorno={"retorno":i.save(),"sinal_retorno":True}
-            retorno={"retorno":"Produto Cadastrado com sucesso","sinal_retorno":False}
-
-    except Exception as e:
-        print("Erro:", e)
-        retorno={"retorno":e,"sinal_retorno":False}
-
-    return render(request, "./loja/static/html/administrador/produto_criar.html", {"categorias": categorias,"retorno":retorno})
+            produto_.save()
+            
+            # Cria imagens extras (2 a 5)
+            for img in imagens:
+                i=ImagemProduto.objects.create(
+                    produto=produto_,
+                    imagem=img
+                ).save()
+               
+            retorno = {"retorno": "Produto cadastrado com sucesso", "sinal_retorno": True}
+        except Exception as e:
+            print("Erro:", e)
+            retorno = {"retorno": str(e), "sinal_retorno": False}
+    return render(request, "loja/static/html/administrador/produto_criar.html", {
+        "categorias": categorias,
+        "retorno": retorno
+    })

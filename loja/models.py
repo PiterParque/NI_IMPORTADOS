@@ -42,7 +42,7 @@ class Produto(models.Model):
                 self.slug = slugify(self.nome)
             super().save(*args, **kwargs)
         except  IntegrityError:
-            return "Nome ja existe ou ilegivel para cadasstro"
+            return "Nome ou SKU ja existe ou ilegivel para cadasstro"
 
     def __str__(self):
         return self.nome

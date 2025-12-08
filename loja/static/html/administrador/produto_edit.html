@@ -9,19 +9,26 @@
         {% if produto.imagem_principal %}
         <div class="carrosel_imagens_produtos">
             <div class="imagens_carrosel_produtos" id="imagens_carrosel_produtos">
+              <img src="{{ produto.imagem_principal.url }}" alt="" class="imagem_1" id="imagem_1"  >
                 {% if imagens %}
                {% for imagem in imagens %}
                  <div >
-                  <img src="{{ imagem.imagem.url }}" alt="" class="imagem_exibicao" id="imagem_{{ forloop.counter }}" hidden>
+                  <img src="{{ imagem.imagem.url }}" alt="" class="imagem_exibicao" id="imagem_{{ forloop.counter|add:'1' }}" hidden>
+    
+                  </div>
+                {% endfor %}
+                <div>
+                  <button class="botaoimagem_1">1 IMAGEM</button>
+                  <input type="file" name="entrada_imagem_1">
+                </div>
+                  {% for imagem in imagens %}
+                  <div>
+                    <button class="botaoimagem_{{ forloop.counter|add:'1' }}">{{ forloop.counter|add:'1' }} IMAGEM</button>
+                    <input type="file" name="entrada_imagem_{{ forloop.counter|add:'1' }}">
+                    </div>
+                  {% endfor %}
+
                 
-                  </div>
-                {% endfor %}
-                {% for imagem in imagens %}
-                 <div >
-                  <button class="botaoimagem_{{ forloop.counter }}">{{ forloop.counter  }} IMAGEM</button>
-                  <input type="file" name="entrada_imagem_{{ forloop.counter }}">
-                  </div>
-                {% endfor %}
               {% endif %}
              
               
