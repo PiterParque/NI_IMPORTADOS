@@ -19,12 +19,12 @@
                 {% endfor %}
                 <div>
                   <button class="botaoimagem_1">1 IMAGEM</button>
-                  <input type="file" name="entrada_imagem_1">
+                  <input type="file" name="entrada_imagem_1" id="entrada_imagem_1">
                 </div>
                   {% for imagem in imagens %}
                   <div>
                     <button class="botaoimagem_{{ forloop.counter|add:'1' }}">{{ forloop.counter|add:'1' }} IMAGEM</button>
-                    <input type="file" name="entrada_imagem_{{ forloop.counter|add:'1' }}">
+                    <input type="file" name="entrada_imagem_{{ forloop.counter|add:'1' }}" id="entrada_imagem_{{ forloop.counter|add:'1' }}">
                     </div>
                   {% endfor %}
 

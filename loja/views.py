@@ -271,7 +271,6 @@ def produto_edit(request, id):
     marcas=Produto.objects.values_list('marca',flat=True).distinct().order_by('marca')
     # 🚀 Se for POST, atualizar dados
     if request.method == "POST":
-
         try:
             produto.nome = request.POST.get("nome")
             produto.marca = request.POST.get("marca")
@@ -286,9 +285,12 @@ def produto_edit(request, id):
                 categoria_obj = Categoria.objects.filter(nome=categoria_nome).first()
                 if categoria_obj:
                     produto.categoria = categoria_obj
+            imagens_={}
+            for i in "12345":
+               imagens_["imagem_"+i]=request.FILES.get("entrada_imagem_"+str(i))
 
             produto.save()
-
+            print(imagens_)
             return redirect('produto_editar', id=id)
 
         except Exception as e:
