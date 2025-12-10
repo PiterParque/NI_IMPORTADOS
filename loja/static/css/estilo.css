@@ -2,8 +2,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Times New Roman';
-    
-    
+    height: 100vh;
+    background-color: #1B1B19;
+    color: #CEA06E;
 }
 
 header {
@@ -62,32 +63,15 @@ header input {
     cursor: pointer;
 }
 
-.carrosel{
-    padding-bottom: 10px;
-}
 
 nav {
     font-family: 'Open Sans';
 
 }
 
-/* CAROUSEL */
-.carrosel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  
-    background-color: #dfdfdf;
-}
 
-.imagens-carrosel {
-    position: relative;
-    width: 600px;
-    height: 500px;
-    overflow: hidden;
-    margin-top: 10px;
-}
+
+
 
 .slider {
     position: absolute;
@@ -106,14 +90,10 @@ nav {
 }
 
 
-.carrosel button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 2rem;
-    color: #1c1c1b;
+.logo_inicial{
+  margin: 0;
+  object-fit: cover;
+  
 }
 .produtos{
     align-items: center;
@@ -186,7 +166,7 @@ footer {
 
 .produto-item {
   flex: 0 0 220px;
-  background: white;
+  background: #252628;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   scroll-snap-align: start;
@@ -381,6 +361,18 @@ position: relative;
   flex-direction: column;
 
 }
+.rodape{
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  border-radius: 5px;
+  height: min-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 @media (max-width: 1000px) {
  .produto-principal{
   flex-direction: column;

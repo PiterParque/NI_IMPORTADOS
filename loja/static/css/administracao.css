@@ -430,3 +430,11 @@ padding-left: 5px;
   background-color: #1B1B1B;
   color: #e5cca1;
 }
+.detalhes-pedido{
+  display: grid;
+  grid-template-columns: max-content 2fr;
+  gap: 5px;
+}
+.detalhes-pedido p{
+  width: fit-content;
+}
