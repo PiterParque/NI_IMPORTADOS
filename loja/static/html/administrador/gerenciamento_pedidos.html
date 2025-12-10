@@ -2,16 +2,35 @@
 {% load static %}
 {% block conteudo%}
 <div class="content-pedidos">
-    <form action="" method="post">
+    <form action="" method="post" class="pesquisar_pedidos">
     <select name="filtro" id="filtro">
         <option value="STATUS">STATUS</option>
         <option value="CLIENTE">CLIENTE</option>
         <option value="DATA_PEDIDO">DATA DO PEDIDO</option>
+        <option value="NUMERO_PEDIDO">NUMERO PEDIDO</option>
     </select>
     <input type="search" name="pesquisar_usuarios" id="">
+    <p>TOTAL DE PEDIDOS:11</p>
+
     </form>
     <table class="tabela-pedidos">
-
+     <tr>
+        <th>NUMERO DO PEDIDO</th>
+        <th>CLIENTE</th>
+        <th>DATA DO PEIDODO</th>
+        <th>STATUS</th>
+        <th>VALOR TOTAL</th>
+     </tr>
+     {% for i in "123456789100" %}
+     <tr>
+        <td> <a href="{% url 'gerenciamento_pedido' %}">12526533</a></td>
+        <td>JOÃO DE ASSIS</td>
+        <td>22/06/2022</td>
+        <td>PENDETE</td>
+        <td>1.200,00</td>
+     </tr>
+       
+     {% endfor %}
     </table>
 </div>
 {% endblock  %}

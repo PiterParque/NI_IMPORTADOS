@@ -97,13 +97,13 @@ class Pedido(models.Model):
         ('F', 'Finalizado'),
         ('C', 'Cancelado'),
     ]
-    numero_pedido= models.CharField(max_length=20, unique=True)
+    numero_pedido= models.CharField(max_length=20, unique=True,default='000000')
     cliente = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='pedidos')
     perfumes = models.ManyToManyField(Produto, through='ItemPedido')
     data_pedido = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='P')
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
+    endereco_entrega = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return f"Pedido #{self.id} - {self.cliente.nome}"
 

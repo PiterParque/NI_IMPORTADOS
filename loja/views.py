@@ -381,3 +381,5 @@ def criar_produto(request):
     })
 def gerenciamentos_pedidos(request):
     return render(request, "loja/static/html/administrador/gerenciamento_pedidos.html")
+def gerenciamento_pedido(request):
+    return render(request, "loja/static/html/administrador/gerenciamento_pedido.html")

@@ -85,7 +85,7 @@ a{
   border:none;
 }
 .tabela_usuarios td a{
-  color:#987d60;;
+  color:#987d60;
 }
 .tabela_usuarios th{
   color: #e5cca1;
@@ -405,4 +405,28 @@ padding-left: 5px;
 }
 .imagem_exibicao{
   width: 100%;
+}
+.pesquisar_pedidos{
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.content-pedidos{
+  width: 70vw;
+  height: 100%;
+}
+.tabela-pedidos{
+  width: 100%;
+
+}
+.tabela-pedidos a{
+  text-decoration: none;
+  color: #f0e4cd;
+}
+.tabela-pedidos td,tr,th{
+  text-align: center;
+}
+.tabela-pedidos th{
+  background-color: #1B1B1B;
+  color: #e5cca1;
 }
