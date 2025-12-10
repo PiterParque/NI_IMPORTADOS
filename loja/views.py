@@ -288,9 +288,15 @@ def produto_edit(request, id):
             imagens_={}
             for i in "12345":
                imagens_["imagem_"+i]=request.FILES.get("entrada_imagem_"+str(i))
-
+           
             produto.save()
-            print(imagens_)
+            for i,img in enumerate(list(imagens_.keys())[1:]):
+                if imagens_[img] != None:
+                    s=ImagemProduto.objects.get(id=imagens[i].id)
+                    s.imagem=imagens_[img]
+                    s.save()
+                    
+            
             return redirect('produto_editar', id=id)
 
         except Exception as e:
@@ -373,3 +379,5 @@ def criar_produto(request):
         "categorias": categorias,
         "retorno": retorno
     })
+def gerenciamentos_pedidos(request):
+    return render(request, "loja/static/html/administrador/gerenciamento_pedidos.html")

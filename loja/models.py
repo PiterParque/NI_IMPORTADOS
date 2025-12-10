@@ -97,7 +97,7 @@ class Pedido(models.Model):
         ('F', 'Finalizado'),
         ('C', 'Cancelado'),
     ]
-
+    numero_pedido= models.CharField(max_length=20, unique=True)
     cliente = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='pedidos')
     perfumes = models.ManyToManyField(Produto, through='ItemPedido')
     data_pedido = models.DateTimeField(auto_now_add=True)

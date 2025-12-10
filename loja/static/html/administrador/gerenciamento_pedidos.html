@@ -1,0 +1,17 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo%}
+<div class="content-pedidos">
+    <form action="" method="post">
+    <select name="filtro" id="filtro">
+        <option value="STATUS">STATUS</option>
+        <option value="CLIENTE">CLIENTE</option>
+        <option value="DATA_PEDIDO">DATA DO PEDIDO</option>
+    </select>
+    <input type="search" name="pesquisar_usuarios" id="">
+    </form>
+    <table class="tabela-pedidos">
+
+    </table>
+</div>
+{% endblock  %}
