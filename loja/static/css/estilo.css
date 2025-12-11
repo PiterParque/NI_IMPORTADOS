@@ -54,7 +54,6 @@ header input {
     background-color: #f3dc68;
     margin: 0;
     padding: 10px 0;
-    margin-bottom: 10px ;
 }
 
 .cabecalho li {
@@ -69,9 +68,17 @@ nav {
 
 }
 
+.logo_inicial{
+  border: none;
+  object-fit: cover;
 
+}
 
-
+.imagem_buberangue{
+  position: relative;
+  right: 30%;
+  transition: 1s;
+}
 
 .slider {
     position: absolute;
