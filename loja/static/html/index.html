@@ -21,9 +21,10 @@
             <div class="cabecalho">
                 <header>
                     <div class="titulo_logo">
-                    <h1 class="titulo" ur><a href="{% url 'index' %}">NL Importados</a></h1>
+                    <h1 class="titulo"><a href="{% url 'index' %}">NL Importados</a></h1>
                     </div>
                     <div class="pesquisar_botoes">
+                        <button type="button"><a href="{% url 'index' %}"><i class="fa-notdog fa-solid fa-house"></i></a></button>
                     <input type="search" name="pesquisar" placeholder="Pesquisar" class="pesquisar">
                     <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
                     <button type="button"><a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a></button>

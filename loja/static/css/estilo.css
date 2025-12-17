@@ -27,9 +27,13 @@ header{
 }
 .pesquisar{
   border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
 }
 .pesquisar_botoes{
  display: flex;
+ justify-content: center;
+ width: 100%;
 }
 .pesquisar_botoes button{
   background-color: #252628;
