@@ -2,10 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Times New Roman';
-    height: 100vh;
     background-color: #141213;
     color: #CEA06E;
     width: 100%;
+    height: 100%;
 }
 img{
   object-fit: cover;
@@ -23,7 +23,7 @@ header{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
+  width: 100%;
 }
 .pesquisar{
   border-radius: 20px;
@@ -165,32 +165,29 @@ footer {
   height: max-content;
 }
 
-.produto-container {
-  display: flex;
-  gap: 20px;
-}
+
 
 .galeria {
   display: flex;
   align-items: center;
-  gap: 15px;
+
+  width: fit-content;
 }
 
 /* MINIATURAS */
 .thumbnails {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  width: fit-content;
 }
 
 .thumbnails img {
-  width: 70px;
-  height: 70px;
   object-fit: cover;
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 5px;
   transition: transform 0.2s, border 0.2s;
+  width: 4rem;
 }
 
 .thumbnails img:hover {
@@ -202,27 +199,37 @@ footer {
 }
 
 /* IMAGEM PRINCIPAL */
+.produto-container{
+    width: 100%;
+  max-width:1300px ;
+  height: 100%;
+  max-height: 1300px;
+}
 .produto-container button{
   margin: 0;
   padding: 0;
   
 }
-
+#imagem-principal{
+  object-fit: cover;
+  width: 90% ;
+}
+.main-image{
+width: fit-content;
+}
 .main-image img {
-  width: 400px;
-  height: 400px;
-  border-radius: 10px;
+ object-fit: cover;
+ width: 100%;
 }
 .galeria button {
 position: relative;
 }
-.main-image{
- display: flex;
- align-items: center; 
-}
+
 .main-image{
   position :relative;
    display: inline-block;
+     width: 100%;
+  max-width:1300px ;
 }
 .main-image img{
   display: block;
@@ -237,7 +244,7 @@ position: relative;
   left: 0%;}
 .seta-direita {  
   transform: rotate(180deg);
-  left: 90%;}
+  left: 80%;}
 
 /* BOTÕES */
 .btn {
@@ -258,7 +265,8 @@ position: relative;
 
 .descricao img{
   padding: 0;
-  width: 20px;
+    width: 100%;
+  max-width:1300px ;
   height: 20px;
 }
 .descricao button{
@@ -271,15 +279,18 @@ position: relative;
   display: flex;
 }
 .produto-principal{
+  width: fit-content;
   display: flex;
-
+  flex-direction: column;
+  align-items: center;
 }
 .descricao{
-  padding-left: 10px;
+  width: 100%;
+  max-width:1300px ;
 }
 .descricao{
   margin-left: 5px;
-  border: solid #888 1px;
+  
 }
 .Tambem_indicado{
   text-align: center;
@@ -295,22 +306,22 @@ position: relative;
 }
 .descricao_pruduto_principal{
   justify-items: center;
-
+    width: 100%;
+  max-width:1000px ;
 }
 .descricao_pruduto_principal_texto{
-  border: solid  1px gray;
+  
   border-radius: 1px;
+  width: 100%;
 
 }
-.descricao_pruduto_principal p{
-  max-width:1200px ;
-}
+
 .pagina_Produto{
-  align-items: center;
-  justify-items: center;
   display: flex;
   flex-direction: column;
-
+  width: 100%;
+  justify-items: center;
+  align-items: center;
 }
 .rodape{
   margin: 0;

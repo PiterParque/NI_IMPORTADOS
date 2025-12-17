@@ -19,6 +19,7 @@ class Categoria(models.Model):
 
 class Produto(models.Model):
     nome = models.CharField(max_length=200)
+    subtitulo=models.CharField(max_length=200)
     descricao = models.TextField()
     marca = models.CharField(max_length=100)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos')

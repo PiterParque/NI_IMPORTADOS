@@ -115,6 +115,7 @@ padding: 0;
 select,option{
   height: 30px;
   font-size: 15px;
+  width: fit-content;
 }
 
 .perfil_usuario{
@@ -252,10 +253,19 @@ padding-left: 5px;
 }
 .rodape{
   object-fit: cover;
-  border-radius: 5px;
   background-color: #1B1B1B;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
-
+.entrada-descricao{
+}
+.entrada-descricao textarea{
+  width: 100%;
+}
 @media (max-width: 800px) {
  body{
   display: flex;
@@ -274,6 +284,7 @@ padding-left: 5px;
   display: flex;
   flex-direction: column;
 }
+
 }
 
 .produtos_item_{
@@ -407,9 +418,11 @@ padding-left: 5px;
   width: 100%;
 }
 .pesquisar_pedidos{
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: 0.2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: fit-content;
+  
 }
 .content-pedidos{
   width: 70vw;

@@ -22,6 +22,10 @@
             <input type="text" name="nome" class="entrada-dado-produto" required>
             <span class="erro-msg"></span>
         </p>
+        <p>SUB TITULO: 
+            <input type="text" name="subtitulo" id="subtitulo" class="entrada-dado-produto" required>
+            <span class="erro-msg"></span>
+        </p>
 
         <p>SKU: 
             <input type="text" name="sku" class="entrada-dado-produto" required>
@@ -62,7 +66,11 @@
             <input type="text" name="tamanho" class="entrada-dado-produto" required>
             <span class="erro-msg"></span>
         </p>
-
+        <p class="entrada-descricao">DESCRIÇÃO:
+            <textarea name="descricao" class="entrada-dado-produto"
+                    rows="5" placeholder="Digite a descrição do produto..." required></textarea>
+            <span class="erro-msg"></span>
+        </p>
         <button type="submit">CRIAR</button>
     </form>
 </div>

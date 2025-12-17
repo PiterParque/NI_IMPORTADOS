@@ -11,10 +11,11 @@ def index(request):
     print(ImagemProduto.objects.all().values())
     return render(request,'./loja/static/html/index.html',{'produtos':produtos})
 def produto(request,slug):
-    produto_principal=Produto.objects.filter(slug=slug)
-    id_categoria=produto_principal.values()[0]['categoria_id']
+    produto_principal=Produto.objects.filter(slug=slug).first()
+    id_categoria=produto_principal.categoria_id
     produtos=Produto.objects.filter(categoria=id_categoria).order_by('-data_cadastro')
-    return render(request,'./loja/static/html/produto.html',{'produtos':produtos,'produto_princiapl':produto_principal})
+    imagesn_produto_principal=ImagemProduto.objects.filter(produto=produto_principal.id)
+    return render(request,'./loja/static/html/produto.html',{'produtos':produtos,'produto_principal':produto_principal,"imagens_produto_principal":imagesn_produto_principal})
 
 #------Perfil-------
 def tela_logon(request):
@@ -272,24 +273,26 @@ def produto_edit(request, id):
     # 🚀 Se for POST, atualizar dados
     if request.method == "POST":
         try:
-            produto.nome = request.POST.get("nome")
-            produto.marca = request.POST.get("marca")
-            produto.ml = request.POST.get("ml")
-            produto.preco = request.POST.get("preco")
-            produto.estoque = request.POST.get("estoque")
-            produto.tamanho = request.POST.get("tamanho")
-
+   
+            produto.imagem_principal=request.FILES.get('entrada_imagem_1')
+            produto.nome = request.POST.get('nome')
+            produto.subtitulo = request.POST.get('subtitulo')
+            produto.marca = request.POST.get('marca')
+            produto.ml = request.POST.get('ml')
+            produto.preco = request.POST.get('preco')
+            produto.estoque = request.POST.get('estoque')
+            produto.tamanho = request.POST.get('tamanho')
             # Foreign Key → precisa puxar o objeto categoria
-            categoria_nome = request.POST.get("categoria")
+            categoria_nome = request.POST.get('categoria')
+            produto.descricao=request.POST.get('descricao')
             if categoria_nome:
                 categoria_obj = Categoria.objects.filter(nome=categoria_nome).first()
                 if categoria_obj:
                     produto.categoria = categoria_obj
+            produto.save()
             imagens_={}
             for i in "12345":
                imagens_["imagem_"+i]=request.FILES.get("entrada_imagem_"+str(i))
-           
-            produto.save()
             for i,img in enumerate(list(imagens_.keys())[1:]):
                 if imagens_[img] != None:
                     s=ImagemProduto.objects.get(id=imagens[i].id)
@@ -322,6 +325,7 @@ def criar_produto(request):
         try:
             # Dados do formulário
             nome = request.POST.get('nome')
+            subtitulo = request.POST.get('subtitulo')
             sku = request.POST.get('sku')
             marca = request.POST.get('marca')
             categoria_id = request.POST.get('categoria')
@@ -329,6 +333,7 @@ def criar_produto(request):
             preco = request.POST.get('preco')
             estoque = request.POST.get('estoque')
             tamanho = request.POST.get('tamanho')
+            descricao=request.POST.get('descricao')
             # Imagens recebidas
             imagem_1 = request.FILES.get('imagem_1_principal')
             imagem_2 = request.FILES.get('imagem_2')
@@ -353,6 +358,7 @@ def criar_produto(request):
             # Cria o produto com imagem principal
             produto_ = Produto.objects.create(
                 nome=nome,
+                subtitulo=subtitulo,
                 sku=sku,
                 marca=marca,
                 categoria_id=categoria_id,
@@ -360,7 +366,8 @@ def criar_produto(request):
                 preco=preco,
                 estoque=estoque,
                 tamanho=tamanho,
-                imagem_principal=imagem_1
+                imagem_principal=imagem_1,
+                descricao=descricao
             )
             produto_.save()
             

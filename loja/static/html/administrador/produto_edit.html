@@ -39,6 +39,7 @@
         <!-- CAMPOS COM ERRO EM CIMA -->
         <p class="erro" id="erro_nome"></p>
         <p>NOME: <input type="text" id="nome" name="nome" value="{{produto.nome}}"></p>
+        <p>SUB TITULO:<input type="text" name="subtitulo"  id="subtitulo" value="{{produto.subtitulo}}" required></p>
 
         <p>SKU: <input type="text" value="{{produto.sku}}" disabled></p>
 
@@ -76,7 +77,11 @@
 
         <p>AVALIAÇÃO MEDIA: <input type="text" value="{{produto.avaliacao_media}}" disabled></p>
         <p>DATA DE CADASTRO: <input type="text" value="{{produto.data_cadastro|date:'Y-m-d'}}" disabled></p>
-
+        <p class="entrada-descricao">DESCRIÇÃO:
+            <textarea name="descricao" id="descricao" class="entrada-dado-produto"
+                    rows="5" placeholder="Digite a descrição do produto..." required >{{produto.descricao}}</textarea>
+            <span class="erro-msg"></span>
+        </p>
         <div class="botao_salvar">
              <button class="salvar-button" type="submit">SALVAR</button>
         </div>

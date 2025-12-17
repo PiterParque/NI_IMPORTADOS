@@ -2,16 +2,28 @@
 {% load static %}
 {% block content_principal %}
 <div class="pagina_Produto">
-
+{% if produto_principal %}
   <div class="produto-principal">
 
     <div class="produto-container">
       <div class="galeria">
         <div class="thumbnails">
-          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb active" alt="thumb 1">
+          {% if produto_principal.imagem_principal %}
+             <img src="{{produto_principal.imagem_principal.url}}" class="thumb active" alt="thumb 1">
+          {% else %}
+            <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb active" alt="thumb 1">
+          {% endif %}
+          {% if  imagens_produto_principal %}
+            {% for imagem in imagens_produto_principal %}
+               <img src="{{imagem.imagem.url}}"class="thumb" alt="thumb {{forloop.counter|add:'1'}}">
+            {% endfor %}
+          
+          {% else %}
           <img src="{% static 'imagens/perfumes_1.jpg' %}"class="thumb" alt="thumb 2">
           <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 3">
           <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 4">
+          {% endif %}
+
         </div>
         
         <div class="main-image">
@@ -23,11 +35,11 @@
     </div>
 
     <div class="descricao">
-      <p class="nome_produto">La Roche-Posay</p>
+      <p class="nome_produto">{{produto_principal.nome}}</p>
       <p class="sub_titulo_produto">
-        Protetor Solar Facial com Cor Alta Cobertura e Toque Seco FPS 60 La Roche-Posay Anthelios Ultra Cover 3.0
+        {{produto_principal.subtitulo}}
       </p>
-      <p class="valor_produto">R$ 64,90</p>
+      <p class="valor_produto">R$ {{produto_principal.preco}}</p>
       <div class="comprar_carrinho">
         <button class="comprar">
           <p>Comprar</p>
@@ -44,18 +56,15 @@
         <button class="calcular_frete">Calcular Frete</button>
       </div>
       <p><a href="#">Não sei meu CEP</a></p>
-    </div>
-  </div>
-    <div class="descricao_pruduto_principal">
+           <div class="descricao_pruduto_principal">
       <div class="descricao_pruduto_principal_texto">
         <p class="titulo_descricao">DESCRIÇÃO</p>
-        <p class="texto_descricao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique fugiat esse nesciunt repellat laudantium delectus placeat voluptatem quod perspiciatis facilis, non impedit dolores. Est similique sed amet, deserunt ipsam ratione.
-        Exercitationem odit commodi vitae dolores, veniam fugit ipsum nostrum amet ab cupiditate sit beatae quaerat debitis alias quas, id aliquid illum harum ullam sequi ipsa dolor officia provident in? Fugiat!
-        Obcaecati esse nam quaerat vitae totam asperiores dolor doloremque, sapiente ad natus minus rem ipsam sed officiis veritatis? Porro amet quidem cumque exercitationem vero consectetur minima facere maiores. Illo, eveniet.
-        Veritatis dignissimos nesciunt eos corrupti facere voluptatibus voluptates modi earum facilis distinctio similique et, quo asperiores accusantium. Distinctio autem nemo, omnis, error doloremque quis velit esse dolore aliquid eveniet amet.
-        Adipisci tempore aliquid velit pariatur quis eligendi sequi, a consequatur repudiandae natus ipsa corporis quas laboriosam fugit iusto sit iure eius? Qui facilis nostrum assumenda totam voluptatibus, similique et maxime?</p>
-      </div>
+        <p class="texto_descricao">{{produto_principal.descricao}}</div>
     </div>
+    </div>
+
+  </div>
+   
       <p class="Tambem_indicado">Tambem indicado</p>
       <div class="carrossel-produtos">
       <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
@@ -92,6 +101,9 @@
       
       
       </div>
+{% else %}
+ <h1>Produto Não encotrado</h1>
+{% endif %}
 </div>
    <script src="{% static 'javascript/produto.js' %}" defer></script>
 
