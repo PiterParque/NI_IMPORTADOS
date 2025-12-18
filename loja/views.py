@@ -390,3 +390,29 @@ def gerenciamentos_pedidos(request):
     return render(request, "loja/static/html/administrador/gerenciamento_pedidos.html")
 def gerenciamento_pedido(request):
     return render(request, "loja/static/html/administrador/gerenciamento_pedido.html")
+from django.http import JsonResponse
+from .models import Produto
+
+def adicionar_carrinho(request):
+    if request.method == "POST":
+        produto_id = request.POST.get("produto_id")
+
+        carrinho = request.session.get("carrinho", {})
+
+        if produto_id in carrinho:
+            carrinho[produto_id]["quantidade"] += 1
+        else:
+            produto = Produto.objects.get(id=produto_id)
+            carrinho[produto_id] = {
+                "nome": produto.nome,
+                "preco": float(produto.preco),
+                "quantidade": 1
+            }
+
+        request.session["carrinho"] = carrinho
+        request.session.modified = True
+
+        return JsonResponse({
+            "status": "ok",
+            "carrinho": carrinho
+        })

@@ -30,3 +30,42 @@ btnEsquerda.addEventListener("click", () => {
   imagemAtual = (imagemAtual - 1 + thumbnails.length) % thumbnails.length;
   atualizarImagem(imagemAtual);
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const botaoCarrinho = document.querySelector(".button_carrinho");
+
+    botaoCarrinho.addEventListener("click", () => {
+        const produtoId = botaoCarrinho.dataset.produtoId;
+
+        fetch("/adicionar-carrinho/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `produto_id=${produtoId}`,
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Produto adicionado:", data);
+            abrirCarrinho(); // abre o carrinho lateral
+            atualizarCarrinho(data.carrinho);
+        });
+    });
+});
+
+// CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+     
+}

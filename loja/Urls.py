@@ -23,7 +23,8 @@ urlpatterns=[
     path('administracao/produtos/editar/<int:id>',views.produto_edit,name="produto_editar"),
     path('administracao/produtos/criar',views.criar_produto,name="produto_criar"),
     path('administracao/gerenciamento_pedidos',views.gerenciamentos_pedidos,name="gerenciamento_pedidos"),
-    path('administracao/gerenciamento_pedido',views.gerenciamento_pedido,name="gerenciamento_pedido")
+    path('administracao/gerenciamento_pedido',views.gerenciamento_pedido,name="gerenciamento_pedido"),
+     path("adicionar-carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

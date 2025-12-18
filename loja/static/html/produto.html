@@ -45,10 +45,11 @@
           <p>Comprar</p>
           <img src="{% static 'imagens/money.png' %}" alt="icone_carrinho" class="icone_carrinho">
         </button>
-        <button class="button_carrinho">
-          <p>Carrinho</p>
-          <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
-        </button>
+      <button class="button_carrinho"
+        data-produto-id="{{ produto_principal.id }}">
+    <p>Carrinho</p>
+    <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
+      </button>
       </div>
       <p>Consulte o valor e o prazo de entrega.</p>
       <div class="entrada_cep">
