@@ -24,18 +24,18 @@
                 <header>
                     <div class="titulo_logo">
                     <h1 class="titulo"><a href="{% url 'index' %}">NL Importados</a></h1>
-                    {% if  cliente.imagem_usuario %}
-                    <button type="button" class="botao-usuario" ><a href="{% url 'tela_logon' %}"><img src="{{cliente.imagem_usuario.url}}" alt="imagem_usuario" class="imagem_usuario"></a></button>
-                    {% else %}
-                    <button type="button" class="botao-usuario"><a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a></button>
-                    {% endif %}
+
                     </div>
                     <div class="pesquisar_botoes">
                     <button type="button"><a href="{% url 'index' %}"><i class="fa-notdog fa-solid fa-house"></i></a></button>
                     <input type="search" name="pesquisar" placeholder="Pesquisar" class="pesquisar">
                     <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
                     <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
-
+                                        {% if  cliente.imagem_usuario %}
+                    <button type="button" class="botao-usuario" ><a href="{% url 'tela_logon' %}"><img src="{{cliente.imagem_usuario.url}}" alt="imagem_usuario" class="imagem_usuario"></a></button>
+                    {% else %}
+                    <button type="button" ><a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a></button>
+                    {% endif %}
                     </div>
                 </header>
             {%block tags_navegacao%}
