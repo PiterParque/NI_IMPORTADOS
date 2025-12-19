@@ -370,3 +370,14 @@ position: relative;
 
 }
 
+.sub-titulo-inicial{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.sub-titulo-inicial h2{
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  font-size: 20px;
+}
