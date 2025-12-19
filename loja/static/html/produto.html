@@ -41,10 +41,13 @@
       </p>
       <p class="valor_produto">R$ {{produto_principal.preco}}</p>
       <div class="comprar_carrinho">
-        <button class="comprar">
-          <p>Comprar</p>
-          <img src="{% static 'imagens/money.png' %}" alt="icone_carrinho" class="icone_carrinho">
-        </button>
+      <button class="button_carrinho"
+              data-produto-id="{{ produto_principal.id }}"
+              data-produto-nome="{{ produto_principal.nome }}"
+              data-produto-preco="{{ produto_principal.preco|floatformat:2 }}">
+          <p>Carrinho</p>
+          <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
+      </button>
       <button class="button_carrinho" data-produto-id="{{ produto_principal.id }}">
     <p>Carrinho</p>
     <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">

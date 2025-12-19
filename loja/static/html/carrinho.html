@@ -1,8 +1,10 @@
 <!-- CARRINHO LATERAL -->
- {% load static %}
+{% load static %}
 <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
-<script src="{% static 'javascript/carrinho.js' %}"></script>
+<script src="{% static 'javascript/carrinho.js' %}" defer></script>
+
 <div id="overlay"></div>
+
 <div id="carrinho-lateral">
     <div class="carrinho-header">
         <h2>Sua sacola</h2>
