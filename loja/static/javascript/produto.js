@@ -53,19 +53,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".button_carrinho");
+
+    btn.addEventListener("click", () => {
+        const produtoId = btn.dataset.produtoId;
+
+        fetch("/adicionar-carrinho/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `produto_id=${produtoId}`,
+        })
+        .then(res => res.json())
+        .then(data => {
+            atualizarCarrinho(data.carrinho);
+            abrirCarrinho();
+        });
+    });
+});
+
 // CSRF
 function getCookie(name) {
     let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-        const cookies = document.cookie.split(";");
-        for (let cookie of cookies) {
+    if (document.cookie) {
+        document.cookie.split(";").forEach(cookie => {
             cookie = cookie.trim();
             if (cookie.startsWith(name + "=")) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
             }
-        }
+        });
     }
     return cookieValue;
-     
 }

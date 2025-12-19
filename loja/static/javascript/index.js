@@ -38,3 +38,21 @@ btnPrev.addEventListener('click', () => {
 });
 
 console.log("Ola");
+function atualizarCarrinho(carrinho) {
+    const conteudo = document.querySelector(".carrinho-conteudo");
+    conteudo.innerHTML = "";
+
+    if (Object.keys(carrinho).length === 0) {
+        conteudo.innerHTML = "<p>Seu carrinho está vazio</p>";
+        return;
+    }
+
+    Object.values(carrinho).forEach(item => {
+        conteudo.innerHTML += `
+            <div class="item-carrinho">
+                <p>${item.nome}</p>
+                <p>${item.quantidade}x R$ ${item.preco}</p>
+            </div>
+        `;
+    });
+}

@@ -45,8 +45,7 @@
           <p>Comprar</p>
           <img src="{% static 'imagens/money.png' %}" alt="icone_carrinho" class="icone_carrinho">
         </button>
-      <button class="button_carrinho"
-        data-produto-id="{{ produto_principal.id }}">
+      <button class="button_carrinho" data-produto-id="{{ produto_principal.id }}">
     <p>Carrinho</p>
     <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
       </button>
@@ -99,9 +98,8 @@
       </div>
       <div id="content">
       </div>
-      
-      
       </div>
+      {% include './carrinho.html' %}
 {% else %}
  <h1>Produto Não encotrado</h1>
 {% endif %}

@@ -1,126 +1,22 @@
-{% load static %}
-<div class="carrinho">
-<div id="carrinho-lateral" class="carrinho">
+<!-- CARRINHO LATERAL -->
+ {% load static %}
+<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+<script src="{% static 'javascript/carrinho.js' %}"></script>
+<div id="overlay"></div>
+<div id="carrinho-lateral">
     <div class="carrinho-header">
         <h2>Sua sacola</h2>
         <button id="fechar-carrinho">&times;</button>
     </div>
 
     <div class="carrinho-conteudo">
-        <p class="vazio">Seu carrinho está vazio</p>
+        <p class="carrinho-vazio">Seu carrinho está vazio</p>
     </div>
 
     <div class="carrinho-footer">
+        <div class="carrinho-total">
+            Total: <strong>R$ <span id="total">0.00</span></strong>
+        </div>
         <button class="btn-finalizar">Finalizar compra</button>
     </div>
 </div>
-
-<div id="overlay"></div>
-
-</div>
-
-<style>
-    /* Fundo escuro ao abrir carrinho */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 998;
-}
-
-/* Carrinho lateral */
-.carrinho {
-    position: fixed;
-    top: 0;
-    right: -400px; /* escondido */
-    width: 400px;
-    height: 100%;
-    background: #fff;
-    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-}
-
-.carrinho.ativo {
-    right: 0;
-}
-
-/* Cabeçalho */
-.carrinho-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-
-.carrinho-header button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Conteúdo */
-.carrinho-conteudo {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-}
-
-/* Rodapé */
-.carrinho-footer {
-    padding: 15px;
-    border-top: 1px solid #ddd;
-}
-
-.btn-finalizar {
-    width: 100%;
-    padding: 10px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-</style>
-<script >
-    document.addEventListener("DOMContentLoaded", function () {
-    const botaoCarrinho = document.querySelector(".fa-cart-shopping");
-    const carrinho = document.getElementById("carrinho-lateral");
-    const fecharCarrinho = document.getElementById("fechar-carrinho");
-    const overlay = document.getElementById("overlay");
-
-    botaoCarrinho.addEventListener("click", () => {
-        carrinho.classList.add("ativo");
-        overlay.style.display = "block";
-    });
-
-    fecharCarrinho.addEventListener("click", fechar);
-    overlay.addEventListener("click", fechar);
-
-    function fechar() {
-        carrinho.classList.remove("ativo");
-        overlay.style.display = "none";
-    }
-    function atualizarCarrinho(carrinho) {
-    const conteudo = document.querySelector(".carrinho-conteudo");
-    conteudo.innerHTML = "";
-
-    Object.values(carrinho).forEach(item => {
-        conteudo.innerHTML += `
-            <p>${item.nome} - ${item.quantidade}x R$ ${item.preco}</p>
-        `;
-    });
-}
-
-
-});
-
-</script>

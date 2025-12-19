@@ -1,0 +1,80 @@
+/* Overlay */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 998;
+}
+
+/* Carrinho */
+#carrinho-lateral {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 380px;
+    height: 100%;
+    background: #fff;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+}
+
+#carrinho-lateral.ativo {
+    right: 0;
+}
+
+/* Header */
+.carrinho-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.carrinho-header button {
+    font-size: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Conteúdo */
+.carrinho-conteudo {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.item-carrinho {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.item-carrinho p {
+    margin: 4px 0;
+}
+
+.carrinho-vazio {
+    text-align: center;
+    color: #777;
+}
+
+/* Footer */
+.carrinho-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.btn-finalizar {
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}

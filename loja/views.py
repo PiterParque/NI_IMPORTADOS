@@ -393,19 +393,26 @@ def gerenciamento_pedido(request):
 from django.http import JsonResponse
 from .models import Produto
 
+
 def adicionar_carrinho(request):
     if request.method == "POST":
         produto_id = request.POST.get("produto_id")
+
+        if not produto_id:
+            return JsonResponse(
+                {"erro": "Produto inválido"},
+                status=400
+            )
 
         carrinho = request.session.get("carrinho", {})
 
         if produto_id in carrinho:
             carrinho[produto_id]["quantidade"] += 1
         else:
-            produto = Produto.objects.get(id=produto_id)
+            produto = get_object_or_404(Produto, id=int(produto_id))
             carrinho[produto_id] = {
                 "nome": produto.nome,
-                "preco": float(produto.preco),
+                "preco": str(produto.preco),
                 "quantidade": 1
             }
 
