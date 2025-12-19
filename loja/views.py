@@ -17,7 +17,9 @@ def produto(request,slug):
     id_categoria=produto_principal.categoria_id
     produtos=Produto.objects.filter(categoria=id_categoria).order_by('-data_cadastro')
     imagesn_produto_principal=ImagemProduto.objects.filter(produto=produto_principal.id)
-    return render(request,'./loja/static/html/produto.html',{'produtos':produtos,'produto_principal':produto_principal,"imagens_produto_principal":imagesn_produto_principal})
+    usuario_id =request.session.get('usuario_id')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/produto.html',{'produtos':produtos,'produto_principal':produto_principal,"imagens_produto_principal":imagesn_produto_principal,'cliente':usuario})
 
 #------Perfil-------
 def tela_logon(request):
