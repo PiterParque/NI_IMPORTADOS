@@ -8,8 +8,10 @@ from datetime import datetime,date
 # Create your views here.
 def index(request):
     produtos=Produto.objects.filter(ativo=True).order_by('-data_cadastro')
-    print(ImagemProduto.objects.all().values())
-    return render(request,'./loja/static/html/index.html',{'produtos':produtos})
+    usuario_id =request.session.get('usuario_id')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    print(usuario.imagem_usuario)
+    return render(request,'./loja/static/html/index.html',{'produtos':produtos,'cliente':usuario})
 def produto(request,slug):
     produto_principal=Produto.objects.filter(slug=slug).first()
     id_categoria=produto_principal.categoria_id
@@ -32,7 +34,7 @@ def logon_validation(request):
                 return redirect('administracao')
    
             request.session['usuario_id'] = user.id
-            return redirect('perfil')
+            return redirect('index')
         else:
             error="Usuário ou senha incorretos."
     return render(request,'./loja/static/html/perfil/tela_logon.html',{'error':error})
