@@ -24,7 +24,8 @@ urlpatterns=[
     path('administracao/produtos/criar',views.criar_produto,name="produto_criar"),
     path('administracao/gerenciamento_pedidos',views.gerenciamentos_pedidos,name="gerenciamento_pedidos"),
     path('administracao/gerenciamento_pedido',views.gerenciamento_pedido,name="gerenciamento_pedido"),
-     path("adicionar-carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
+    path("adicionar-carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
+    path('sair/', views.sair, name='logout'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

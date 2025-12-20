@@ -381,3 +381,51 @@ position: relative;
   max-width: 1600px;
   font-size: 20px;
 }
+.modal-usuario {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-conteudo {
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    width: 45%;
+    text-align: center;
+    border: solid 0.1px #CEA06E;
+}
+
+.modal-botoes {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.modal-botoes .btn {
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #CEA06E;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.btn.sair {
+    background: none;
+}
+
+.btn.trocar {
+    background: none;
+}
+
+.fechar-modal {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+}

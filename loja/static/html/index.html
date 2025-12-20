@@ -31,11 +31,18 @@
                     <input type="search" name="pesquisar" placeholder="Pesquisar" class="pesquisar">
                     <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
                     <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
-                                        {% if  cliente.imagem_usuario %}
-                    <button type="button" class="botao-usuario" ><a href="{% url 'tela_logon' %}"><img src="{{cliente.imagem_usuario.url}}" alt="imagem_usuario" class="imagem_usuario"></a></button>
+                    {% if cliente %}
+                    <button type="button" class="botao-usuario" id="abrirModalUsuario">
+                        <img src="{{cliente.imagem_usuario.url}}" alt="imagem_usuario" class="imagem_usuario">
+                    </button>
                     {% else %}
-                    <button type="button" ><a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a></button>
+                    <button type="button">
+                        <a href="{% url 'tela_logon' %}">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a>
+                    </button>
                     {% endif %}
+
                     </div>
                 </header>
             {%block tags_navegacao%}
@@ -93,7 +100,20 @@
         {% include "./rodape.html" %}
             
         </main>
-        
+        <div id="modalUsuario" class="modal-usuario">
+    <div class="modal-conteudo">
+        <h3>O que deseja fazer?</h3>
+
+        <div class="modal-botoes">
+            <a href="{% url 'logout' %}" class="btn sair"><i class="fa-solid fa-right-to-bracket"></i>Sair</a>
+            <a href="{% url 'tela_logon' %}" class="btn trocar"><i class="fa-solid fa-rotate-right"></i>Mudar de conta</a>
+            <a href="{% url 'perfil' %}" class="btn trocar"><i class="fa-solid fa-gear"></i>Configuraçoes</a>
+        </div>
+
+        <button class="fechar-modal" id="fecharModal">Cancelar</button>
+    </div>
+</div>
+
     </body>
             
     </html>

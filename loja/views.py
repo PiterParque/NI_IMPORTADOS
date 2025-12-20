@@ -10,7 +10,6 @@ def index(request):
     produtos=Produto.objects.filter(ativo=True).order_by('-data_cadastro')
     usuario_id =request.session.get('usuario_id')
     usuario=Usuario.objects.filter(id=usuario_id).first()
-    print(usuario.imagem_usuario)
     return render(request,'./loja/static/html/index.html',{'produtos':produtos,'cliente':usuario})
 def produto(request,slug):
     produto_principal=Produto.objects.filter(slug=slug).first()
@@ -44,44 +43,49 @@ def perfil(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/perfil.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/perfil.html',{"cliente":usuario})
 def dados_pessoais(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
     user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/dados_pessoais.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/dados_pessoais.html',{"cliente":usuario})
 def endereco(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/endereco.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/endereco.html',{"cliente":usuario})
 def metodos_pagamento(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/metodos_pagamento.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/metodos_pagamento.html',{"cliente":usuario})
 def notificacao(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/notificacao.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/notificacao.html',{"cliente":usuario})
 def pedidos(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/pedidos.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/pedidos.html',{"cliente":usuario})
 def autenticacao(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    return render(request,'./loja/static/html/perfil/autenticação.html')
+    usuario=Usuario.objects.filter(id=usuario_id).first()
+    return render(request,'./loja/static/html/perfil/autenticação.html',{"cliente":usuario})
+def sair(request):
+    request.session.pop('usuario_id', None)
+    return redirect('index')
+
 #------------------
 def administracao(request):
 
