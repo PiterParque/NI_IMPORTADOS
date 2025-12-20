@@ -12,6 +12,7 @@
              <img src="{{produto_principal.imagem_principal.url}}" class="thumb active" alt="thumb 1">
           {% else %}
             <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb active" alt="thumb 1">
+            
           {% endif %}
           {% if  imagens_produto_principal %}
             {% for imagem in imagens_produto_principal %}
@@ -28,7 +29,11 @@
         
         <div class="main-image">
           <button class="btn seta-esquerda"><i class="fa-solid fa-angle-left"></i></button>
+           {% if produto_principal.imagem_principal %}
+           <img src="{{produto_principal.imagem_principal.url}}"  id="imagem-principal" alt="Imagem principal">
+            {% else %}
           <img id="imagem-principal" src="{% static 'imagens/perfumes_1.jpg' %}" alt="Imagem principal">
+           {% endif %}
           <button class="btn seta-direita"><i class="fa-solid fa-angle-left"></i></button>
         </div>
       </div>
