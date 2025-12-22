@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produto, Categoria ,Usuario,ImagemProduto
+from .models import Produto, Categoria ,Usuario,ImagemProduto,Endereco
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
@@ -20,3 +20,6 @@ class UsuarioAdmin(admin.ModelAdmin):
 @admin.register(ImagemProduto)
 class ImagemProdutoAdmin(admin.ModelAdmin):
     list_display=('produto','imagem')
+@admin.register(Endereco)
+class ImagemProdutoAdmin(admin.ModelAdmin):
+    list_display=('user','endereco','cep')

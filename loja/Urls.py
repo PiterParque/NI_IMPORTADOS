@@ -27,7 +27,7 @@ urlpatterns=[
     path("adicionar-carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
     path('sair/', views.sair, name='logout'),
     path("salvar-carrinho/", views.salvar_carrinho, name="salvar_carrinho"),
-    path("pagamento/", views.pagamento, name="pagamento"),
+    path("detalhes_pedido/", views.detalhes_pedido, name="detalhes_pedido"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

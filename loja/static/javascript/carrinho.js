@@ -137,7 +137,7 @@ function finalizarCompra() {
     .then(response => response.json())
     .then(data => {
         if (data.ok) {
-            window.location.href = "/pagamento/";
+            window.location.href = "/detalhes_pedido/";
         } else {
             alert("Erro ao processar carrinho");
         }

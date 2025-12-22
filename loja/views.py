@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Produto,Categoria,Usuario,ImagemProduto
+from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco
 from django.core.files.base import ContentFile
 from django.conf import settings
 import os
-from datetime import datetime,date
+from datetime import date
 import json
 from django.http import JsonResponse
 from decimal import Decimal
@@ -446,10 +446,14 @@ def salvar_carrinho(request):
         return JsonResponse({"ok": True})
 
     return JsonResponse({"ok": False})
-def pagamento(request):
+def detalhes_pedido(request):
     carrinho = request.session.get("carrinho", {})
     itens = []
     total = Decimal("0.00")
+    usuario_id = request.session.get('usuario_id')
+    user=Usuario.objects.filter(id=usuario_id).first()
+    enderecos_entrega=Endereco.objects.filter(user=user).values()
+    
 
     for id, item in carrinho.items():
         produto = Produto.objects.get(id=id)
@@ -460,12 +464,13 @@ def pagamento(request):
             "nome": produto.nome,
             "quantidade": item["quantidade"],
             "preco": produto.preco,
-            "subtotal": subtotal
+            "subtotal": subtotal,
         })
 
         total += subtotal
 
-    return render(request, "./loja/static/html/pagamento.html", {
+    return render(request, "./loja/static/html/detalhes_pedido.html", {
         "itens": itens,
-        "total": total
+        "total": total,
+         "enderecos_entrega":enderecos_entrega,
     })
