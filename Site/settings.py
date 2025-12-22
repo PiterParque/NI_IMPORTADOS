@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-7i6eu+r0w-$et@qaqx^y+!-d4-x&r89e+_!z2_vr=xzu0uh6e@"
 
-DEBUG = True  # Ative True temporariamente para teste no Vercel
+DEBUG = False  # Ative True temporariamente para teste no Vercel
 
 ALLOWED_HOSTS = ["*"]
 
@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "loja",  # Comentado temporariamente para teste
+     "loja",  # Comentado temporariamente para teste
 ]
 
 MIDDLEWARE = [
