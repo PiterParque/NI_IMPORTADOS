@@ -1,0 +1,29 @@
+{% extends './index.html' %}
+{% load static %}
+{% block content_principal %}
+
+<link rel="stylesheet" href="{% static 'css/pagamento.css' %}">
+<script src="{% static 'javascript/pagamento.js' %}" defer></script>
+<div class="pagamento_princiapal">
+<div class="items">
+    <h2>Resumo do pedido</h2>
+{% for item in itens %}
+<div class="item">
+     <img src="{{item.imagem_principal.url}}" alt="">
+    <p>
+        {{ item.nome }} —
+        {{ item.quantidade }}x —
+        R$ {{ item.subtotal }}
+    </p>
+</div>
+
+<hr>
+{% endfor %}
+
+
+
+<h3>Total: R$ {{ total }}</h3>
+<button class="btn-pagar">Pagar agora</button>
+</div>
+</div>
+{% endblock %}

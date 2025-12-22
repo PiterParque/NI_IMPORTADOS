@@ -4,6 +4,9 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 import os
 from datetime import datetime,date
+import json
+from django.http import JsonResponse
+from decimal import Decimal
 
 # Create your views here.
 def index(request):
@@ -431,3 +434,38 @@ def adicionar_carrinho(request):
             "status": "ok",
             "carrinho": carrinho
         })
+
+
+def salvar_carrinho(request):
+    if request.method == "POST":
+        carrinho = json.loads(request.body)
+
+        request.session["carrinho"] = carrinho
+        request.session.modified = True
+
+        return JsonResponse({"ok": True})
+
+    return JsonResponse({"ok": False})
+def pagamento(request):
+    carrinho = request.session.get("carrinho", {})
+    itens = []
+    total = Decimal("0.00")
+
+    for id, item in carrinho.items():
+        produto = Produto.objects.get(id=id)
+        subtotal = produto.preco * item["quantidade"]
+
+        itens.append({
+            "imagem_principal":produto.imagem_principal,
+            "nome": produto.nome,
+            "quantidade": item["quantidade"],
+            "preco": produto.preco,
+            "subtotal": subtotal
+        })
+
+        total += subtotal
+
+    return render(request, "./loja/static/html/pagamento.html", {
+        "itens": itens,
+        "total": total
+    })

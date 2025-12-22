@@ -393,26 +393,27 @@ position: relative;
 
 .modal-conteudo {
     background: black;
-    padding: 20px;
     border-radius: 8px;
-    width: 45%;
+    width: 80%;
     text-align: center;
     border: solid 0.1px #CEA06E;
+    max-width: 584px;
+
 }
 
 .modal-botoes {
     display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    width: 100%;
 }
 
 .modal-botoes .btn {
-    padding: 10px;
+   
     border-radius: 5px;
     text-decoration: none;
     color: #CEA06E;
-    flex: 1;
     margin: 0 5px;
+    font-size: 100%;
+    width: 100%;
 }
 
 .btn.sair {

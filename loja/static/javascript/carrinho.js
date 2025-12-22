@@ -120,3 +120,27 @@ function salvarCarrinho() {
 // Sempre que atualizar o carrinho, salva
 const observer = new MutationObserver(salvarCarrinho);
 observer.observe(document.querySelector(".carrinho-conteudo"), { childList: true, subtree: true });
+function finalizarCompra() {
+    if (Object.keys(carrinho).length === 0) {
+        alert("Seu carrinho está vazio");
+        return;
+    }
+
+    fetch("/salvar-carrinho/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(carrinho)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            window.location.href = "/pagamento/";
+        } else {
+            alert("Erro ao processar carrinho");
+        }
+    })
+    .catch(() => alert("Erro de conexão"));
+}

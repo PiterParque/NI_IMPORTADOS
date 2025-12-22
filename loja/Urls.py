@@ -26,6 +26,8 @@ urlpatterns=[
     path('administracao/gerenciamento_pedido',views.gerenciamento_pedido,name="gerenciamento_pedido"),
     path("adicionar-carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
     path('sair/', views.sair, name='logout'),
+    path("salvar-carrinho/", views.salvar_carrinho, name="salvar_carrinho"),
+    path("pagamento/", views.pagamento, name="pagamento"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

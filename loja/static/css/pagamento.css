@@ -1,0 +1,36 @@
+.item{
+    display: flex;
+    margin: 0.5rem;
+}
+.item img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100px;
+    border-radius: 20px;
+   
+}
+.items hr{
+    width: 100%;
+    max-width: 600px;
+}
+.items{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+}
+.btn-pagar{
+    background-color: black;
+    color: #CEA06E;
+    border: solid 0.5px #CEA06E;
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    font-size: large;
+}
+.pagamento_princiapal{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
