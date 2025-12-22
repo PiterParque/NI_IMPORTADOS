@@ -34,3 +34,11 @@
     align-content: center;
     justify-content: center;
 }
+.detalhes_itens{
+    margin: 1%;
+}
+.detalhes_itens input{
+    background-color: black;
+    color: #CEA06E;
+    width: 30%;
+}

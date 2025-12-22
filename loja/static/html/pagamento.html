@@ -8,21 +8,24 @@
 <div class="items">
     <h2>Resumo do pedido</h2>
 {% for item in itens %}
-<div class="item">
-     <img src="{{item.imagem_principal.url}}" alt="">
-    <p>
-        {{ item.nome }} —
-        {{ item.quantidade }}x —
-        R$ {{ item.subtotal }}
-    </p>
+  
+<div class="item" data-id="{{ item.id }}">
+    <img src="{{item.imagem_principal.url}}" alt="">
+    <div class="detalhes_itens">
+        <p>{{ item.nome }}</p>
+        <p>
+            <input type="number" class="quantidade" min="1" value="{{ item.quantidade }}" data-preco="{{ item.preco }}">
+        </p>
+        <p>Subtotal: R$ <span class="subtotal">{{ item.subtotal }}</span></p>
+    </div>
 </div>
-
 <hr>
+
 {% endfor %}
 
 
 
-<h3>Total: R$ {{ total }}</h3>
+<h3>Total: R$ <span id="total-pagamento">{{ total }}</span></h3>
 <button class="btn-pagar">Pagar agora</button>
 </div>
 </div>
