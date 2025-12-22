@@ -26,11 +26,13 @@
                     <h1 class="titulo"><a href="{% url 'index' %}">NL Importados</a></h1>
 
                     </div>
+                    {% block pesquisar_botoes %}
                     <div class="pesquisar_botoes">
                     <button type="button"><a href="{% url 'index' %}"><i class="fa-notdog fa-solid fa-house"></i></a></button>
                     <input type="search" name="pesquisar" placeholder="Pesquisar" class="pesquisar">
                     <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
                     <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
+                    
                     {% if cliente %}
                     <button type="button" class="botao-usuario" id="abrirModalUsuario">
                         <img src="{{cliente.imagem_usuario.url}}" alt="imagem_usuario" class="imagem_usuario">
@@ -44,6 +46,7 @@
                     {% endif %}
 
                     </div>
+                    {% endblock pesquisar_botoes %}
                 </header>
             {%block tags_navegacao%}
                 <nav class="menus">

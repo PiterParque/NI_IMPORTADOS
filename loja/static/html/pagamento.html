@@ -1,5 +1,13 @@
 {% extends './index.html' %}
 {% load static %}
+{% block pesquisar_botoes %}
+<div class="titulo_pedido">
+<a href="{% url 'index' %}"><i class="fa-solid fa-xmark"></i>VOLTAR</a>
+<h2>PEDIDO</h2>
+</div>
+{%endblock%}
+{%block tags_navegacao%}
+{%endblock%}
 {% block content_principal %}
 
 <link rel="stylesheet" href="{% static 'css/pagamento.css' %}">
