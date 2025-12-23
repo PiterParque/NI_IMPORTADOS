@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-7i6eu+r0w-$et@qaqx^y+!-d4-x&r89e+_!z2_vr=xzu0uh6e@"
 
-DEBUG = False  # Ative True temporariamente para teste no Vercel
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -42,7 +42,7 @@ ROOT_URLCONF = "Site.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [os.path.join(BASE_DIR,'./')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -60,7 +60,7 @@ WSGI_APPLICATION = "Site.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": ":memory:",
+        "NAME":  BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -80,6 +80,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "loja" / "static",
+    BASE_DIR / 'loja/static',
+    BASE_DIR / '.loja/static/',
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
