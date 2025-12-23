@@ -126,3 +126,20 @@ class ItemPedido(models.Model):
 
     def __str__(self):
         return f"{self.quantidade}x {self.perfume.nome} (Pedido #{self.pedido.id})"
+class Notificacao(models.Model):
+    user = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="notificacoes",
+        null=True, blank=True,
+        help_text="Se vazio, notificação é global"
+    )
+
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+    lida = models.BooleanField(default=False)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        if self.user:
+            return f"{self.user.nome} - {self.titulo}"
+        return f"Global - {self.titulo}"

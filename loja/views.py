@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco
+from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco,Notificacao
 from django.core.files.base import ContentFile
+from django.db.models import Q
 from django.contrib import messages
 from django.conf import settings
 import os
@@ -136,25 +137,34 @@ def endereco(request):
         {"enderecos": enderecos,"cliente":usuario}
     )
 
-
 def notificacao(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/notificacao.html',{"cliente":usuario})
+
+    usuario = Usuario.objects.filter(id=usuario_id).first()
+    if not usuario:
+        return redirect("tela_logon")
+
+    # 🔹 Buscar notificações do usuário + notificações globais
+    notificacoes = Notificacao.objects.filter(
+        Q(user=usuario) | Q(user__isnull=True)
+    ).order_by('-criado_em')
+
+    return render(
+        request,
+        './loja/static/html/perfil/notificacao.html',
+        {
+            "cliente": usuario,
+            "notificacoes": notificacoes
+        }
+    )
 def pedidos(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect("tela_logon")
     usuario=Usuario.objects.filter(id=usuario_id).first()
     return render(request,'./loja/static/html/perfil/pedidos.html',{"cliente":usuario})
-def autenticacao(request):
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect("tela_logon")
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/autenticação.html',{"cliente":usuario})
 def sair(request):
     request.session.pop('usuario_id', None)
     return redirect('index')

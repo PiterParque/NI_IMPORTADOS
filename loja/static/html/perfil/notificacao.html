@@ -1,2 +1,27 @@
 {% extends 'loja/static/html/perfil/perfil.html' %}
 {% load static %}
+
+{% block opcoes_perfil %}
+{% block dados %}
+<link rel="stylesheet" href="{% static '/css/notificacao.css' %}">
+<div class="notificacoes">
+    {% if notificacoes %}
+        {% for notificacao in notificacoes %}
+            <div class="notificacao">
+                <p class="titulo">{{ notificacao.titulo }}</p>
+                {% if notificacao.descricao %}
+                    <p class="descricao">{{ notificacao.descricao }}</p>
+                {% endif %}
+                <p class="data">{{ notificacao.criado_em|date:"d/m/Y H:i" }}</p>
+                {% if not notificacao.lida %}
+                    <span class="badge-nova">Nova</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2>Não há notificações</h2>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% endblock %}
