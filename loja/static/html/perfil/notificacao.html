@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{% static '/css/notificacao.css' %}">
 <div class="notificacoes">
     {% if notificacoes %}
+    <h2>NOTIFICAÇOES</h2>
         {% for notificacao in notificacoes %}
             <div class="notificacao">
                 <p class="titulo">{{ notificacao.titulo }}</p>
