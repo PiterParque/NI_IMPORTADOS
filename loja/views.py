@@ -133,15 +133,10 @@ def endereco(request):
     return render(
         request,
         "./loja/static/html/perfil/endereco.html",
-        {"enderecos": enderecos}
+        {"enderecos": enderecos,"cliente":usuario}
     )
 
-def metodos_pagamento(request):
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect("tela_logon")
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/metodos_pagamento.html',{"cliente":usuario})
+
 def notificacao(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:

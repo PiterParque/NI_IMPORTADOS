@@ -11,7 +11,6 @@ urlpatterns=[
     path('perfil/dados_pessoais',views.dados_pessoais,name="dados_pessoais"),
     path('perfil/endereco',views.endereco,name="endereco"),
     path('perfil/pedidos',views.pedidos,name="pedidos"),
-    path('perfil/metodos_pagamento',views.metodos_pagamento,name="metodos_pagamento"),
     path('perfil/autenticacao',views.autenticacao,name="autenticacao"),
     path('perfil/notificacao',views.notificacao,name="notificacao"),
     path('administracao/',views.administracao,name='administracao'),
