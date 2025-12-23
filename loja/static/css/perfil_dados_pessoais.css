@@ -6,13 +6,7 @@
     align-items: center;
   
 }
-.dados_pessoais input,select{
-    height: fit-content;
-    background-color: black;
-    color: #CEA06E;
-    border: 0.1px  solid white;
-    border-radius: 20px;
-}
+
 .salvar_dados_pessoais{
     background-color: black;
     border: 0.1px  solid white;
@@ -39,7 +33,4 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-}
-.voltar_dados_pessoais{ 
-    background-color: black;
 }

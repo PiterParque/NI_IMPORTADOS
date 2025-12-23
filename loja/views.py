@@ -92,10 +92,50 @@ def dados_pessoais(request):
     )
 def endereco(request):
     usuario_id = request.session.get('usuario_id')
+
     if not usuario_id:
         return redirect("tela_logon")
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/endereco.html',{"cliente":usuario})
+
+    usuario = Usuario.objects.filter(id=usuario_id).first()
+    if not usuario:
+        return redirect("tela_logon")
+
+    if request.method == "POST":
+        acao = request.POST.get("acao")
+
+        # 🔹 ADICIONAR
+        if acao == "adicionar":
+            Endereco.objects.create(
+                user=usuario,
+                endereco=request.POST.get("endereco"),
+                cep=request.POST.get("cep")
+            )
+
+        # 🔹 ATUALIZAR
+        elif acao == "editar":
+            endereco_id = request.POST.get("endereco_id")
+            endereco = Endereco.objects.filter(id=endereco_id, user=usuario).first()
+
+            if endereco:
+                endereco.endereco = request.POST.get("endereco")
+                endereco.cep = request.POST.get("cep")
+                endereco.save()
+
+        # 🔹 DELETAR
+        elif acao == "deletar":
+            endereco_id = request.POST.get("endereco_id")
+            Endereco.objects.filter(id=endereco_id, user=usuario).delete()
+
+        return redirect("endereco")
+
+    enderecos = Endereco.objects.filter(user=usuario)
+
+    return render(
+        request,
+        "./loja/static/html/perfil/endereco.html",
+        {"enderecos": enderecos}
+    )
+
 def metodos_pagamento(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
