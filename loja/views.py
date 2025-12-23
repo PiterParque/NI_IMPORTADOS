@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco
 from django.core.files.base import ContentFile
+from django.contrib import messages
 from django.conf import settings
 import os
 from datetime import date
@@ -50,11 +51,45 @@ def perfil(request):
     return render(request,'./loja/static/html/perfil/perfil.html',{"cliente":usuario})
 def dados_pessoais(request):
     usuario_id = request.session.get('usuario_id')
+
     if not usuario_id:
         return redirect("tela_logon")
-    user = Usuario.objects.get(id=usuario_id)
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/dados_pessoais.html',{"cliente":usuario})
+
+    usuario = Usuario.objects.filter(id=usuario_id).first()
+
+    if not usuario:
+        return redirect("tela_logon")
+
+    # 🔹 SE FOR POST → SALVAR DADOS
+    if request.method == "POST":
+        usuario.nome = request.POST.get("nome")
+        usuario.CPF = request.POST.get("cpf")
+        usuario.telefone = request.POST.get("telefone")
+        usuario.data_nascimento = request.POST.get("data_nascimento")
+
+        genero = request.POST.get("GENERO")
+        genero_outro = request.POST.get("genero_outro")
+        usuario.email = request.POST.get("email")
+
+        if genero == "OUTRO" and genero_outro:
+            usuario.genero = genero_outro
+        else:
+            usuario.genero = genero
+
+        # Se quiser permitir alterar email futuramente
+        # usuario.email = request.POST.get("email")
+
+        usuario.save()
+
+        messages.success(request, "Dados atualizados com sucesso!")
+
+        return redirect("dados_pessoais")  # evita reenvio do formulário
+
+    return render(
+        request,
+        "./loja/static/html/perfil/dados_pessoais.html",
+        {"cliente": usuario}
+    )
 def endereco(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
