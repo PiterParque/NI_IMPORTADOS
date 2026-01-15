@@ -1,0 +1,453 @@
+body{
+    padding: 0;
+    margin: 0;
+    color: #cbc3b5;
+    background-color: rgb(28, 28, 28);
+    height: 100%;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-items: center;
+    
+    
+}
+.Titulo{
+    font-size: 50px;
+}
+
+.principal{
+  display: flex;
+  padding: 0.2rem;
+  align-items: left;
+  width: 100vw;
+  height:  100vh;
+  
+}
+.menus_administracao{
+    background-color: #ac9d85;
+    list-style: none;     
+}
+.menus_administracao li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+.menus_administracao a{
+  color: #f0e4cd;
+  font-size: 25px;
+
+
+}
+
+.tabela{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 10px;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: black;
+}
+a{
+  text-decoration: none;
+}
+.tabela_usuarios{ 
+ 
+  border: solid black 2px;
+  background-color: rgb(29, 29, 29);
+}
+.tabela_usuarios p{
+ text-align: start;
+ font-size: 20px;
+}
+
+.tabela_usuarios td{
+  border:none;
+}
+.tabela_usuarios td a{
+  color:#987d60;
+}
+.tabela_usuarios th{
+  color: #e5cca1;
+  border-left:none ;
+  border-right: none;
+  background-color: rgb(27, 28, 28);
+}
+ul,li{
+ padding: 0;
+ margin: 0;
+}
+select,option{
+  color: #e5cca1;
+  background-color: rgb(29, 29, 29);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+input{
+color: #e5cca1;
+height: 30px;
+background-color:#383127 ;
+font-size: large;
+margin: 0;
+padding: 0;
+}
+select,option{
+  height: 30px;
+  font-size: 15px;
+  width: fit-content;
+}
+
+.perfil_usuario{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  background-color: rgb(29, 29, 29);
+}
+.perfil_usuario input{
+ width: 100%;
+ margin: 0px 5px;
+}
+
+.form_pesquisar_usuarios{
+ background-color:rgb(27, 27, 27);
+ display: flex;
+ height: fit-content;
+ margin: 0;
+ padding: 0;
+ align-items: center;
+ justify-items: center;
+ width: 100%;
+}
+.form_pesquisar_usuarios button{
+ height: fit-content;
+}
+.quantidade_usuarios{
+  height: fit-content;
+  padding-left: 5px;
+  font-size: larger;
+}
+.botoes_usuario{
+align-content: center;
+padding-left: 5px;
+}
+.botoes_usuario button{
+    font-size: 15px;
+    width: 100%;
+}
+.foto{
+  background-color: #383127;
+  margin: 0;
+  padding: 0;
+  position: relative;  /* permite posicionar elementos dentro */
+  display: inline-block;
+ 
+
+   
+}
+.foto i{
+  width: 10px;
+  height: 20px;
+  position: absolute;
+  top: 90%; /* distancia do topo da imagem */
+  right: 50%;
+
+}
+.foto,img ,i{
+  border-radius: 130px; 
+  align-content: center;
+  justify-content: center;
+  max-width: 300px;
+  max-height: 300px;
+   object-fit: contain; 
+
+}
+.BUTTON_CRIAR_USAURIOS{
+  font-size: large;
+  background-color:rgb(27, 27, 27);
+  color: #e5cca1;
+  border-radius: 10px;
+}
+.perfil_usuario button{
+  align-items: center;
+  justify-items: center;
+  width: fit-content;
+  font-size: large;
+}
+.ativo{
+ padding: 0;
+ margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+.ativo input{
+ width: 50%;
+}
+.ativo p {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+   padding: 0;
+ margin: 0;
+}
+.alterar_senha{
+  font-size: large;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+
+}
+.alterar_senha p{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+    align-items: center;
+  justify-items: center;
+}
+.alterar_senha form {
+  padding: 5px ;
+  background-color: black;
+  align-items: center;
+  justify-items: center;
+    width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+    align-items: center;
+  justify-items: center;
+ 
+}
+.alterar_senha input{
+  font-size: large;
+  border-radius: 20px;
+}
+.botao_alterar_senha{
+    font-size: large;
+  border-radius: 20px;
+}
+.rodape{
+  object-fit: cover;
+  background-color: #1B1B1B;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.entrada-descricao{
+}
+.entrada-descricao textarea{
+  width: 100%;
+}
+@media (max-width: 800px) {
+ body{
+  display: flex;
+  flex-direction: column;
+ }
+ .principal{
+  display: flex;
+  flex-direction: column;
+ }
+ td{
+  width: fit-content;
+  height: fit-content;
+ }
+
+ .perfil_usuario{
+  display: flex;
+  flex-direction: column;
+}
+
+}
+
+.produtos_item_{
+  padding: 1px;
+  border: black solid 1px;
+ display: flex;
+ gap: 5px;
+ background-color: rgb(27, 28, 28);
+}
+.produtos_item_ img{
+  width: 10%;
+}
+.produtos_item_ div{
+  padding: 1px;
+
+}
+.produtos_item_ p{
+  font-size: larger;
+}
+.gerenciamento_produtos{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+.produto_edit{
+  background-color: rgb(27, 28, 28);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.botao_salvar{
+ display: flex;
+ justify-content: center;
+}
+.botao_salvar button{
+  font-size: large;
+  border-radius: 20px;
+  color: #987d60;
+  background-color: #383127;
+}
+.produtos_item_ p{
+   color: #e5cca1;
+}
+.produtos_item_ a{
+   color: #e5cca1;
+}
+.produto_edit{
+  align-items: center;
+  justify-items: center;
+  background-color: black;
+  padding-right: 0.9rem;
+}
+.produto_edit input{
+  color: #e5cca1;
+  align-items: center;
+  justify-items: center;
+  border-radius: 10px;
+  padding-left:5px ;
+}
+.produto_edit p{
+   width: 100%;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.adicionar_remover{
+  display: flex;
+ justify-content: center;
+ gap: 0.5rem;
+}
+.adicionar_remover button{
+  border-radius: 10px;
+}
+.entrada-imagens{
+ display: flex;
+ flex-direction: column;
+}
+.entrada-imagens{
+  margin: 0;
+  padding: 0;
+  width: fit-content;
+  height: fit-content;
+}
+.formulario-criacao{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(0, 0, 0);
+  padding: 0;
+  margin: 0;
+  justify-items: center;
+  align-items: center;
+  border: none;
+  border-radius: 20px;
+}
+.formulario-criacao p {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.formulario-criacao input, select{
+  border-radius: 20px;
+  margin: 0px 10px;
+}
+.entrada-dado-produto{
+  width: max-content;
+  padding-right:  8%;
+}
+.formulario-criacao button{
+  
+  border-radius: 20px;
+  color: #e5cca1;
+  background-color: #383127;
+  font-size: large;
+}
+.texto_imagem{
+   display: flex;
+  font-size: large;
+  justify-items: center;
+  align-items: center;
+  width: fit-content;
+}
+.salvar-button{
+  display: flex;
+}
+#categorias ,#marcas{
+  width: 55%;
+}
+.imagem_exibicao{
+  width: 100%;
+}
+.pesquisar_pedidos{
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: fit-content;
+  
+}
+.content-pedidos{
+  width: 70vw;
+  height: 100%;
+}
+.tabela-pedidos{
+  width: 100%;
+
+}
+.tabela-pedidos a{
+  text-decoration: none;
+  color: #f0e4cd;
+}
+.tabela-pedidos td,tr,th{
+  text-align: center;
+}
+.tabela-pedidos th{
+  background-color: #1B1B1B;
+  color: #e5cca1;
+}
+.detalhes-pedido{
+  display: grid;
+  grid-template-columns: max-content 2fr;
+  gap: 5px;
+}
+.detalhes-pedido p{
+  width: fit-content;
+}

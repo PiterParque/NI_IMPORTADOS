@@ -1,0 +1,31 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo%}
+<div class="content-pedido">
+     <h2>GERENCIAR PEDIDO</h2>
+ <div class="detalhes-pedido">
+
+ <p>NUMERO DO PEDIDO:15464</p>
+ <p>CLIENTE:JÃO ANDRADE</p>
+ <p>DATA DO PEIDODO</p>
+ <p>ENDEREÇO DO PEIDODO: RUA MANESMA</p>
+ <p>STATUS DO PEDIDO:PENDENTE</p>
+ </div>
+    <div class="itens-pedido">
+        <p>itens</p>
+        <table>
+        <tr>
+        <td>ITEM</td>
+        <td>VALOR UNITARIO</td>
+        <td>QUANTIDADE</td>
+        </tr>
+        <tr>
+        <td>PURO VUDO</td>
+        <td>100,00</td>
+        <td>5</td>
+        </tr>
+        </table>
+        <p>VALOR TOTAL:500,00</p>
+    </div>
+</div>
+{% endblock  %}

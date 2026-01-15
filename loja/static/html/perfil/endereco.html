@@ -1,0 +1,81 @@
+{% extends 'loja/static/html/perfil/perfil.html' %}
+{% load static %}
+{% block opcoes_perfil %}
+{% block dados %}
+
+<link rel="stylesheet" href="{% static '/css/endereco.css' %}">
+
+<div class="enderecos">
+    <h1>Endereços</h1>
+
+    <!-- 🔹 ADICIONAR -->
+    <button type="button" id="btnAdicionarEndereco">+ Adicionar endereço</button>
+
+    <form method="post" id="formEndereco" style="display:none;">
+        {% csrf_token %}
+        <input type="hidden" name="acao" value="adicionar">
+
+        <div class="endereco novo-endereco">
+            <p>ENDEREÇO:</p>
+            <input type="text" name="endereco" required>
+
+            <p>CEP:</p>
+            <input type="text" name="cep" required>
+
+            <button type="submit">SALVAR</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <!-- 🔹 ENDEREÇOS -->
+    {% for endereco in enderecos %}
+    <form method="post" class="endereco-form">
+        {% csrf_token %}
+        <input type="hidden" name="endereco_id" value="{{ endereco.id }}">
+        <input type="hidden" name="acao" value="editar">
+
+        <div class="endereco">
+            <p>ENDEREÇO:</p>
+            <input type="text" name="endereco" value="{{ endereco.endereco }}" disabled>
+
+            <p>CEP:</p>
+            <input type="text" name="cep" value="{{ endereco.cep }}" disabled>
+
+            <button type="button" class="btnEditar">EDITAR</button>
+            <button type="submit" class="btnSalvar" style="display:none;">SALVAR</button>
+
+            <button type="submit"
+                    name="acao"
+                    value="deletar"
+                    onclick="return confirm('Deseja deletar este endereço?')">
+                DELETAR
+            </button>
+        </div>
+    </form>
+    {% empty %}
+        <h2>Não há endereços cadastrados</h2>
+    {% endfor %}
+</div>
+
+<script>
+    // Mostrar formulário novo endereço
+    document.getElementById("btnAdicionarEndereco").addEventListener("click", function () {
+        const form = document.getElementById("formEndereco");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    });
+
+    // Editar endereço
+    document.querySelectorAll(".btnEditar").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const form = this.closest(".endereco");
+            form.querySelectorAll("input").forEach(input => input.disabled = false);
+
+            this.style.display = "none";
+            form.querySelector(".btnSalvar").style.display = "inline-block";
+        });
+    });
+</script>
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo %}
+
+<div class="alterar_senha">
+    {% if usuario %}
+        {% if senha_alterada %}
+        <h1> {{senha_alterada}}</h1>
+        {%else%}
+        <form id="formSenha" action="" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <p class="nome_usuario">
+                NOME: {{ usuario.nome }}
+            </p>
+
+            <p class="cpf_usuario">
+                CPF: {{ usuario.CPF }}
+            </p>
+
+            <!-- MENSAGEM DE ERRO DA SENHA -->
+            <p id="senha_erro" style="color: red; font-size:14px;"></p>
+
+            <p class="senha">
+                SENHA: <input type="password" name="senha" id="senha">
+            </p>
+
+            <!-- MENSAGEM DE ERRO DA CONFIRMACAO -->
+            <p id="confirmar_erro" style="color: red; font-size:14px;"></p>
+
+            <p class="confirmar_senha">
+                CONFIRMAR SENHA: <input type="password" name="confirmar_senha" id="confirmar_senha">
+            </p>
+
+            <button type="submit" class="botao_alterar_senha">ALTERAR SENHA</button>
+
+        </form>
+
+          
+        {% endif %}
+    {% else %}
+        <h1>Usuário não encontrado</h1>
+    {% endif %}
+</div>
+
+<script>
+document.getElementById("formSenha").addEventListener("submit", function(event) {
+
+    let senha = document.getElementById("senha").value;
+    let confirmar = document.getElementById("confirmar_senha").value;
+
+    let erroSenha = document.getElementById("senha_erro");
+    let erroConfirmar = document.getElementById("confirmar_erro");
+
+    // limpa as mensagens de erro
+    erroSenha.textContent = "";
+    erroConfirmar.textContent = "";
+
+    let temErro = false;
+
+    // Valida tamanho mínimo
+    if (senha.length < 6) {
+        erroSenha.textContent = "A senha deve ter no mínimo 6 caracteres.";
+        temErro = true;
+    }
+
+    // Valida se são iguais
+    if (senha !== confirmar) {
+        erroConfirmar.textContent = "As senhas não coincidem.";
+        temErro = true;
+    }
+
+    // Se tiver erro, não envia o formulário
+    if (temErro) {
+        event.preventDefault();
+    }
+
+});
+</script>
+
+{% endblock %}

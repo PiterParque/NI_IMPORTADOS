@@ -1,0 +1,78 @@
+{% extends 'loja/static/html/perfil/perfil.html' %}
+{%load static%}
+{%block opcoes_perfil%}
+{% block dados %}
+
+  <link rel="stylesheet" href="{% static '/css/perfil_dados_pessoais.css' %}">
+{% if messages %}
+  <ul class="mensagens">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  <button class="voltar_dados_pessoais"><a href="{% url 'dados_pessoais' %}">VOLTAR</a></button>
+{%else%}
+  <ul class="mensagens">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="dados_pessoais">
+      {% if  cliente%}
+      <p class="dados_pessoais_texto">NOME:</p><input type="text" value="{{cliente.nome}}" name="nome" id="nome">
+      <p class="dados_pessoais_texto">CPF:</p><input type="text" value="{{cliente.CPF}}"name="cpf" id="cpf">
+      <p class="dados_pessoais_texto">GENERO:</p><select name="GENERO" id="GENERO">
+        <option value="MASCULINO" {% if cliente.genero == "MASCULINO" %}
+          selected
+        {% endif %}>MASCULINO</option>
+        <option value="FEMININO"{% if cliente.genero == "FEMININO" %}
+          selected
+        {% endif %}>FEMININO</option>
+        <option value="OUTRO" {% if  cliente.genero != "MASCULINO" and cliente.genero != "FEMININO"%}
+          selected
+        {% endif %}>OUTRO</option>
+      </select>
+      <p class="label_outro_genero" id="label_outro_genero" style="display: none;">Digite O Genero</p>
+      <input type="text" id="generoOutro" name="genero_outro" placeholder="Digite seu gênero" style="display:none">
+      <p class="dados_pessoais_texto">DATA DE NASCIEMNTO:</p><input type="date" name="data_nascimento" id="data_nascimento" value="{{ cliente.data_nascimento|date:'Y-m-d' }}">
+      <p class="dados_pessoais_texto">TELEFONE:</p><input type="text" value="{{cliente.telefone}}" name="telefone" id="telefone">
+      <p class="dados_pessoais_texto">EMAIL:</p><input type="email" name="email" value="{{ cliente.email }}">
+      {% else %}
+      <h1>Não foi possivel mostrar os dados pessoais</h1>
+      {% endif %}
+    </div>
+    <button type="submit" class="salvar_dados_pessoais">SALVAR</button>
+  </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const selectGenero = document.getElementById('GENERO');
+      const inputOutro = document.getElementById('generoOutro');
+      const labelOutro = document.getElementById('label_outro_genero');
+
+      function toggleGeneroOutro() {
+        if (selectGenero.value === 'OUTRO') {
+          inputOutro.style.display = 'block';
+          labelOutro.style.display = 'block';
+          inputOutro.required = true;
+        } else {
+          inputOutro.style.display = 'none';
+          labelOutro.style.display = 'none';
+          inputOutro.value = '';
+          inputOutro.required = false;
+        }
+      }
+
+      // Executa ao carregar a página
+      toggleGeneroOutro();
+
+      // Executa quando mudar o select
+      selectGenero.addEventListener('change', toggleGeneroOutro);
+    });
+  </script>
+  {% endif %}
+{% endblock  %}
+{%endblock%}
+

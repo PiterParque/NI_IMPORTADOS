@@ -1,0 +1,135 @@
+{% extends './administracao.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+
+<div class="usuario">
+
+{% if usuario %}
+
+<div class="perfil_usuario">
+
+{% if not usuario_alterado %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- FOTO DO USUÁRIO -->
+    <button type="button" class="foto" onclick="document.getElementById('imagem_usuario').click()">
+        <i class="fa-solid fa-camera"></i>
+
+        {% if usuario.imagem_usuario %}
+            <img src="{{ usuario.imagem_usuario.url }}" alt="Foto" id="preview_foto" class="foto_usuario">
+        {% else %}
+            <img src="{% static 'imagens/usuario_sem_foto.png' %}" alt="Sem foto" id="preview_foto" class="foto_usuario">
+        {% endif %}
+    </button>
+
+    <input type="file" name="imagem_usuario" id="imagem_usuario" accept="image/*" hidden>
+
+    <!-- CAMPOS DO FORM -->
+    <div>
+        <p>NOME:
+            <input type="text" name="usuario_nome" value="{{ usuario.nome }}">
+        </p>
+
+        <p>CPF:
+            <input type="text" name="usuario_cpf" value="{{ usuario.CPF }}">
+        </p>
+    </div>
+
+    <div>
+        <p>DATA DE NASCIMENTO:
+            <input type="date" name="usuario_nascimento"
+                   value="{{ usuario.data_nascimento|date:'Y-m-d' }}">
+        </p>
+
+        <p>TELEFONE:
+            <input type="text" name="usuario_telefone" value="{{ usuario.telefone }}">
+        </p>
+    </div>
+
+    <!-- GÊNERO -->
+    <div>
+        <p>GÊNERO:</p>
+
+        <select name="genero" id="genero">
+            <option value="MASCULINO" {% if usuario.genero == "Masculino" %}selected{% endif %}>MASCULINO</option>
+            <option value="FEMININO" {% if usuario.genero == "Feminino" %}selected{% endif %}>FEMININO</option>
+            <option value="OUTRO" {% if usuario.genero == "OUTRO" %}selected{% endif %}>OUTRO</option>
+        </select>
+
+        <p id="campo_outro_genero"
+           style="display: {% if usuario.genero == 'OUTRO' %}block{% else %}none{% endif %};">
+            Informe seu gênero:
+            <input type="text" name="outro_genero"
+                   value="{% if usuario.genero not in 'Masculino Feminino OUTRO' %}{{ usuario.genero }}{% endif %}">
+        </p>
+    </div>
+
+    <!-- ATIVO / DESATIVADO -->
+    <div class="ativo">
+        <p>ATIVO:</p>
+
+        <label>
+            <input type="radio" name="ativo" value="True" {% if usuario.ativo %}checked{% endif %}> SIM
+        </label>
+
+        <label>
+            <input type="radio" name="ativo" value="False" {% if not usuario.ativo %}checked{% endif %}> NÃO
+        </label>
+    </div>
+
+    <!-- TIPO DE USUÁRIO -->
+    <p>TIPO DE USUÁRIO:
+        <input type="text" name="usuario_tipo" value="{{ usuario.tipo_usuario }}">
+    </p>
+
+    <!-- BOTÕES -->
+    <div class="botoes_usuario">
+        <button type="submit">SALVAR</button>
+        <button type="button"><a href="{% url 'alterar_senha' usuario.id %}">ALTERAR SENHA</a></button>
+    </div>
+
+</form>
+
+{% else %}
+
+<h1>{{ mensagem }}</h1>
+
+{% endif %}
+
+</div>
+
+{% else %}
+<p>Usuário não encontrado.</p>
+{% endif %}
+
+</div>
+
+<!-- SCRIPTS -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Mostrar campo OUTRO gênero
+    const selectGenero = document.getElementById("genero");
+    const campoOutro = document.getElementById("campo_outro_genero");
+
+    selectGenero.addEventListener("change", function () {
+        campoOutro.style.display = (this.value === "OUTRO") ? "block" : "none";
+    });
+});
+
+// Pré-visualizar imagem escolhida
+document.getElementById("imagem_usuario").addEventListener("change", function (event) {
+    let img = document.getElementById("preview_foto");
+    img.src = URL.createObjectURL(event.target.files[0]);
+});
+</script>
+
+{% endblock %}

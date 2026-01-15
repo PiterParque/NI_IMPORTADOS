@@ -1,0 +1,117 @@
+{% extends './index.html' %}
+{% load static %}
+{% block content_principal %}
+<div class="pagina_Produto">
+{% if produto_principal %}
+  <div class="produto-principal">
+
+    <div class="produto-container">
+      <div class="galeria">
+        <div class="thumbnails">
+          {% if produto_principal.imagem_principal %}
+             <img src="{{produto_principal.imagem_principal.url}}" class="thumb active" alt="thumb 1">
+          {% else %}
+            <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb active" alt="thumb 1">
+            
+          {% endif %}
+          {% if  imagens_produto_principal %}
+            {% for imagem in imagens_produto_principal %}
+               <img src="{{imagem.imagem.url}}"class="thumb" alt="thumb {{forloop.counter|add:'1'}}">
+            {% endfor %}
+          
+          {% else %}
+          <img src="{% static 'imagens/perfumes_1.jpg' %}"class="thumb" alt="thumb 2">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 3">
+          <img src="{% static 'imagens/perfumes_1.jpg' %}" class="thumb" alt="thumb 4">
+          {% endif %}
+
+        </div>
+        
+        <div class="main-image">
+          <button class="btn seta-esquerda"><i class="fa-solid fa-angle-left"></i></button>
+           {% if produto_principal.imagem_principal %}
+           <img src="{{produto_principal.imagem_principal.url}}"  id="imagem-principal" alt="Imagem principal">
+            {% else %}
+          <img id="imagem-principal" src="{% static 'imagens/perfumes_1.jpg' %}" alt="Imagem principal">
+           {% endif %}
+          <button class="btn seta-direita"><i class="fa-solid fa-angle-left"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="descricao">
+      <h2 class="nome_produto">{{produto_principal.nome}}</h2>
+      <p class="sub_titulo_produto">
+        {{produto_principal.subtitulo}}
+      </p>
+      <p class="valor_produto">R$ {{produto_principal.preco}}</p>
+      <div class="comprar_carrinho">
+      <button class="button_carrinho"
+              data-produto-id="{{ produto_principal.id }}"
+              data-produto-nome="{{ produto_principal.nome }}"
+              data-produto-preco="{{ produto_principal.preco|floatformat:2 }}">
+          <p>Carrinho</p>
+          <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
+      </button>
+      <button class="button_carrinho" data-produto-id="{{ produto_principal.id }}">
+    <p>Carrinho</p>
+    <img src="{% static 'imagens/carrinho.png' %}" alt="icone_carrinho" class="icone_carrinho">
+      </button>
+      </div>
+      <p>Consulte o valor e o prazo de entrega.</p>
+      <div class="entrada_cep">
+        <input type="text" placeholder="Digite seu CEP">
+        <button class="calcular_frete">Calcular Frete</button>
+      </div>
+      <p><a href="#">Não sei meu CEP</a></p>
+           <div class="descricao_pruduto_principal">
+      <div class="descricao_pruduto_principal_texto">
+        <p class="titulo_descricao">DESCRIÇÃO</p>
+        <p class="texto_descricao">{{produto_principal.descricao}}</div>
+    </div>
+    </div>
+
+  </div>
+   
+      <p class="Tambem_indicado">Tambem indicado</p>
+      <div class="carrossel-produtos">
+      <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+          <div class="lista-produtos" id="lista-produtos">
+              {%if produtos%}
+                  {%for produto in produtos%}
+                      <div class="produto-item">
+                      {% if produto.imagem_principal %}
+                          <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
+                      {%else%}
+                        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume">
+                      {% endif %}
+
+                      <p class="titulo-produto"><a href="{% url 'produto' slug=produto.slug %}">{{ produto.nome }}</a></p>
+                      <p class="sub-titulo-produto">Subtítulo </p>
+                      <p class="valor-produto">{{ produto.preco }}</p>
+                      </div>
+                  {% endfor %}
+              {%else%}
+                  {% for i in "123456789" %}
+                  <div class="produto-item">
+                      <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
+                      <p class="titulo-produto">Produto {{ i }}</p>
+                      <p class="sub-titulo-produto">Subtítulo {{ i }}</p>
+                      <p class="valor-produto">R$ 300,00</p>
+                  </div>
+                  {% endfor %}
+              {%endif%}
+          </div>
+      <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+      </div>
+      <div id="content">
+      </div>
+      </div>
+      
+{% else %}
+ <h1>Produto Não encotrado</h1>
+{% endif %}
+</div>
+   <script src="{% static 'javascript/produto.js' %}" defer></script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+.dados_pessoais{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  
+}
+
+.salvar_dados_pessoais{
+    background-color: black;
+    border: 0.1px  solid white;
+      color: #CEA06E;
+      width: 100%;
+      height: 100%;
+}
+.mensagens {
+    list-style: none;
+    padding: 0;
+}
+
+.mensagens li.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.mensagens li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}

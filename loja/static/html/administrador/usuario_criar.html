@@ -1,0 +1,172 @@
+{% extends './administracao.html' %}
+{% load static %}
+{% block conteudo %}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+
+<div class="usuario">
+    <div class="perfil_usuario">
+
+        {% if usuario_criado %}
+            <h1>{{ usuario_criado }}</h1>
+        {% else %}
+
+        <form action="" id="criar_usuario" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- FOTO -->
+            <button type="button" class="foto" onclick="document.getElementById('imagem_usuario').click()">
+                <i class="fa-solid fa-camera"></i>
+                <img src="{% static 'imagens/usuario_sem_foto.png' %}" 
+                     alt="Foto do usuário"
+                     class="foto_usuario"
+                     id="preview_foto">
+            </button>
+
+            <input type="file" name="imagem_usuario" id="imagem_usuario" accept="image/*" hidden>
+
+            <div>
+                <p id="nome_erro" style="color: red;"></p>
+                <p>NOME:
+                    <input type="text" name="entrada_nome" id="entrada_nome" placeholder="NOME COMPLETO">
+                </p>
+
+                <p id="senha_erro" style="color: red;"></p>
+                <p>SENHA:
+                    <input type="password" name="entrada_senha" id="entrada_senha" placeholder="SENHA">
+                </p>
+
+                <p id="senha_confirmar_erro" style="color: red;"></p>
+                <p>CONFIRME A SENHA:
+                    <input type="password" name="entrada_senha_confirmar" id="entrada_senha_confirmar" placeholder="CONFIRME A SENHA">
+                </p>
+
+                <p id="cpf_erro" style="color: red;"></p>
+                <p>CPF:
+                    <input type="text" name="entrada_cpf" id="entrada_cpf" placeholder="CPF">
+                </p>
+            </div>
+
+            <div>
+                <p id="nascimento_erro" style="color: red;"></p>
+                <p>DATA DE NASCIMENTO:
+                    <input type="date" name="entrada_nascimento" id="entrada_nascimento">
+                </p>
+
+                <p id="telefone_erro" style="color: red;"></p>
+                <p>TELEFONE:
+                    <input type="text" name="entrada_telefone" id="entrada_telefone" placeholder="TELEFONE">
+                </p>
+            </div>
+
+            <div>
+                <p>GENERO:
+                    <select name="genero" id="genero">
+                        <option value="MASCULINO">MASCULINO</option>
+                        <option value="FEMININO">FEMININO</option>
+                        <option value="OUTRO">OUTRO</option>
+                    </select>
+                </p>
+
+                <p id="campo_outro_genero" style="display:none;">
+                    Informe seu gênero:
+                    <input type="text" name="outro_genero" id="outro_genero">
+                </p>
+
+                <p>TIPO DE USUARIO:
+                    <select name="tipo_de_usuario" id="tipo_de_usuario">
+                        <option value="Comum">Comum</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="botoes_usuario">
+                <button type="submit">CRIAR</button>
+            </div>
+
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// ---- Mostrar campo "outro gênero" ----
+document.getElementById("genero").addEventListener("change", function () {
+    document.getElementById("campo_outro_genero").style.display =
+        this.value === "OUTRO" ? "block" : "none";
+});
+
+// ---- Preview da imagem ----
+document.getElementById("imagem_usuario").addEventListener("change", function (event) {
+    let img = document.getElementById("preview_foto");
+    img.src = URL.createObjectURL(event.target.files[0]);
+});
+
+// ---- Validação ----
+document.getElementById('criar_usuario').addEventListener('submit', function (e) {
+
+    let valido = true;
+
+    let campos = ['nome', 'cpf', 'senha', 'senha_confirmar', 'nascimento', 'telefone'];
+
+    campos.forEach(campoNome => {
+        let campo = document.getElementById("entrada_" + campoNome);
+        let erro = document.getElementById(campoNome + "_erro");
+        erro.textContent = "";
+
+        switch (campoNome) {
+
+            case "nome":
+                if (campo.value.length < 3) {
+                    erro.textContent = "O nome precisa ter pelo menos 3 caracteres";
+                    valido = false;
+                }
+                break;
+
+            case "cpf":
+                if (campo.value.length !== 11) {
+                    erro.textContent = "O CPF deve ter 11 dígitos";
+                    valido = false;
+                }
+                break;
+
+            case "senha":
+                if (campo.value.length < 6) {
+                    erro.textContent = "A senha deve ter pelo menos 6 caracteres";
+                    valido = false;
+                }
+                break;
+
+            case "senha_confirmar":
+                if (campo.value !== document.getElementById("entrada_senha").value) {
+                    erro.textContent = "As senhas não coincidem";
+                    valido = false;
+                }
+                break;
+
+            case "nascimento":
+                if (campo.value === "") {
+                    erro.textContent = "Data obrigatória";
+                    valido = false;
+                }
+                break;
+
+            case "telefone":
+                if (campo.value.length < 10) {
+                    erro.textContent = "Telefone inválido";
+                    valido = false;
+                }
+                break;
+        }
+    });
+
+    if (!valido) {
+        e.preventDefault(); // impede envio, mas NÃO recarrega a página
+    }
+
+});
+</script>
+{% endblock %}

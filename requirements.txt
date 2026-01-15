@@ -1,0 +1,9 @@
+django>=5.2,<6.0
+django-allauth
+whitenoise
+dj-database-url
+psycopg2-binary
+Django>=4.0
+gunicorn
+requests
+jwt
