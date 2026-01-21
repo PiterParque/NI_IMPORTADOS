@@ -23,7 +23,10 @@ def produto(request,slug):
     imagesn_produto_principal=ImagemProduto.objects.filter(produto=produto_principal.id)
     usuario_id =request.session.get('usuario_id')
     usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/inicio/produto.html',{'produtos':produtos,'produto_principal':produto_principal,"imagens_produto_principal":imagesn_produto_principal,'cliente':usuario})
+    return render(request,'./loja/static/html/inicio/produto.html',{
+        'produtos':produtos,'produto_principal':produto_principal,
+        "imagens_produto_principal":imagesn_produto_principal,
+        'cliente':usuario})
 
 #------Perfil-------
 def tela_logon(request):

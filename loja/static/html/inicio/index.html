@@ -15,108 +15,33 @@
     </head>
 
     <body>
-        {% csrf_token %}
-
-        <main>
-
-             
-            <div class="cabecalho">
-                <header>
-                    <div class="titulo_logo">
-                    <h1 class="titulo"><a href="{% url 'index' %}">NL Importados</a></h1>
-
-                    </div>
-                    {% block pesquisar_botoes %}
-                    <div class="pesquisar_botoes">
-                    <button type="button"><a href="{% url 'index' %}"><i class="fa-notdog fa-solid fa-house"></i></a></button>
-                    <input type="search" name="pesquisar" placeholder="Pesquisar" class="pesquisar">
-                    <button type="submit" ><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
-                    
-                    {% if request.user %}
-                    <button type="button" class="botao-usuario" id="abrirModalUsuario">
-                        <i class="fa-solid fa-circle-user"></i>
-                    </button>
-                    {% else %}
-                    <button type="button">
-                        <a href="{% url 'tela_logon' %}">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </button>
-                    {% endif %}
-
-                    </div>
-                    {% endblock pesquisar_botoes %}
-                </header>
-            {%block tags_navegacao%}
-                <nav class="menus">
-                    <ul class="opcoes">
-                        <li class="opcao">Marcas</li>
-                        <li class="opcao">Eau de Parfum</li>
-                        <li class="opcao">Eau de Toilette</li>
-                        <li class="opcao">Eau de Cologne</li>
-                    </ul>
-                </nav>
+       <header>
+         <h1 class="titulo"><img src="{% static '/imagens/logo.png' %}" alt="" class="logo"><p class="L">L IMPORTADOS</p></h1>
+         <ul class="opcoes_filtro menu">
+            <li class="dropdown">MARCAS
+                  <ul class="submenu">
+                        <li>Marca A</li>
+                        <li>Marca B</li>
+                        <li>Marca C</li>
+                   </ul>
+            </li>
+            <li>FRAGANCIA</li>
+            <li>ML</li>
+            <li>AROMAS</li>
+            <div>
+                <i class="fa-solid fa-circle-user"></i>
+                ENTRAR
             </div>
-          {%endblock%}
-         {%block content_principal%}
-         <script src="{% static 'javascript/index.js' %}" defer></script>
-        <div class="logo_inicial">
-            <img src="{% static '.\imagens\tela_buberangue.png' %}" alt=""class="imagem_fundo">
-  
-        </div>
-        <div class="sub-titulo-inicial"><h2 class="mais_vendidos">Mais vendidos</h2></div>
-        <div class="carrossel-produtos">
-        <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
-            <div class="lista-produtos" id="lista-produtos">
-                {%if produtos%}
-                    {%for produto in produtos%}
-                       <div class="produto-item">
-                        {% if produto.imagem_principal %}
-                           <img src="{{ produto.imagem_principal.url }}" alt="Perfume">
-                           
-                        {%else%}
-                          <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume">
-                        {% endif %}
-
-                        <p class="titulo-produto"><a href="{% url 'produto' slug=produto.slug %}">{{ produto.nome }}</a></p>
-                        <p class="sub-titulo-produto">Subtítulo </p>
-                        <p class="valor-produto">{{ produto.preco }}</p>
-                        </div>
-                    {% endfor %}
-                {%else%}
-                    {% for i in "123456789" %}
-                    <div class="produto-item">
-                        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfume {{ i }}">
-                        <p class="titulo-produto">Produto {{ i }}</p>
-                        <p class="sub-titulo-produto">Subtítulo {{ i }}</p>
-                        <p class="valor-produto">R$ 300,00</p>
-                    </div>
-                    {% endfor %}
-                {%endif%}
-            </div>
-        <button id="next"><i class="fa-solid fa-angle-right"></i></button>
-        </div>
-     
-         {%endblock%}
-        {% include './carrinho.html' %}
-        {% include "./rodape.html" %}
-            
-        </main>
-        <div id="modalUsuario" class="modal-usuario">
-    <div class="modal-conteudo">
-        <h3>O que deseja fazer?</h3>
-
-        <div class="modal-botoes">
-            <a href="{% url 'logout' %}" class="btn sair"><i class="fa-solid fa-right-to-bracket"></i>Sair</a>
-            <a href="{% url 'tela_logon' %}" class="btn trocar"><i class="fa-solid fa-rotate-right"></i>Mudar de conta</a>
-            <a href="{% url 'perfil' %}" class="btn trocar"><i class="fa-solid fa-gear"></i>Configuraçoes</a>
-        </div>
-
-        <button class="fechar-modal" id="fecharModal">Cancelar</button>
-    </div>
-</div>
-
+         </ul>
+       </header>
+       <main>
+        {% block main %}
+          
+        {% endblock main %}
+       </main>
+       <footer>
+   <p> © NICOLAS LANÇA </p>
+       </footer>
     </body>
             
     </html>
