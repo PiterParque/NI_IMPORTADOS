@@ -12,10 +12,10 @@ from decimal import Decimal
 
 # Create your views here.
 def index(request):
-    produtos=Produto.objects.filter(ativo=True).order_by('-data_cadastro')
-    usuario_id =request.session.get('usuario_id')
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/inicio/index.html',{'produtos':produtos,'cliente':usuario})
+    produtos = Produto.objects.all()[:10]
+    return render(request, "./loja/static/html/inicio/index.html", {
+        "produtos": produtos
+    })
 def produto(request,slug):
     produto_principal=Produto.objects.filter(slug=slug).first()
     id_categoria=produto_principal.categoria_id
