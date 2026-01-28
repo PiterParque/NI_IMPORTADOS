@@ -1,0 +1,164 @@
+/* ===== PÁGINA DO PRODUTO ===== */
+
+.produto-detalhe {
+  display: flex;
+  gap: 50px;
+  padding: 60px;
+  max-width: 1200px;
+  margin: auto;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+}
+
+/* ===== GALERIA ===== */
+
+.produto-galeria {
+  flex: 1;
+}
+
+.imagem-principal img {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 12px;
+  border: 1px solid #2B1E14;
+}
+
+.miniaturas {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.miniaturas img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #2B1E14;
+  background: black;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.miniaturas img:hover {
+  transform: scale(1.05);
+  border-color: #C1A675;
+}
+
+/* ===== INFO DO PRODUTO ===== */
+
+.produto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.produto-info h1 {
+  font-size: 32px;
+  color: #C1A675;
+}
+
+.subtitulo {
+  font-size: 18px;
+  color: #aaa;
+}
+
+.marca,
+.ml,
+.estoque {
+  font-size: 15px;
+}
+
+.preco {
+  font-size: 28px;
+  font-weight: bold;
+  color: #e63946;
+}
+
+.preco.antigo {
+  font-size: 18px;
+  text-decoration: line-through;
+  color: #999;
+}
+
+.preco.promocional {
+  font-size: 30px;
+  color: #e63946;
+}
+
+/* ===== BOTÃO COMPRAR ===== */
+
+.btn-comprar {
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2B1E14;
+  color: #F5E6B8;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-comprar:hover {
+  background: #3A2A1A;
+}
+
+.btn-comprar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== DESCRIÇÃO ===== */
+
+.produto-descricao {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+}
+
+.produto-descricao h2 {
+  margin-bottom: 15px;
+  color: #C1A675;
+}
+
+.produto-descricao p {
+  line-height: 1.6;
+  color: #ddd;
+}
+
+/* ===== RELACIONADOS ===== */
+
+.produtos-relacionados {
+  max-width: 1200px;
+  margin: 60px auto;
+}
+
+.relacionados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* Reaproveita teu product-card */
+.relacionados-grid .product-card {
+  background: black;
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 900px) {
+  .produto-detalhe {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .imagem-principal img {
+    height: 300px;
+  }
+}

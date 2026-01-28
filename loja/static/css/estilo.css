@@ -22,6 +22,9 @@ body{
     margin: 0;
     
 }
+.link-logo{
+  text-decoration: none; color: #C1A675;
+}
 .titulo{
 
     width: 100%;
@@ -85,7 +88,7 @@ main{
 /* Itens do menu */
 .menu li {
   position: relative; /* importante para o submenu */
-  padding: 1%;
+  padding: 0.5rem;
  
   cursor: pointer;
   background-color: #2B1E14; /* exemplo */
@@ -104,7 +107,27 @@ main{
   background-color: #3A2A1A;
   
 }
+header {
+  position: relative;
+  z-index: 1000;
+}
 
+.menu li {
+  overflow: visible;
+}
+
+.submenu {
+  z-index: 2000;
+  min-width: 160px;
+}
+
+.menu li.dropdown:last-child .submenu {
+  right: 0;
+  left: auto;
+}
+.dropdown i{
+  
+}
 /* Itens do submenu */
 .submenu li {
   width: 100%;
@@ -273,7 +296,10 @@ main{
   font-weight: bold;
   color: #e63946;
 }
+.promocional{
 
+  height: 5%;
+}
 /* Botão produto */
 .btn-prod {
   display: inline-block;
