@@ -1,345 +1,317 @@
+/* =========================
+   RESET E CONFIGURAÇÃO BASE
+============================= */
 html, body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     margin: 0;
-        color: #C1A675;
+    color: #C1A675;
+
+    /* Flex para sticky footer */
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
 }
-body{
+
+body {
     background-color: black;
-    padding: 0;
-    margin: 0;
     background-image: url("../imagens/logo_fundo.png");
-    background-size: cover;        /* Preenche toda a tela */
-    background-position: center;   /* Centraliza */
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 }
-.logo{
+
+/* =========================
+   HEADER E LOGO
+============================= */
+.logo {
     object-fit: cover;
     max-width: 80px;
-     background: none;
     height: auto;
     padding: 0;
     margin: 0;
-    
 }
-.link-logo{
-  text-decoration: none; color: #C1A675;
-}
-.titulo{
 
+.link-logo {
+    text-decoration: none;
+    color: #C1A675;
+}
+
+.titulo {
     width: 100%;
     height: 10%;
     display: flex;
     align-items: center;
-    justify-items: center;
-    align-content: center;
     justify-content: center;
     padding: 0;
     margin: 0;
-    background: none;
-    
 }
-.L{
- 
+
+.L {
     padding: 0;
     margin: 0;
     text-align: start;
-   
 }
-.opcoes_filtro{
+
+/* =========================
+   MENU E SUBMENU
+============================= */
+.opcoes_filtro {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     gap: 5%;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
-    justify-content: center;
- 
     font-size: 85%;
-}
-.opcoes_filtro{
-    margin-top: 1%;
-}
-footer{
-    display: flex;
-         align-items: center;
-    justify-items: center;
+    justify-content: center;
     align-content: center;
-    justify-content: center;   
-    background-color: #2B1E14;
 }
-main{
+
+.menu li {
+    position: relative;
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: #2B1E14;
+    color: #F5E6B8;
+    overflow: visible;
+}
+
+header {
+    position: relative;
+    z-index: 1000;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    list-style: none;
     padding: 0;
     margin: 0;
-    width: 100%;
-    height: 100%;
-}
-/* Menu principal */
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 1%;
-}
-
-/* Itens do menu */
-.menu li {
-  position: relative; /* importante para o submenu */
-  padding: 0.5rem;
- 
-  cursor: pointer;
-  background-color: #2B1E14; /* exemplo */
-  color: #F5E6B8;
-}
-
-/* Submenu escondido */
-.submenu {
-  display: none;           /* começa escondido */
-  position: absolute;      /* aparece em relação ao li pai */
-  top: 100%;               /* logo abaixo do li pai */
-  left: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #3A2A1A;
-  
-}
-header {
-  position: relative;
-  z-index: 1000;
-}
-
-.menu li {
-  overflow: visible;
-}
-
-.submenu {
-  z-index: 2000;
-  min-width: 160px;
+    background-color: #3A2A1A;
+    z-index: 2000;
+    transition: all 0.3s ease;
 }
 
 .menu li.dropdown:last-child .submenu {
-  right: 0;
-  left: auto;
+    right: 0;
+    left: auto;
 }
 
-/* Itens do submenu */
 .submenu li {
-  width: 100%;
-  
+    width: 100%;
 }
 
-/* Mostrar submenu ao passar o mouse */
-.dropdown:hover .submenu {
-  display: block;
-}
-
-/* Efeito hover nos itens do submenu */
 .submenu li:hover {
-  background-color: #4B3A1A;
-}
-.submenu {
-  transition: all 0.3s ease;
+    background-color: #4B3A1A;
 }
 
-/* ===== CARROSSEL ===== */
+.dropdown:hover .submenu {
+    display: block;
+}
 
+/* =========================
+   MAIN E CARROSSEL
+============================= */
+main {
+    flex: 1; /* ocupa o espaço disponível */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* CARROSSEL */
 .carousel-container {
-  position: relative;
-  width: 100%;
-  height: 450px;
-  overflow: hidden;
-  border-radius: 12px;
-  margin: 30px auto;
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 30px auto;
 }
 
 .carousel-slides {
-  width: 100%;
-  height: 100%;
-  position: relative;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 .slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
 }
 
 .slide.active {
-  opacity: 1;
-  z-index: 1;
+    opacity: 1;
+    z-index: 1;
 }
 
 .slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Overlay escuro */
 .slide::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.6), transparent);
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.6), transparent);
 }
 
-/* Texto do banner */
 .caption {
-  position: absolute;
-  top: 50%;
-  left: 8%;
-  transform: translateY(-50%);
-  color: #fff;
-  z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    color: #fff;
+    z-index: 2;
 }
 
 .caption h2 {
-  font-size: 42px;
-  margin-bottom: 10px;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
 .caption p {
-  font-size: 18px;
-  margin-bottom: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .caption .btn {
-  padding: 12px 24px;
-  background: #e63946;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
+    padding: 12px 24px;
+    background: #e63946;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
 }
 
-/* Botões */
+/* Botões do carrossel */
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  font-size: 22px;
-  padding: 12px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 3;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 22px;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 3;
 }
 
 .carousel-btn:hover {
-  background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.8);
 }
 
 .prev { left: 15px; }
 .next { right: 15px; }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .caption h2 { font-size: 28px; }
-  .caption p { font-size: 16px; }
-}
-/* ===== CARROSSEL DE PRODUTOS ===== */
-
+/* =========================
+   CARROSSEL DE PRODUTOS
+============================= */
 .product-carousel {
-  padding: 40px;
-  background: none;
+    padding: 40px;
+    background: none;
 }
 
 .section-title {
-  font-size: 28px;
-  margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
 .product-carousel-wrapper {
-  position: relative;
+    position: relative;
 }
 
 .product-track {
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-  scroll-behavior: smooth;
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    cursor: grab;
+}
+
+.product-track.active-drag {
+    cursor: grabbing;
 }
 
 /* Card */
 .product-card {
-  min-width: 250px;
-  background: black;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  text-align: center;
+    min-width: 250px;
+    background: black;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    user-select: none;
 }
 
 .product-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
 }
 
 .product-card h3 {
-  font-size: 18px;
-  margin: 10px 0;
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 .preco {
-  font-size: 20px;
-  font-weight: bold;
-  color: #e63946;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e63946;
 }
-.promocional{
 
-  height: 5%;
-}
-/* Botão produto */
 .btn-prod {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 18px;
-  background: #111;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 18px;
+    background: #111;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
 }
 
-/* Botões */
 .prod-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #111;
-  color: white;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  z-index: 2;
-  border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #111;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
 }
 
 .prev-prod { left: -15px; }
 .next-prod { right: -15px; }
 
-/* Responsivo */
+/* =========================
+   RESPONSIVO
+============================= */
 @media (max-width: 768px) {
-  .product-card {
-    min-width: 180px;
-  }
-}
-.product-track {
-  cursor: grab;
+    .caption h2 { font-size: 28px; }
+    .caption p { font-size: 16px; }
+    .product-card { min-width: 180px; }
 }
 
-.product-track.active-drag {
-  cursor: grabbing;
-}
-
-.product-card {
-  user-select: none;
+/* =========================
+   FOOTER
+============================= */
+footer {
+    background-color: #2B1E14;
+    color: #C1A675;
+    text-align: center;
+    padding: 10px 0;
 }
