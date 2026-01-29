@@ -143,24 +143,10 @@ def endereco(request):
     )
 
 def notificacao(request):
-    usuario_id = request.session.get('usuario_id')
-
-
-    usuario = Usuario.objects.filter(id=usuario_id).first()
-
-
-    # 🔹 Buscar notificações do usuário + notificações globais
-    notificacoes = Notificacao.objects.filter(
-        Q(user=usuario) | Q(user__isnull=True)
-    ).order_by('-criado_em')
 
     return render(
         request,
         './loja/static/html/perfil/notificacao.html',
-        {
-          
-            "notificacoes": notificacoes
-        }
     )
 def pedidos(request):
     usuario_id = request.session.get('usuario_id')

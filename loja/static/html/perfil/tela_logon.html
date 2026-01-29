@@ -5,84 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/tela_logo.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <form action="" class="formulario_logon">
-        {% csrf_token %}
-        <img class="logo" src="{% static 'imagens/logo.png' %}" alt="Logo NL Importados">
-        <p>Usuario</p>
-        <input type="text" placeholder="USUARIO" name="username">
-        <p>Senha</p>
-        <input type="password" name="password" id="senha" placeholder="SENHA">
-        <button type="submit" class="ENTRAR">ENTRAR</button>
-         <a href="{% provider_login_url 'google' %}" class="google">
-            <i class="fa-brands fa-google">GOOGLE</i>
-            
-        </a>
-    </form> 
+    <div class="formulario_logon">
+    <p>Usuario</p>
+    <input type="text" placeholder="USUARIO" disabled>
+
+    <p>Senha</p>
+    <input type="password" placeholder="SENHA" disabled>
+
+    <a href="{% url 'perfil' %}" class="ENTRAR">ENTRAR</a>
+
+    <a href="{% provider_login_url 'google' %}" class="google">
+        <i class="fa-brands fa-google"></i>
+        GOOGLE
+    </a>
+</div>
     
     {% if error %}
       <p style="color: red;">{{ error }}</p>
     {% endif %}
 
 </body>
-<style>
-body{
-     padding: 0;
-     margin: 0;
-     align-items: center;
-     justify-items: center;
-     background-color: #F1E5AC;
-    }
-.formulario_logon{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(0, 0, 0);
-    width: 30%;
-    height: 30%;
-    margin-top:  50px ;
-    color: #F1E5AC; 
-    padding: 10px;
-    border-radius: 20px;
-}
-.formulario_logon button{
- margin-top:  10px ;
- padding: 10px;
-   border-radius: 10px;
-   width: 30%;
-}
-.formulario_logon input{
-    width: 100%;
-     height: 30px;
-     border-radius: 10px;
-     font-size: large;
-}
-.formulario_logon p{
- font-size: 25px;
- width: 100%;
- text-align: center;
 
-}
-.ENTRAR{
-   color: #F1E5AC; 
-   background-color: rgb(121, 119, 119);
-}
-.google{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background-color: rgb(238,25,43);
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 10px;
-    width: 30%;
-    margin-top: 10px;
-}
-
-
-</style>
 </html>

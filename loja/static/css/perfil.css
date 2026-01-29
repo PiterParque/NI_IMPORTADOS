@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black url("../imagens/logo_fundo.png") no-repeat center/cover;
+    color: #C1A675;
+    font-family: sans-serif;
+    min-height: 100vh;
+}
+
+/* CONTAINER */
+.perfil-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU */
+.perfil-menu {
+    width: 250px;
+    background: #2B1E14;
+    padding: 30px 20px;
+}
+
+.perfil-menu h2 {
+    margin-bottom: 20px;
+}
+
+.perfil-menu ul {
+    list-style: none;
+}
+
+.perfil-menu li {
+    margin-bottom: 15px;
+}
+
+.perfil-menu a {
+    color: #F5E6B8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.perfil-menu a:hover {
+    color: #C1A675;
+}
+
+/* CONTEÚDO */
+.perfil-conteudo {
+    flex: 1;
+    padding: 40px;
+    background: rgba(0,0,0,0.8);
+}
+
+/* CARDS */
+.card {
+    background: #111;
+    border: 1px solid #3A2A1A;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+.form-perfil {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-perfil input,
+.form-perfil select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3A2A1A;
+    background: #111;
+    color: #F5E6B8;
+}
+
+/* BOTÕES */
+.btn {
+    margin-top: 10px;
+    padding: 10px;
+    background: #2B1E14;
+    color: #F5E6B8;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #3A2A1A;
+}
+
+.btn-add {
+    margin-top: 20px;
+}

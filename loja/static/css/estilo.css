@@ -9,7 +9,7 @@ html, body {
 
     /* Flex para sticky footer */
     display: flex;
-    flex-direction: column;
+   
     font-family: sans-serif;
 }
 
@@ -19,6 +19,8 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    align-content: center;
+    justify-content: center;
 }
 
 /* =========================
@@ -93,6 +95,9 @@ header {
     background-color: #3A2A1A;
     z-index: 2000;
     transition: all 0.3s ease;
+}
+.dropdown{
+    border-radius: 20px;
 }
 
 .menu li.dropdown:last-child .submenu {
@@ -314,4 +319,7 @@ footer {
     color: #C1A675;
     text-align: center;
     padding: 10px 0;
+}
+.dropdown a{
+    color: #C1A675;
 }

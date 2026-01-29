@@ -1,4 +1,17 @@
-{% extends 'loja/static/html/perfil/perfil.html' %}
-{%load static%}
-{%block opcoes_perfil%}
-{%endblock%}
+{% extends './perfil.html' %}
+
+{% block conteudo %}
+<h1>Meus Pedidos</h1>
+
+<div class="card">
+    <p><strong>Pedido #1234</strong></p>
+    <p>Status: Entregue</p>
+    <p>Total: R$ 399,90</p>
+</div>
+
+<div class="card">
+    <p><strong>Pedido #1235</strong></p>
+    <p>Status: Em andamento</p>
+    <p>Total: R$ 249,90</p>
+</div>
+{% endblock %}

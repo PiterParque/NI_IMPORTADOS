@@ -1,15 +1,13 @@
-{% extends 'loja/static/html/perfil/perfil.html' %}
-{% load static %}
+{% extends './perfil.html' %}
 
-{% block opcoes_perfil %}
-{% block dados %}
-<link rel="stylesheet" href="{% static '/css/notificacao.css' %}">
-<div class="notificacoes">
-    <h2>NOTIFICAÇOES</h2>
+{% block conteudo %}
+<h1>Notificações</h1>
 
-        <h2>Não há notificações</h2>
-  
+<div class="card">
+    <p>📦 Seu pedido #1234 foi entregue.</p>
 </div>
 
-{% endblock %}
+<div class="card">
+    <p>🔥 Nova promoção disponível!</p>
+</div>
 {% endblock %}
