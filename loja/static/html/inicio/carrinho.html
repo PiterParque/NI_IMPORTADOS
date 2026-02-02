@@ -1,24 +1,55 @@
-<!-- CARRINHO LATERAL -->
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
-<script src="{% static 'javascript/carrinho.js' %}" defer></script>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+</head>
+<body>
 
-<div id="overlay"></div>
+<div class="carrinho-container">
 
-<div id="carrinho-lateral">
-    <div class="carrinho-header">
-        <h2>Sua sacola</h2>
-        <button id="fechar-carrinho">&times;</button>
-    </div>
+    <h1>Meu Carrinho</h1>
 
-    <div class="carrinho-conteudo">
-        <p class="carrinho-vazio">Seu carrinho está vazio</p>
-    </div>
+    <!-- ITEM -->
+    <div class="carrinho-item">
+        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Produto">
 
-    <div class="carrinho-footer">
-        <div class="carrinho-total">
-            Total: <strong>R$ <span id="total">0.00</span></strong>
+        <div class="item-info">
+            <h3>Perfume Importado X</h3>
+            <p>Quantidade: 1</p>
         </div>
-        <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar compra</button>
+
+        <div class="item-preco">
+            <p>R$ 299,90</p>
+            <button class="remover">Remover</button>
+        </div>
     </div>
+
+    <!-- ITEM -->
+    <div class="carrinho-item">
+        <img src="{% static 'imagens/perfumes_2.jpg' %}" alt="Produto">
+
+        <div class="item-info">
+            <h3>Perfume Importado Y</h3>
+            <p>Quantidade: 2</p>
+        </div>
+
+        <div class="item-preco">
+            <p>R$ 499,90</p>
+            <button class="remover">Remover</button>
+        </div>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="resumo">
+        <p>Total: <strong>R$ 799,80</strong></p>
+        <button class="finalizar">Finalizar Compra</button>
+    </div>
+
 </div>
+
+</body>
+</html>

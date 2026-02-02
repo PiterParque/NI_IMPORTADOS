@@ -72,7 +72,8 @@
 
       <button
         type="submit"
-        class="btn-comprar"
+        class="btn-comprar btn-add-carrinho"
+        data-id="{{ produto.id }}"
         {% if produto_principal.estoque == 0 %}disabled{% endif %}
       >
         <i class="fa-solid fa-cart-shopping"></i>

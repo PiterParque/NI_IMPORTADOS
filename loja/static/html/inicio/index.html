@@ -32,6 +32,9 @@
             <li class="dropdown">
               <a href="{% url 'tela_logon' %}"><i class="fa-solid fa-circle-user"></i></a>
             </li>
+            <li class="dropdown">
+              <a href="" class="carrinho"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
          </ul>
        </header>
        <main>
@@ -125,6 +128,36 @@
        <footer>
    <p> © NICOLAS LANÇA </p>
        </footer>
+       <!-- OVERLAY -->
+<div id="overlay-carrinho"></div>
+
+<!-- CARRINHO LATERAL -->
+<div id="carrinho-lateral">
+
+  <div class="carrinho-header">
+    <h2>Meu Carrinho</h2>
+    <button id="fechar-carrinho">✕</button>
+  </div>
+
+  <div class="carrinho-itens" id="carrinho-itens">
+
+    <div class="item">
+      <img src="{% static 'imagens/perfumes_1.jpg' %}">
+      <div class="info">
+        <p>Perfume Importado</p>
+        <span>R$ 299,90</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="carrinho-footer">
+    <p>Total: <strong>R$ 299,90</strong></p>
+    <a href="#" class="btn-finalizar">Finalizar compra</a>
+  </div>
+
+</div>
+
     </body>
             
     </html>

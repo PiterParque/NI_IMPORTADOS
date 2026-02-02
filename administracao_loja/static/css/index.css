@@ -1,0 +1,111 @@
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    color: #C1A675;
+
+    /* Flex para sticky footer */
+
+   
+    font-family: sans-serif;
+}
+
+body {
+    background-color: black;
+    background-image: url("../imagens/logo_fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-content: center;
+    justify-content: center;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #0f0f0f;
+    color: #F5E6B8;
+    padding: 30px;
+}
+
+.painel {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #C1A675;
+}
+
+.card {
+    background: rgba(0,0,0,0.85);
+    border: 1px solid #2B1E14;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    color: #F5E6B8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #2B1E14;
+    text-align: left;
+}
+
+th {
+    color: #C1A675;
+    font-size: 14px;
+}
+
+tr:hover {
+    background: rgba(193, 166, 117, 0.05);
+}
+
+.ativo {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.inativo {
+    color: #F44336;
+    font-weight: bold;
+}
+
+/* STATUS PEDIDOS */
+.status {
+    font-weight: bold;
+}
+
+.status.p {
+    color: orange;
+}
+
+.status.pago {
+    color: #4CAF50;
+}
+
+.status.e {
+    color: #03A9F4;
+}
+
+.status.f {
+    color: #8BC34A;
+}
+
+.status.c {
+    color: #F44336;
+}

@@ -1,0 +1,66 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/tela_logo.css' %}">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Criar Conta</title>
+</head>
+<body>
+
+<div class="formulario_logon">
+
+    <h2>Criar Conta</h2>
+
+    <!-- FORMULÁRIO PADRÃO -->
+    <form method="post">
+        {% csrf_token %}
+
+        <p>Usuário</p>
+        <input type="text" name="username" placeholder="Digite seu usuário" required>
+
+        <p>Email</p>
+        <input type="email" name="email" placeholder="Digite seu email" required>
+
+        <p>Senha</p>
+        <input type="password" name="password1" placeholder="Digite sua senha" required>
+
+        <p>Confirmar Senha</p>
+        <input type="password" name="password2" placeholder="Confirme sua senha" required>
+
+        <button type="submit" class="ENTRAR">CRIAR CONTA</button>
+    </form>
+
+    <div class="divider">
+        <span>ou</span>
+    </div>
+
+    <!-- GOOGLE -->
+    <a href="{% provider_login_url 'google' %}" class="google">
+        <i class="fa-brands fa-google"></i>
+        Criar conta com Google
+    </a>
+
+    <p class="rodape">
+        Já tem conta?
+        <a href="">Entrar</a>
+    </p>
+
+</div>
+
+{% if form.errors %}
+    <p style="color:red; text-align:center;">
+        Verifique os dados e tente novamente.
+    </p>
+{% endif %}
+
+</body>
+</html>

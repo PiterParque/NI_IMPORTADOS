@@ -63,7 +63,7 @@ body {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 5%;
+    gap: 1%;
     font-size: 85%;
     justify-content: center;
     align-content: center;
@@ -322,4 +322,97 @@ footer {
 }
 .dropdown a{
     color: #C1A675;
+}
+/* OVERLAY */
+#overlay-carrinho {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 998;
+}
+
+/* CARRINHO */
+#carrinho-lateral {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 360px;
+    height: 100vh;
+    background: #0e0e0e;
+    color: #C1A675;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+}
+
+/* ATIVO */
+#carrinho-lateral.ativo {
+    right: 0;
+}
+
+#overlay-carrinho.ativo {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* HEADER */
+.carrinho-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.carrinho-header button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ITENS */
+.carrinho-itens {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.item img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.item .info span {
+    color: #e63946;
+}
+
+/* FOOTER */
+.carrinho-footer {
+    padding: 20px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.btn-finalizar {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    padding: 12px;
+    background: #2B1E14;
+    color: #F5E6B8;
+    text-decoration: none;
+    border-radius: 6px;
 }

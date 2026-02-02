@@ -144,3 +144,37 @@ function finalizarCompra() {
     })
     .catch(() => alert("Erro de conexão"));
 }
+document.querySelectorAll(".btn-add-carrinho").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const produtoId = btn.dataset.id;
+
+        fetch("/carrinho/adicionar/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `produto_id=${produtoId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            atualizarCarrinho(data.carrinho);
+            document.getElementById("carrinho-lateral").classList.add("ativo");
+            document.getElementById("overlay-carrinho").classList.add("ativo");
+        });
+    });
+});
+
+// CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+        document.cookie.split(";").forEach(cookie => {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}

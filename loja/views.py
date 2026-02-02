@@ -54,6 +54,8 @@ def logon_validation(request):
         else:
             error="Usuário ou senha incorretos."
     return render(request,'./loja/static/html/perfil/tela_logon.html',{'error':error})
+def criar_conta(request):
+    return render(request,'./loja/static/html/perfil/criar_conta.html')
 def perfil(request):
     usuario_id = request.session.get('usuario_id')
 
@@ -473,36 +475,28 @@ from django.http import JsonResponse
 from .models import Produto
 
 
-def adicionar_carrinho(request):
+def adicionar_ao_carrinho(request):
     if request.method == "POST":
         produto_id = request.POST.get("produto_id")
-
-        if not produto_id:
-            return JsonResponse(
-                {"erro": "Produto inválido"},
-                status=400
-            )
+        produto = get_object_or_404(Produto, id=produto_id)
 
         carrinho = request.session.get("carrinho", {})
 
-        if produto_id in carrinho:
-            carrinho[produto_id]["quantidade"] += 1
+        if str(produto_id) in carrinho:
+            carrinho[str(produto_id)]["quantidade"] += 1
         else:
-            produto = get_object_or_404(Produto, id=int(produto_id))
-            carrinho[produto_id] = {
+            carrinho[str(produto_id)] = {
                 "nome": produto.nome,
-                "preco": str(produto.preco),
-                "quantidade": 1
+                "preco": float(produto.preco_promocional or produto.preco),
+                "imagem": produto.imagem_principal.url if produto.imagem_principal else "",
+                "quantidade": 1,
             }
 
         request.session["carrinho"] = carrinho
         request.session.modified = True
 
-        return JsonResponse({
-            "status": "ok",
-            "carrinho": carrinho
-        })
-
+        return JsonResponse({"status": "ok", "carrinho": carrinho})
+    
 
 def salvar_carrinho(request):
     if request.method == "POST":
