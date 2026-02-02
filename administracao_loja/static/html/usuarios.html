@@ -1,0 +1,39 @@
+{% extends "./index.html" %}
+{% block main %}
+ <!-- USUÁRIOS -->
+    <section class="card">
+        <h2>Usuários</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nome|default:"—" }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.tipo_usuario }}</td>
+                    <td>
+                        {% if usuario.ativo %}
+                            <span class="ativo">Ativo</span>
+                        {% else %}
+                            <span class="inativo">Inativo</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Nenhum usuário encontrado</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock main %}

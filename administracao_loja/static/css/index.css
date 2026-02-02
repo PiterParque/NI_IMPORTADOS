@@ -1,80 +1,116 @@
-html, body {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
-    color: #C1A675;
+/* index.css */
 
-    /* Flex para sticky footer */
-
-   
-    font-family: sans-serif;
-}
-
-body {
-    background-color: black;
-    background-image: url("../imagens/logo_fundo.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    align-content: center;
-    justify-content: center;
-}
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 
 body {
-    background: #0f0f0f;
+    font-family: Arial, sans-serif;
+    background: #0e0e0e url("../imagens/logo_fundo.png") no-repeat center/cover;
     color: #F5E6B8;
-    padding: 30px;
+    min-height: 100vh;
+    padding: 20px;
 }
 
+/* CONTAINER PRINCIPAL */
 .painel {
-    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
+    gap: 20px;
 }
 
-h1 {
-    margin-bottom: 25px;
+/* MENU LATERAL */
+nav {
+    flex: 1 1 250px;
+    background: #2B1E14;
+    padding: 20px;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+nav ul {
+    list-style: none; /* remove bolinhas */
+    padding-left: 0;
+}
+
+nav li {
+    margin-bottom: 15px;
+}
+
+nav a {
+    color: #C1A675;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: #3A2A1A;
+    color: #fff;
+}
+
+/* CONTEÚDO PRINCIPAL */
+main {
+    flex: 3 1 700px;
+}
+
+/* TÍTULO PRINCIPAL */
+.titulo_painel {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
     color: #C1A675;
 }
 
+/* CARDS */
 .card {
-    background: rgba(0,0,0,0.85);
-    border: 1px solid #2B1E14;
+    background: #111;
+    border: 1px solid #3A2A1A;
     border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 1%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .card h2 {
     margin-bottom: 15px;
-    color: #F5E6B8;
+    font-size: 1.8rem;
+    color: #D9B382;
 }
 
+/* TABELA */
 table {
     width: 100%;
     border-collapse: collapse;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #2B1E14;
+thead {
+    background: #2B1E14;
+}
+
+thead th {
+    padding: 1%;
+    color: #F5E6B8;
     text-align: left;
+    font-weight: bold;
 }
 
-th {
-    color: #C1A675;
-    font-size: 14px;
+tbody td {
+    padding: 1%;
+    border-top: 1px solid #3A2A1A;
 }
 
-tr:hover {
-    background: rgba(193, 166, 117, 0.05);
-}
-
+/* STATUS USUÁRIOS */
 .ativo {
     color: #4CAF50;
     font-weight: bold;
@@ -87,25 +123,60 @@ tr:hover {
 
 /* STATUS PEDIDOS */
 .status {
+    padding: 5px 10px;
+    border-radius: 5px;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
-.status.p {
-    color: orange;
+.status.pendente {
+    background: #ff9800;
+    color: #111;
 }
 
-.status.pago {
-    color: #4CAF50;
+.status.aprovado {
+    background: #4CAF50;
+    color: #fff;
 }
 
-.status.e {
-    color: #03A9F4;
+.status.cancelado {
+    background: #F44336;
+    color: #fff;
 }
 
-.status.f {
-    color: #8BC34A;
+.status.entregue {
+    background: #2196F3;
+    color: #fff;
 }
 
-.status.c {
-    color: #F44336;
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+    .painel {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+        order: -1; /* coloca o menu acima do conteúdo */
+    }
+
+    main {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card h2 {
+        font-size: 1.5rem;
+    }
+
+    thead th, tbody td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    nav a {
+        padding: 8px;
+        font-size: 0.95rem;
+    }
 }
