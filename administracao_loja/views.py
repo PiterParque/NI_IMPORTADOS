@@ -20,7 +20,8 @@ def pedidos(request):
     pedidos = Pedido.objects.select_related('cliente').order_by('-data_pedido')
     return render(request, './administracao_loja/static/html/pedidos.html', {'pedidos': pedidos})
 def lista_produtos(request):
-    produtos = Produto.objects.filter(ativo=True)
+    produtos = Produto.objects.all()
+    print(produtos)
     return render(request, './administracao_loja/static/html/produtos.html', {'produtos': produtos})
 
 # editar dados
@@ -68,13 +69,16 @@ def criar_usuario(request):
 
 
 def criar_produto(request):
-    form = ProdutoForm(request.POST or None, request.FILES or None)
-
-    if form.is_valid():
-        form.save()
-        return redirect('PRODUTOS')
-
-    return render(request, './administracao_loja/static/html/criar_produto.html', {'form': form})
+    form = ProdutoForm()
+    if request.method == "POST":
+        form = ProdutoForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save()
+            return redirect('PRODUTOS')
+        else:
+            return render(request, './administracao_loja/static/html/criar_produto.html', {'form': form})
+    else:
+        return render(request, './administracao_loja/static/html/criar_produto.html', {'form': form})
 
 
 def criar_pedido(request):

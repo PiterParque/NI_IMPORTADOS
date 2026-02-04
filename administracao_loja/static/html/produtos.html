@@ -2,12 +2,13 @@
 {% load static %}
 {% block main %}
 <h2 class="card">Produtos</h2>
-<a href="" class="btn-novo-produto">
+<a href="{% url 'criar_produto' %}" class="btn-novo-produto">
     + Adicionar Produto
 </a>
 
 <link rel="stylesheet" href="{% static 'css/produtos.css' %}">
 <div class="painel-produtos">
+    
     {% for produto in produtos %}
     <div class="card-produto">
         {% if produto.imagem_principal %}
