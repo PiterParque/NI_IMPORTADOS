@@ -28,10 +28,10 @@ def lista_produtos(request):
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
     form = UsuarioForm(request.POST or None, request.FILES or None, instance=usuario)
-
-    if form.is_valid():
-        form.save()
-        return redirect('usuarios')
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('usuarios')
 
     return render(request, 'administracao_loja/editar_usuario.html', {'form': form})
 
@@ -39,10 +39,10 @@ def editar_usuario(request, id):
 def editar_produto(request, id):
     produto = get_object_or_404(Produto, id=id)
     form = ProdutoForm(request.POST or None, request.FILES or None, instance=produto)
-
-    if form.is_valid():
-        form.save()
-        return redirect('PRODUTOS')
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('PRODUTOS')
 
     return render(request, 'administracao_loja/editar_produto.html', {'form': form})
 
@@ -50,10 +50,10 @@ def editar_produto(request, id):
 def editar_pedido(request, id):
     pedido = get_object_or_404(Pedido, id=id)
     form = PedidoForm(request.POST or None, instance=pedido)
-
-    if form.is_valid():
-        form.save()
-        return redirect('pedidos')
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('pedidos')
 
     return render(request, 'administracao_loja/editar_pedido.html', {'form': form})
 

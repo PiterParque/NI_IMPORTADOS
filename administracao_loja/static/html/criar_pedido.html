@@ -1,14 +1,10 @@
 {% extends "./index.html" %}
 {% load static %}
 {% block main %}
-{% extends "./index.html" %}
-{% load static %}
-{% block main %}
 <form action="." method="post">
     {% csrf_token %}
 <h1>CRIAÇÃO DE PEDIDO</h1>
 {{form}}
 <button type="submit">CRIAR</button>
 </form>
-{% endblock main%}
 {% endblock main%}
