@@ -1,10 +1,14 @@
 {% extends "./index.html" %}
+{% load static %}
 {% block main %}
 
     <!-- PEDIDOS -->
     <section class="card">
         <h2>Pedidos</h2>
-
+<link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+<a href="{% url 'criar_pedido' %}" class="btn-novo-pedidos">
+    + Adicionar Pedidos
+            </a>
         <table>
             <thead>
                 <tr>

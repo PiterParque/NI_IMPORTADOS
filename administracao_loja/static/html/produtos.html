@@ -1,0 +1,36 @@
+{% extends "./index.html" %}
+{% load static %}
+{% block main %}
+<h2 class="card">Produtos</h2>
+<a href="" class="btn-novo-produto">
+    + Adicionar Produto
+</a>
+
+<link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+<div class="painel-produtos">
+    {% for produto in produtos %}
+    <div class="card-produto">
+        {% if produto.imagem_principal %}
+        <img src="{{ produto.imagem_principal.url }}" alt="{{ produto.nome }}">
+        {% else %}
+        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Sem imagem">
+        {% endif %}
+        <h3>{{ produto.nome }}</h3>
+        <p class="subtitulo">{{ produto.subtitulo }}</p>
+        <p class="marca">Marca: {{ produto.marca }}</p>
+        <p class="preco">
+            {% if produto.preco_promocional %}
+                <span class="preco-original">R$ {{ produto.preco }}</span>
+                <span class="preco-promocional">R$ {{ produto.preco_promocional }}</span>
+            {% else %}
+                R$ {{ produto.preco }}
+            {% endif %}
+        </p>
+        <p class="estoque">Estoque: {{ produto.estoque }}</p>
+        
+    </div>
+    {% empty %}
+    <p>Nenhum produto cadastrado.</p>
+    {% endfor %}
+</div>
+{% endblock main %}

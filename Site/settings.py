@@ -103,6 +103,7 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "loja" / "static",
+     BASE_DIR /"administracao_loja"/"static",
  
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"

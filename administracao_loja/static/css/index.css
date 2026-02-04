@@ -12,7 +12,7 @@ body {
     background: #0e0e0e url("../imagens/logo_fundo.png") no-repeat center/cover;
     color: #F5E6B8;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* CONTAINER PRINCIPAL */
@@ -25,9 +25,9 @@ body {
 
 /* MENU LATERAL */
 nav {
-    flex: 1 1 250px;
+    flex: 1 1 10px;
     background: #2B1E14;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     height: fit-content;
 }
