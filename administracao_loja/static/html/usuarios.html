@@ -19,22 +19,32 @@
             </thead>
             <tbody>
                 {% for usuario in usuarios %}
+                
                 <tr>
-                    <td>{{ usuario.nome|default:"—" }}</td>
+                    <td>
+                        <a href="{% url 'editar_usuario' usuario.id %}" style="text-decoration: none; color:#D9B382 ;"> 
+                        {{ usuario.nome|default:"—" }}
+                       </a>
+                   </td>
                     <td>{{ usuario.email }}</td>
                     <td>{{ usuario.tipo_usuario }}</td>
                     <td>
+                        
                         {% if usuario.ativo %}
                             <span class="ativo">Ativo</span>
                         {% else %}
                             <span class="inativo">Inativo</span>
                         {% endif %}
+                        
                     </td>
+                    
                 </tr>
+                
                 {% empty %}
                 <tr>
                     <td colspan="4">Nenhum usuário encontrado</td>
                 </tr>
+                
                 {% endfor %}
             </tbody>
         </table>

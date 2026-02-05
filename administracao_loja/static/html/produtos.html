@@ -10,6 +10,7 @@
 <div class="painel-produtos">
     
     {% for produto in produtos %}
+    <a href="{% url 'editar_produto' produto.id %}" style="text-decoration: none;">
     <div class="card-produto">
         {% if produto.imagem_principal %}
         <img src="{{ produto.imagem_principal.url }}" alt="{{ produto.nome }}">
@@ -30,6 +31,7 @@
         <p class="estoque">Estoque: {{ produto.estoque }}</p>
         
     </div>
+    </a>
     {% empty %}
     <p>Nenhum produto cadastrado.</p>
     {% endfor %}

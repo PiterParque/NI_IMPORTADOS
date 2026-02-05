@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from loja.models import Usuario, Produto, Pedido
-from .forms import UsuarioForm, ProdutoForm, PedidoForm
+from .forms import UsuarioForm, ProdutoForm, PedidoForm,EnderecoForm
 
 
 
@@ -28,12 +28,14 @@ def lista_produtos(request):
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
     form = UsuarioForm(request.POST or None, request.FILES or None, instance=usuario)
+    form_endereco=EnderecoForm(request.POST or None, request.FILES or None)
     if request.method == "POST":
-        if form.is_valid():
+        if (form.is_valid() and form_endereco.is_valid()):
             form.save()
+            form_endereco.save()
             return redirect('usuarios')
 
-    return render(request, 'administracao_loja/editar_usuario.html', {'form': form})
+    return render(request, './administracao_loja/static/html/edit_usuario.html', {'form': form,'form_endereco':form_endereco})
 
 
 def editar_produto(request, id):
@@ -44,7 +46,7 @@ def editar_produto(request, id):
             form.save()
             return redirect('PRODUTOS')
 
-    return render(request, 'administracao_loja/editar_produto.html', {'form': form})
+    return render(request, './administracao_loja/static/html/edit_produto.html', {'form': form})
 
 
 def editar_pedido(request, id):
@@ -59,13 +61,29 @@ def editar_pedido(request, id):
 
 # criar dados
 def criar_usuario(request):
-    form = UsuarioForm(request.POST or None, request.FILES or None)
+    form = UsuarioForm(request.POST or None)
+    form_endereco = EnderecoForm(request.POST or None)
 
-    if form.is_valid():
-        form.save()
-        return redirect('usuarios')
+    if request.method == "POST":
+        if form.is_valid():
+            usuario = form.save()
 
-    return render(request, './administracao_loja/static/html/criar_usuario.html', {'form': form})
+            # só cria endereço se o usuário clicou no botão
+            if form_endereco.is_valid() and request.POST.get("criar_endereco"):
+                endereco = form_endereco.save(commit=False)
+                endereco.usuario = usuario
+                endereco.save()
+
+            return redirect('usuarios')
+
+    return render(
+        request,
+        './administracao_loja/static/html/criar_usuario.html',
+        {
+            'form': form,
+            'form_endereco': form_endereco
+        }
+    )
 
 
 def criar_produto(request):
