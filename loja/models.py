@@ -3,6 +3,9 @@ from django.db import models
 from django.utils.text import slugify
 from django.db.utils import IntegrityError
 import uuid
+import random
+import string
+from django.db import models
 
 def produto_image_path(instance, filename):
     return os.path.join('produtos', instance.slug or str(instance.id), filename)
@@ -87,10 +90,7 @@ class Endereco(models.Model):
         return f"{self.user.nome} - {self.endereco}"
 
 
-import uuid
-import random
-import string
-from django.db import models
+
 
 class Pedido(models.Model):
 

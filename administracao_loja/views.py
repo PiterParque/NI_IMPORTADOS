@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from loja.models import Usuario, Produto, Pedido,Endereco
-from .forms import UsuarioForm, ProdutoForm, PedidoForm,EnderecoForm,EnderecoFormSet
+from .forms import UsuarioForm, ProdutoForm, PedidoForm,EnderecoForm,EnderecoFormSet,ItemPedido,ItemPedidoFormSet
 
 
 
@@ -68,14 +68,30 @@ def editar_produto(request, id):
 
 
 def editar_pedido(request, id):
-    pedido = get_object_or_404(Pedido, id=id)
-    form = PedidoForm(request.POST or None, instance=pedido)
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            return redirect('pedidos')
+    pedido = get_object_or_404(Pedido, pk=id)
 
-    return render(request, 'administracao_loja/static/html/edit_pedido.html', {'form': form})
+    if request.method == "POST":
+        form = PedidoForm(request.POST, instance=pedido)
+        formset = ItemPedidoFormSet(request.POST, instance=pedido)
+
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+
+            pedido.calcular_total()
+
+            return redirect("lista_pedidos")
+
+    else:
+        form = PedidoForm(instance=pedido)
+        formset = ItemPedidoFormSet(instance=pedido)
+
+    return render(request, "./administracao_loja/static/html/edit_pedido.html", {
+        "form": form,
+        "formset": formset,
+        "pedido": pedido
+    })
+
 
 # criar dados
 def criar_usuario(request):
@@ -118,26 +134,36 @@ def criar_produto(request):
 
 
 def criar_pedido(request):
-    form = PedidoForm(request.POST or None)
 
     if request.method == "POST":
-        if form.is_valid():
-            pedido = form.save(commit=False)
 
-            # gera numero simples
-            ultimo = Pedido.objects.last()
-            if ultimo:
-                pedido.numero_pedido = str(int(ultimo.numero_pedido) + 1)
-            else:
-                pedido.numero_pedido = "1"
+        form = PedidoForm(request.POST)
+        formset = ItemPedidoFormSet(request.POST)
 
-            pedido.save()
+        if form.is_valid() and formset.is_valid():
+
+            pedido = form.save()   # UUID + numero automático
+
+            itens = formset.save(commit=False)
+
+            for item in itens:
+                item.pedido = pedido
+                item.save()
+
+            pedido.calcular_total()
 
             return redirect('pedidos')
 
+    else:
+        form = PedidoForm()
+        formset = ItemPedidoFormSet()
+
     return render(
         request,
-        'administracao_loja/static/html/criar_pedido.html',
-        {'form': form}
+        './administracao_loja/static/html/criar_pedido.html',
+        {
+            'form': form,
+            'formset': formset
+        }
     )
 

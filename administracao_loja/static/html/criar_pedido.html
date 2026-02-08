@@ -1,10 +1,25 @@
 {% extends "./index.html" %}
 {% load static %}
 {% block main %}
-<form action="." method="post">
+<form method="post">
     {% csrf_token %}
-<h1>CRIAÇÃO DE PEDIDO</h1>
-{{form}}
-<button type="submit">CRIAR</button>
+
+    {{ form.as_p }}
+
+    {{ formset.management_form }}
+
+    <h3>Itens</h3>
+
+    {% for f in formset %}
+        <div>
+            {{ f.perfume }}
+            {{ f.quantidade }}
+            {{ f.preco_unitario }}
+            {{ f.DELETE }}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Salvar</button>
 </form>
+
 {% endblock main%}
