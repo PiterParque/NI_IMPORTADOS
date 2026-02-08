@@ -75,7 +75,7 @@ def editar_pedido(request, id):
             form.save()
             return redirect('pedidos')
 
-    return render(request, 'administracao_loja/editar_pedido.html', {'form': form})
+    return render(request, 'administracao_loja/static/html/edit_pedido.html', {'form': form})
 
 # criar dados
 def criar_usuario(request):
@@ -120,8 +120,24 @@ def criar_produto(request):
 def criar_pedido(request):
     form = PedidoForm(request.POST or None)
 
-    if form.is_valid():
-        form.save()
-        return redirect('pedidos')
+    if request.method == "POST":
+        if form.is_valid():
+            pedido = form.save(commit=False)
 
-    return render(request, './administracao_loja/static/html/criar_pedido.html', {'form': form})
+            # gera numero simples
+            ultimo = Pedido.objects.last()
+            if ultimo:
+                pedido.numero_pedido = str(int(ultimo.numero_pedido) + 1)
+            else:
+                pedido.numero_pedido = "1"
+
+            pedido.save()
+
+            return redirect('pedidos')
+
+    return render(
+        request,
+        'administracao_loja/static/html/criar_pedido.html',
+        {'form': form}
+    )
+

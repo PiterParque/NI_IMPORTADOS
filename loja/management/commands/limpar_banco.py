@@ -1,32 +1,34 @@
 from django.core.management.base import BaseCommand
-from loja.models import (
-    Notificacao, ItemPedido, Pedido, Endereco,
-    Usuario, ImagemProduto, Produto, Categoria
-)
-from django.contrib.auth.models import User
-from allauth.account.models import EmailAddress
+from django.apps import apps
+from django.db import connection
 
 
 class Command(BaseCommand):
-    help = 'Apaga TODOS os registros do banco'
+    help = "Apaga TODOS os registros do banco (TRUNCATE CASCADE)"
 
     def handle(self, *args, **options):
-        # Deletar registros dependentes de Allauth primeiro
-        EmailAddress.objects.all().delete()
 
-        # Depois apagar suas tabelas
-        Notificacao.objects.all().delete()
-        ItemPedido.objects.all().delete()
-        Pedido.objects.all().delete()
-        Endereco.objects.all().delete()
-        ImagemProduto.objects.all().delete()
-        Produto.objects.all().delete()
-        Categoria.objects.all().delete()
-        Usuario.objects.all().delete()
-        
-        # Por último, apagar usuários
-        User.objects.all().delete()
+        confirmacao = input(
+            "⚠️ Isso vai APAGAR TODOS os dados do banco. Digite 'SIM' para continuar: "
+        )
 
-        self.stdout.write(self.style.SUCCESS(
-            'Todos os registros foram apagados com sucesso!'
-        ))
+        if confirmacao != "SIM":
+            self.stdout.write(self.style.WARNING("Operação cancelada."))
+            return
+
+        models = apps.get_models()
+
+        tabelas = []
+        for model in models:
+            tabelas.append(model._meta.db_table)
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "TRUNCATE TABLE {} RESTART IDENTITY CASCADE;".format(
+                    ", ".join(tabelas)
+                )
+            )
+
+        self.stdout.write(
+            self.style.SUCCESS(" Banco limpo com sucesso (TRUNCATE CASCADE)!")
+        )

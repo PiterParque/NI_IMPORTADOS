@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.utils.text import slugify
 from django.db.utils import IntegrityError
-
+import uuid
 
 def produto_image_path(instance, filename):
     return os.path.join('produtos', instance.slug or str(instance.id), filename)
@@ -87,7 +87,13 @@ class Endereco(models.Model):
         return f"{self.user.nome} - {self.endereco}"
 
 
+import uuid
+import random
+import string
+from django.db import models
+
 class Pedido(models.Model):
+
     STATUS_CHOICES = [
         ('P', 'Pendente'),
         ('PAGO', 'Pago'),
@@ -95,23 +101,50 @@ class Pedido(models.Model):
         ('F', 'Finalizado'),
         ('C', 'Cancelado'),
     ]
-    numero_pedido = models.CharField(max_length=20, unique=True, default='000000')
-    cliente = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='pedidos')
-    perfumes = models.ManyToManyField(Produto, through='ItemPedido')
+
+    #  Identificador interno seguro
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
+    # Número visível pro cliente
+    numero_pedido = models.CharField(
+        max_length=12,
+        unique=True,
+        blank=True
+    )
+
+    cliente = models.ForeignKey('Usuario', on_delete=models.CASCADE, related_name='pedidos')
+    perfumes = models.ManyToManyField('Produto', through='ItemPedido')
     data_pedido = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='P')
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    endereco_entrega = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
+    endereco_entrega = models.ForeignKey('Endereco', on_delete=models.SET_NULL, null=True)
+
+    def gerar_numero_pedido(self):
+        letras = string.ascii_uppercase
+        numeros = string.digits
+        return 'NL-' + ''.join(random.choices(letras + numeros, k=6))
+
+    def save(self, *args, **kwargs):
+        if not self.numero_pedido:
+            while True:
+                numero = self.gerar_numero_pedido()
+                if not Pedido.objects.filter(numero_pedido=numero).exists():
+                    self.numero_pedido = numero
+                    break
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Pedido #{self.id} - {self.cliente.nome}"
+        return f"{self.numero_pedido} - {self.cliente.nome}"
 
     def calcular_total(self):
         total = sum(item.subtotal() for item in self.itens.all())
         self.valor_total = total
         self.save()
         return total
-
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')

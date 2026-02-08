@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
 from faker import Faker
 import random
-from loja.models import Usuario, enderecos
-from django.utils import timezone
+from loja.models import Usuario, Endereco
 
 
 class Command(BaseCommand):
@@ -11,31 +10,24 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         fake = Faker("pt_BR")
 
-        generos = ["Masculino", "Feminino", "Outro"]
+        generos = ["M", "F", "O"]
 
-        for _ in range(15):  # quantidade de usuários
-            nome = fake.name()
-            email = fake.unique.email()
-            cpf = fake.ssn()
-            telefone = fake.phone_number()
-            genero = random.choice(generos)
-            data_nascimento = fake.date_of_birth(minimum_age=18, maximum_age=70)
-
+        for _ in range(15):
             usuario = Usuario.objects.create(
-                nome=nome,
-                senha=fake.password(length=12),
-                CPF=cpf,
-                data_nascimento=timezone.make_aware(fake.date_time_between(start_date='-70y')),
-                telefone=telefone,
-                genero=genero,
-                email=email,
+                nome=fake.name(),
+                CPF=fake.cpf(),
+                data_nascimento=fake.date_of_birth(minimum_age=18, maximum_age=70),
+                telefone=fake.phone_number(),
+                genero=random.choice(generos),
+                email=fake.unique.email(),
             )
 
-            # Criar endereço do usuário
-            enderecos.objects.create(
+            Endereco.objects.create(
                 user=usuario,
-                endereco=fake.address(),
+                endereco=fake.street_address(),
                 cep=fake.postcode()
             )
 
-        self.stdout.write(self.style.SUCCESS("Usuários de teste criados com sucesso!"))
+        self.stdout.write(
+            self.style.SUCCESS("Usuários de teste criados com sucesso!")
+        )

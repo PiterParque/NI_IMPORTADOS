@@ -8,3 +8,5 @@ gunicorn
 requests
 jwt
 Pillow
+uuid
+Faker
