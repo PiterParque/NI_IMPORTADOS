@@ -21,4 +21,11 @@ class EnderecoForm(forms.ModelForm):
     class Meta:
         model=Endereco
         fields="__all__"
-        exclude = ["usuario"]
+        exclude = ['user'] 
+EnderecoFormSet = forms.inlineformset_factory(
+    Usuario,
+    Endereco,
+    form=EnderecoForm,
+    extra=1,
+    can_delete=True
+)

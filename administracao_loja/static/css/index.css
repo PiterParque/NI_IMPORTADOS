@@ -148,6 +148,97 @@ tbody td {
     background: #2196F3;
     color: #fff;
 }
+/* =========================
+   FORMS - PAINEL ADMIN
+========================= */
+
+form {
+    background: #111;
+    border: 1px solid #3A2A1A;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* títulos dentro do form */
+form h1,
+form h2 {
+    color: #D9B382;
+    margin-bottom: 15px;
+}
+
+/* labels */
+form label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #C1A675;
+}
+
+/* inputs gerais */
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3A2A1A;
+    background: #1a1a1a;
+    color: #F5E6B8;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* foco */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #C1A675;
+    box-shadow: 0 0 6px rgba(193,166,117,0.4);
+}
+
+/* checkbox */
+form input[type="checkbox"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+/* botão */
+form button {
+    margin-top: 20px;
+    background: #C1A675;
+    color: #111;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: #D9B382;
+    transform: scale(1.03);
+}
+
+/* blocos de endereço */
+.endereco-box {
+    background: #0e0e0e;
+    border: 1px solid #2B1E14;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* erros do django */
+.errorlist {
+    color: #F44336;
+    font-size: 0.85rem;
+    list-style: none;
+    margin-top: 4px;
+}
+
 
 /* RESPONSIVO */
 @media (max-width: 1024px) {

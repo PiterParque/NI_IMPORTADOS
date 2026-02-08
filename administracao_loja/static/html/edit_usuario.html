@@ -1,12 +1,24 @@
 {% extends "./index.html" %}
 {% load static %}
-{% block main %}
-<form action="." method="post">
-    {% csrf_token %}
-<h1>EDITAR DE USUARIO</h1>
-{{form}}
 
-{{form_endereco}}
-<button type="submit">SALVAR</button>
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+
+    <h1>Editar Usuario</h1>
+
+    {{ form }}
+
+    <h2>Endereços</h2>
+
+    {{ formset.management_form }}
+
+    {% for endereco_form in formset %}
+        <div class="endereco-box">
+            {{ endereco_form }}
+        </div>
+    {% endfor %}
+
+    <button type="submit">SALVAR</button>
 </form>
-{% endblock main%}
+{% endblock %}
