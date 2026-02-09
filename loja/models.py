@@ -53,14 +53,14 @@ class Produto(models.Model):
 
 class ImagemProduto(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, related_name='imagens')
-    imagem = models.ImageField(upload_to='imagens/produtos/')
+    imagem = models.ImageField(upload_to='./administracao_loja/static/produtos_imagens/')
 
     def __str__(self):
         return f"Imagem de {self.produto.nome}"
 
 
 class Usuario(models.Model):
-    imagem_usuario = models.ImageField(upload_to='usuarios/', null=True, blank=True)
+    imagem_usuario = models.ImageField(upload_to='./administracao_loja/static/imagens_usuarios/', null=True, blank=True)
     nome = models.CharField(max_length=30, blank=True)
     CPF = models.CharField(max_length=20, blank=True, null=True)
     data_nascimento = models.DateField(null=True, blank=True)

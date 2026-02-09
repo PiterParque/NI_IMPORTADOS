@@ -30,9 +30,12 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+     "django.contrib.humanize",
+    "allauth.usersessions",
 
     "loja",
     "administracao_loja",
+    
 ]
 
 MIDDLEWARE = [
@@ -45,6 +48,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "allauth.usersessions.middleware.UserSessionsMiddleware",
 ]
 
 ROOT_URLCONF = "Site.urls"
@@ -98,6 +102,8 @@ LOGIN_REDIRECT_URL = '/'  # ou use a URL que corresponde ao seu template
 # settings.py
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
+USERSESSIONS_ADAPTER = "app.adapters.CustomUserSessionsAdapter"
+
 
 # Static files
 STATIC_URL = "/static/"
@@ -114,3 +120,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    }
+}
+
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_AUTO_SIGNUP = True
