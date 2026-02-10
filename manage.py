@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from .api.index import *
+from api.index import *
 
 
 def main():
