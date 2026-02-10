@@ -3,7 +3,8 @@
 import os
 import sys
 
-
+from Site.wsgi import app
+app=app
 
 def main():
     """Run administrative tasks."""
