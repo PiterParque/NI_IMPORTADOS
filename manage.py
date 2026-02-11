@@ -3,8 +3,9 @@
 import os
 import sys
 
-from Site.wsgi import app
-app=app
+
+if 'uuid' in sys.modules:
+    del sys.modules['uuid']
 
 def main():
     """Run administrative tasks."""
