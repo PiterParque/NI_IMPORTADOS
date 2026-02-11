@@ -113,7 +113,7 @@ STATICFILES_DIRS = [
  
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 USE_X_FORWARDED_HOST = True
 # Media
 MEDIA_URL = "/media/"
@@ -125,6 +125,8 @@ SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
+        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+        "secret": os.getenv("GOOGLE_SECRET"),
     }
 }
 
