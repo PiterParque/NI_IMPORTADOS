@@ -6,6 +6,7 @@ import uuid
 import random
 import string
 from django.db import models
+from django.contrib.auth import get_user_model
 
 def produto_image_path(instance, filename):
     return os.path.join('produtos', instance.slug or str(instance.id), filename)
@@ -58,8 +59,17 @@ class ImagemProduto(models.Model):
     def __str__(self):
         return f"Imagem de {self.produto.nome}"
 
-
+User = get_user_model()
 class Usuario(models.Model):
+    
+   
+    auth_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="perfil_loja"
+    )
     imagem_usuario = models.ImageField(upload_to='./administracao_loja/static/imagens_usuarios/', null=True, blank=True)
     nome = models.CharField(max_length=30, blank=True)
     CPF = models.CharField(max_length=20, blank=True, null=True)

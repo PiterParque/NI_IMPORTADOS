@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     "loja",
     "administracao_loja",
+    "accounts",
     
 ]
 
@@ -129,7 +130,14 @@ SOCIALACCOUNT_PROVIDERS = {
         "secret": os.getenv("GOOGLE_SECRET"),
     }
 }
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
 
-SOCIALACCOUNT_EMAIL_REQUIRED = True
-SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+
