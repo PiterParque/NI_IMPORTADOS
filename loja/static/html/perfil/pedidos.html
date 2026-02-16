@@ -2,16 +2,12 @@
 
 {% block conteudo %}
 <h1>Meus Pedidos</h1>
-
+{% for pedido in pedidos %}
 <div class="card">
-    <p><strong>Pedido #1234</strong></p>
-    <p>Status: Entregue</p>
-    <p>Total: R$ 399,90</p>
+   <p>{{pedidos}}</p>
 </div>
+{% empty %}
+<h2>Não ha pedidos</h2>
 
-<div class="card">
-    <p><strong>Pedido #1235</strong></p>
-    <p>Status: Em andamento</p>
-    <p>Total: R$ 249,90</p>
-</div>
+{% endfor %}
 {% endblock %}

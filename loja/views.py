@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco,Notificacao
+from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco,Notificacao,Pedido
 from django.core.files.base import ContentFile
 from django.db.models import Q
 from django.contrib import messages
@@ -133,16 +133,16 @@ def endereco(request):
     )
 
 def notificacao(request):
-
+    notificacao = Notificacao.objects.filter(usuario=request.user.id)
     return render(
         request,
         './loja/static/html/perfil/notificacao.html',
+        {'notificacaos':notificacao}
     )
 def pedidos(request):
-    usuario_id = request.session.get('usuario_id')
+    Pedidos = Pedido.objects.filter(cliente=request.user.id)
 
-    usuario=Usuario.objects.filter(id=usuario_id).first()
-    return render(request,'./loja/static/html/perfil/pedidos.html',{"cliente":usuario})
+    return render(request,'./loja/static/html/perfil/pedidos.html',{"pedidos":Pedidos})
 def sair(request):
     request.session.pop('usuario_id', None)
     return redirect('index')

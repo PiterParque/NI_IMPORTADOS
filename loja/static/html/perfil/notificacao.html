@@ -2,12 +2,14 @@
 
 {% block conteudo %}
 <h1>Notificações</h1>
-
+{% for notificacao in  notificacaos%}
 <div class="card">
-    <p>📦 Seu pedido #1234 foi entregue.</p>
+    <p>{{notificacao}}</p>
 </div>
+{% empty %}
+<h3>Não ha notificaçoes</h3>
+{% endfor %}
 
-<div class="card">
-    <p>🔥 Nova promoção disponível!</p>
-</div>
+
+
 {% endblock %}
