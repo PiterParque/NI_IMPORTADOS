@@ -1,19 +1,17 @@
 {% extends './perfil.html' %}
-
+{% load static %}
 {% block conteudo %}
+<script src="{% static 'javascript/endereco.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/endereco.css' %}">
 <h1>Meus Endereços</h1>
-
-<div class="card">
-    <p>Rua das Flores, 123</p>
-    <p>Belo Horizonte - MG</p>
-    <button class="btn">Selecionar</button>
+{% for endereco in enderecos %}
+<div class="endereco">
+    <span>{{endereco}}</span>
+    <button onclick="apagarEndereco({{endereco.id}}, this.parentElement)">Apagar</button>
 </div>
-
-<div class="card">
-    <p>Av. Brasil, 456</p>
-    <p>São Paulo - SP</p>
-    <button class="btn">Selecionar</button>
-</div>
-
-<button class="btn btn-add">+ Adicionar novo endereço</button>
+{% empty %}
+<h2 style="padding: 1%;">Não há endereços cadastrados</h2>
+{% endfor %}
+<button class="btn btn-add" onclick="adicionarDiv()">+ Adicionar novo endereço</button>
+<div id="container"></div>
 {% endblock %}

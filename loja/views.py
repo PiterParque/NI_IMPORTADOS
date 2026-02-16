@@ -9,6 +9,8 @@ from datetime import date
 import json
 from django.http import JsonResponse
 from decimal import Decimal
+from django.contrib.auth import login
+
 
 # Create your views here.
 def index(request):
@@ -17,11 +19,15 @@ def index(request):
         .filter(ativo=True, estoque__gt=0)
         .order_by('-data_cadastro')[:10]
     )
+    usuario=None
+    if request.user.is_authenticated:
+        usuario=request.user
 
     return render(
         request,
         "loja/static/html/inicio/index.html",
-        {"produtos": produtos}
+        {"produtos": produtos,
+         "usuario":usuario}
     )
 def produto(request,slug):
     produto_principal=Produto.objects.filter(slug=slug).first()
@@ -57,61 +63,44 @@ def logon_validation(request):
 def criar_conta(request):
     return render(request,'./loja/static/html/perfil/criar_conta.html')
 def perfil(request):
-    usuario_id = request.session.get('usuario_id')
+    usuario_id = request.user
+    usuario=Usuario.objects.filter(auth_user_id=usuario_id).first()
+    id_user_loja=usuario.id
 
-    usuario=Usuario.objects.filter(id=usuario_id).first()
     return render(request,'./loja/static/html/perfil/perfil.html',{"cliente":usuario})
 def dados_pessoais(request):
-    usuario_id = request.session.get('usuario_id')
-
-
-
-    usuario = Usuario.objects.filter(id=usuario_id).first()
-
-
-
-    # 🔹 SE FOR POST → SALVAR DADOS
+    usuario = Usuario.objects.get(auth_user_id=request.user)
+    
     if request.method == "POST":
-        usuario.nome = request.POST.get("nome")
-        usuario.CPF = request.POST.get("cpf")
-        usuario.telefone = request.POST.get("telefone")
-        usuario.data_nascimento = request.POST.get("data_nascimento")
+        try:
+            usuario.nome=request.POST.get("nome")
+            usuario.CPF=request.POST.get("CPF")
+            usuario.genero=request.POST.get("genero")
+            data_nascimento=request.POST.get("data_nascimento")
+            if data_nascimento != "":
+              usuario.data_nascimento=data_nascimento
+            usuario.save()
+            messages.success(request, "Dados atualizados com sucesso!")
+            return redirect("dados_pessoais") 
+        except:
+            messages.error(request, "Erro ao atualizar os dados.")
+            return redirect("dados_pessoais")
+        
 
-        genero = request.POST.get("GENERO")
-        genero_outro = request.POST.get("genero_outro")
-        usuario.email = request.POST.get("email")
 
-        if genero == "OUTRO" and genero_outro:
-            usuario.genero = genero_outro
-        else:
-            usuario.genero = genero
-
-        # Se quiser permitir alterar email futuramente
-        # usuario.email = request.POST.get("email")
-
-        usuario.save()
-
-        messages.success(request, "Dados atualizados com sucesso!")
-
-        return redirect("dados_pessoais")  # evita reenvio do formulário
-
+       
+   
     return render(
         request,
         "./loja/static/html/perfil/dados_pessoais.html",
         {"cliente": usuario}
     )
 def endereco(request):
-    usuario_id = request.session.get('usuario_id')
-
-
-
-    usuario = Usuario.objects.filter(id=usuario_id).first()
-
+    usuario = Usuario.objects.filter(auth_user_id=request.user).first()
 
     if request.method == "POST":
         acao = request.POST.get("acao")
 
-        # 🔹 ADICIONAR
         if acao == "adicionar":
             Endereco.objects.create(
                 user=usuario,
@@ -119,29 +108,28 @@ def endereco(request):
                 cep=request.POST.get("cep")
             )
 
-        # 🔹 ATUALIZAR
         elif acao == "editar":
             endereco_id = request.POST.get("endereco_id")
-            endereco = Endereco.objects.filter(id=endereco_id, user=usuario).first()
+            endereco_obj = Endereco.objects.filter(id=endereco_id, user=usuario).first()
 
-            if endereco:
-                endereco.endereco = request.POST.get("endereco")
-                endereco.cep = request.POST.get("cep")
-                endereco.save()
+            if endereco_obj:
+                endereco_obj.endereco = request.POST.get("endereco")
+                endereco_obj.cep = request.POST.get("cep")
+                endereco_obj.save()
 
-        # 🔹 DELETAR
         elif acao == "deletar":
             endereco_id = request.POST.get("endereco_id")
             Endereco.objects.filter(id=endereco_id, user=usuario).delete()
 
-        return redirect("endereco")
+        # 🔥 AQUI MUDA TUDO
+        return JsonResponse({"status": "ok"})
 
     enderecos = Endereco.objects.filter(user=usuario)
 
     return render(
         request,
         "./loja/static/html/perfil/endereco.html",
-        {"enderecos": enderecos,"cliente":usuario}
+        {"enderecos": enderecos, "cliente": usuario}
     )
 
 def notificacao(request):

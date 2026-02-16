@@ -15,7 +15,7 @@
     <aside class="perfil-menu">
         <h2>Minha Conta</h2>
         <ul>
-            <li><a href="{% url 'perfil' %}">Perfil</a></li>
+            
             <li><a href="{% url 'pedidos' %}">Pedidos</a></li>
             <li><a href="{% url 'notificacao' %}">Notificações</a></li>
             <li><a href="{% url 'endereco' %}">Endereços</a></li>
@@ -27,6 +27,7 @@
     <!-- CONTEÚDO -->
     <main class="perfil-conteudo">
         {% block conteudo %}
+        <h1>OLA {{cliente}}</h1>
         {% endblock %}
     </main>
 
