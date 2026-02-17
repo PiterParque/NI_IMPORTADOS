@@ -1,55 +1,32 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
-    <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
-</head>
-<body>
+<!-- OVERLAY -->
+<div id="overlay-carrinho" class="carrinho-overlay"></div>
 
-<div class="carrinho-container">
+<!-- CARRINHO LATERAL -->
+<aside id="carrinho-lateral" class="carrinho-lateral">
 
-    <h1>Meu Carrinho</h1>
+  <!-- HEADER -->
+  <div class="carrinho-header">
+    <h2>Meu Carrinho</h2>
+    <button type="button" id="fechar-carrinho" class="fechar-carrinho" name="fechar-carrinho" aria-label="Fechar carrinho">
+      ✕
+    </button>
+  </div>
 
-    <!-- ITEM -->
-    <div class="carrinho-item">
-        <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Produto">
+  <!-- ITENS (JS PREENCHE AQUI) -->
+  <div class="carrinho-itens" id="carrinho-itens">
+    <!-- Produtos inseridos dinamicamente -->
+  </div>
 
-        <div class="item-info">
-            <h3>Perfume Importado X</h3>
-            <p>Quantidade: 1</p>
-        </div>
+  <!-- FOOTER -->
+  <div class="carrinho-footer">
+    <p class="carrinho-total">
+      Total: <strong id="carrinho-total">R$ 0,00</strong>
+    </p>
 
-        <div class="item-preco">
-            <p>R$ 299,90</p>
-            <button class="remover">Remover</button>
-        </div>
-    </div>
+    <a href="" class="btn-finalizar">
+      Finalizar compra
+    </a>
+  </div>
 
-    <!-- ITEM -->
-    <div class="carrinho-item">
-        <img src="{% static 'imagens/perfumes_2.jpg' %}" alt="Produto">
-
-        <div class="item-info">
-            <h3>Perfume Importado Y</h3>
-            <p>Quantidade: 2</p>
-        </div>
-
-        <div class="item-preco">
-            <p>R$ 499,90</p>
-            <button class="remover">Remover</button>
-        </div>
-    </div>
-
-    <!-- RESUMO -->
-    <div class="resumo">
-        <p>Total: <strong>R$ 799,80</strong></p>
-        <button class="finalizar">Finalizar Compra</button>
-    </div>
-
-</div>
-
-</body>
-</html>
+</aside>

@@ -66,20 +66,17 @@
       {% endif %}
     </p>
 
-    <form method="post" action="{% url 'adicionar_carrinho' %}">
-      {% csrf_token %}
-      <input type="hidden" name="produto_id" value="{{ produto_principal.id }}">
-
+    <div>
+    
       <button
-        type="submit"
-        class="btn-comprar btn-add-carrinho"
-        data-id="{{ produto.id }}"
-        {% if produto_principal.estoque == 0 %}disabled{% endif %}
-      >
+        type="button"
+        class="btn-comprar btn-add"
+        data-id="{{ produto_principal.id }}"
+        {% if produto_principal.estoque == 0 %}disabled{% endif %}>
         <i class="fa-solid fa-cart-shopping"></i>
         Adicionar ao carrinho
       </button>
-    </form>
+    </div>
 
   </div>
 
@@ -127,5 +124,5 @@ function trocarImagem(src) {
   document.getElementById("imgPrincipal").src = src;
 }
 </script>
-
+<script src="{% static 'javascript/carrinho.js' %}"></script>
 {% endblock %}

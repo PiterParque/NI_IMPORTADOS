@@ -1,180 +1,131 @@
-// ====== CARRINHO (VARIÁVEL GLOBAL) ======
-let carrinho = {};
+document.addEventListener("DOMContentLoaded", function () {
 
-// ====== FUNÇÕES GLOBAIS ======
-function abrirCarrinho() {
-    document.getElementById("carrinho-lateral").classList.add("ativo");
-    document.getElementById("overlay").style.display = "block";
+    const botoes = document.querySelectorAll(".btn-add");
+
+    if (botoes.length === 0) {
+        console.warn("Nenhum botão .btn-add encontrado");
+        return;
+    }
+
+    botoes.forEach(botao => {
+        botao.addEventListener("click", function () {
+
+            const produtoId = this.dataset.id;
+
+            if (!produtoId) {
+                console.error("ID do produto não encontrado");
+                return;
+            }
+
+            adicionarCarrinho(produtoId);
+        });
+    });
+
+});
+
+
+async function adicionarCarrinho(produtoId) {
+
+    const formData = new FormData();
+    formData.append("produto_id", produtoId);
+
+    try {
+
+        const response = await fetch("/adicionar_carrinho/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+
+        console.log("Produto adicionado:", data);
+
+        // 🔥 ESSA LINHA ESTAVA FALTANDO
+        if (data.status === "sucesso") {
+            atualizarCarrinho(data.carrinho);
+        }
+
+    } catch (error) {
+        console.error("Erro ao adicionar no carrinho:", error);
+    }
 }
 
-function fecharCarrinho() {
-    document.getElementById("carrinho-lateral").classList.remove("ativo");
-    document.getElementById("overlay").style.display = "none";
-}
+function atualizarCarrinho(carrinho) {
 
-// ====== ATUALIZA CARRINHO ======
-function atualizarCarrinho() {
-    const conteudo = document.querySelector(".carrinho-conteudo");
-    const totalSpan = document.getElementById("total");
-    conteudo.innerHTML = "";
+    const container = document.getElementById("carrinho-itens");
+    const totalElemento = document.getElementById("carrinho-total");
+
+    if (!container || !totalElemento) return;
+
+    container.innerHTML = ""; // limpa antes de recriar
 
     let total = 0;
 
-    if (Object.keys(carrinho).length === 0) {
-        conteudo.innerHTML = `<p class="carrinho-vazio">Seu carrinho está vazio</p>`;
-        totalSpan.innerText = "0.00";
+    // Verifica se o carrinho está vazio
+    if (!carrinho || Object.keys(carrinho).length === 0) {
+        container.innerHTML = "<p class='carrinho-vazio'>Seu carrinho está vazio</p>";
+        totalElemento.textContent = "R$ 0,00";
         return;
     }
 
-    Object.entries(carrinho).forEach(([id, item]) => {
-        const preco = parseFloat(item.preco) || 0;
-        const subtotal = item.quantidade * preco;
+    for (let id in carrinho) {
+
+        const item = carrinho[id];
+
+        const subtotal = item.preco * item.quantidade;
         total += subtotal;
 
-        conteudo.innerHTML += `
-            <div class="item-carrinho">
-                <p><strong>${item.nome || "Produto"}</strong></p>
+        const divItem = document.createElement("div");
+        divItem.classList.add("item");
 
-                <div class="controle-quantidade">
-                    <button class="btn-qty" onclick="alterarQuantidade('${id}', -1)">−</button>
-                    <span class="qtd">${item.quantidade}</span>
-                    <button class="btn-qty" onclick="alterarQuantidade('${id}', 1)">+</button>
-                    <button class="btn-remover" onclick="removerItem('${id}')">x</button>
-                </div>
-
-                <p>Subtotal: R$ ${subtotal.toFixed(2)}</p>
+        divItem.innerHTML = `
+            <img src="${item.imagem}" alt="${item.nome}">
+            <div class="info">
+                <p class="nome-produto">${item.nome}</p>
+                <p>Qtd: ${item.quantidade}</p>
+                <span class="subtotal">
+                    ${subtotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                </span>
+                <button class="remover-item" data-id="${id}">
+                    Remover
+                </button>
             </div>
         `;
+
+        container.appendChild(divItem);
+    }
+
+    totalElemento.textContent = total.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
     });
-
-    totalSpan.innerText = total.toFixed(2);
 }
-
-// ====== ALTERAR QUANTIDADE ======
-function alterarQuantidade(id, valor) {
-    if (!carrinho[id]) return;
-
-    carrinho[id].quantidade += valor;
-
-    if (carrinho[id].quantidade <= 0) {
-        delete carrinho[id];
-    }
-
-    atualizarCarrinho();
-}
-
-// ====== REMOVER ITEM ======
-function removerItem(id) {
-    if (carrinho[id]) {
-        delete carrinho[id];
-        atualizarCarrinho();
-    }
-}
-
-// ====== ADICIONAR PRODUTO ======
-document.addEventListener("click", (e) => {
-    const botao = e.target.closest(".button_carrinho");
-    if (!botao) return;
-
-    const id = botao.dataset.produtoId;
-    const nome = botao.dataset.produtoNome || "Produto";
-    const preco = parseFloat(botao.dataset.produtoPreco) || 0;
-
-    if (carrinho[id]) {
-        carrinho[id].quantidade += 1;
-    } else {
-        carrinho[id] = {
-            nome: nome,
-            preco: preco,
-            quantidade: 1
-        };
-    }
-
-    atualizarCarrinho();
-    abrirCarrinho();
-});
-
-// ====== EVENTOS DO CARRINHO ======
 document.addEventListener("DOMContentLoaded", () => {
-    const btnAbrir = document.querySelector(".fa-cart-shopping");
-    const btnFechar = document.getElementById("fechar-carrinho");
-    const overlay = document.getElementById("overlay");
 
-    if (btnAbrir) btnAbrir.addEventListener("click", abrirCarrinho);
-    if (btnFechar) btnFechar.addEventListener("click", fecharCarrinho);
-    if (overlay) overlay.addEventListener("click", fecharCarrinho);
+    const botaoCarrinho = document.querySelector(".carrinho");
+    const carrinho = document.getElementById("carrinho-lateral");
+    const overlay = document.getElementById("overlay-carrinho");
+    const fechar = document.getElementById("fechar-carrinho");
 
-    // Inicializa carrinho se houver dados no sessionStorage
-    const data = sessionStorage.getItem("carrinho");
-    if (data) {
-        carrinho = JSON.parse(data);
-        atualizarCarrinho();
-    }
-});
-
-// ====== SALVA CARRINHO NO SESSION STORAGE ======
-function salvarCarrinho() {
-    sessionStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-// Sempre que atualizar o carrinho, salva
-const observer = new MutationObserver(salvarCarrinho);
-observer.observe(document.querySelector(".carrinho-conteudo"), { childList: true, subtree: true });
-function finalizarCompra() {
-    if (Object.keys(carrinho).length === 0) {
-        alert("Seu carrinho está vazio");
-        return;
-    }
-
-    fetch("/salvar-carrinho/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
-        },
-        body: JSON.stringify(carrinho)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            window.location.href = "/detalhes_pedido/";
-        } else {
-            alert("Erro ao processar carrinho");
-        }
-    })
-    .catch(() => alert("Erro de conexão"));
-}
-document.querySelectorAll(".btn-add-carrinho").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const produtoId = btn.dataset.id;
-
-        fetch("/carrinho/adicionar/", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken"),
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `produto_id=${produtoId}`
-        })
-        .then(res => res.json())
-        .then(data => {
-            atualizarCarrinho(data.carrinho);
-            document.getElementById("carrinho-lateral").classList.add("ativo");
-            document.getElementById("overlay-carrinho").classList.add("ativo");
-        });
+    botaoCarrinho.addEventListener("click", (e) => {
+        e.preventDefault();
+        carrinho.classList.add("ativo");
+        overlay.classList.add("ativo");
     });
-});
 
-// CSRF
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(";").forEach(cookie => {
-            cookie = cookie.trim();
-            if (cookie.startsWith(name + "=")) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            }
-        });
+    fechar.addEventListener("click", fecharCarrinho);
+    overlay.addEventListener("click", fecharCarrinho);
+
+    function fecharCarrinho() {
+        carrinho.classList.remove("ativo");
+        overlay.classList.remove("ativo");
     }
-    return cookieValue;
-}
+
+});

@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.views.decorators.http import require_POST
 from .models import Produto,Categoria,Usuario,ImagemProduto,Endereco,Notificacao,Pedido
 from django.core.files.base import ContentFile
 from django.db.models import Q
@@ -22,7 +23,6 @@ def index(request):
     usuario=None
     if request.user.is_authenticated:
         usuario=request.user
-
     return render(
         request,
         "loja/static/html/inicio/index.html",
@@ -166,65 +166,39 @@ def produtos(request):
         'produtos': produtos_,
         'imagens_produtos': imagens_produtos
     })
+@require_POST
+def adicionar_carrinho(request):
 
-def adicionar_ao_carrinho(request):
-    if request.method == "POST":
-        produto_id = request.POST.get("produto_id")
-        produto = get_object_or_404(Produto, id=produto_id)
+    produto_id = request.POST.get("produto_id")
 
-        carrinho = request.session.get("carrinho", {})
+    if not produto_id:
+        return JsonResponse({"erro": "Produto não enviado"}, status=400)
 
-        if str(produto_id) in carrinho:
-            carrinho[str(produto_id)]["quantidade"] += 1
-        else:
-            carrinho[str(produto_id)] = {
-                "nome": produto.nome,
-                "preco": float(produto.preco_promocional or produto.preco),
-                "imagem": produto.imagem_principal.url if produto.imagem_principal else "",
-                "quantidade": 1,
-            }
+    try:
+        produto = Produto.objects.get(id=produto_id)
+    except Produto.DoesNotExist:
+        return JsonResponse({"erro": "Produto não encontrado"}, status=404)
 
-        request.session["carrinho"] = carrinho
-        request.session.modified = True
-
-        return JsonResponse({"status": "ok", "carrinho": carrinho})
-    
-
-def salvar_carrinho(request):
-    if request.method == "POST":
-        carrinho = json.loads(request.body)
-
-        request.session["carrinho"] = carrinho
-        request.session.modified = True
-
-        return JsonResponse({"ok": True})
-
-    return JsonResponse({"ok": False})
-def detalhes_pedido(request):
+    # Pega o carrinho da sessão
     carrinho = request.session.get("carrinho", {})
-    itens = []
-    total = Decimal("0.00")
-    usuario_id = request.session.get('usuario_id')
-    user=Usuario.objects.filter(id=usuario_id).first()
-    enderecos_entrega=Endereco.objects.filter(user=user).values()
-    
 
-    for id, item in carrinho.items():
-        produto = Produto.objects.get(id=id)
-        subtotal = produto.preco * item["quantidade"]
+    # Se já existir no carrinho, soma quantidade
+    if produto_id in carrinho:
+        carrinho[produto_id]["quantidade"] += 1
+    else:
+        carrinho[produto_id] = {
+        "nome": produto.nome,
+        "preco": float(produto.preco),
+        "quantidade": 1,
+        "imagem": produto.imagem_principal.url if produto.imagem_principal else ""
+    }
 
-        itens.append({
-            "imagem_principal":produto.imagem_principal,
-            "nome": produto.nome,
-            "quantidade": item["quantidade"],
-            "preco": produto.preco,
-            "subtotal": subtotal,
-        })
 
-        total += subtotal
+    # Salva novamente na sessão
+    request.session["carrinho"] = carrinho
+    request.session.modified = True
 
-    return render(request, "./loja/static/html/inicio/detalhes_pedido.html", {
-        "itens": itens,
-        "total": total,
-         "enderecos_entrega":enderecos_entrega,
-    })
+    return JsonResponse({
+        "status": "sucesso",
+        "carrinho": carrinho
+    })                      

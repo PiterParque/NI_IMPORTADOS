@@ -86,28 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-document.addEventListener("DOMContentLoaded", () => {
 
-    const botaoCarrinho = document.querySelector(".carrinho");
-    const carrinho = document.getElementById("carrinho-lateral");
-    const overlay = document.getElementById("overlay-carrinho");
-    const fechar = document.getElementById("fechar-carrinho");
-
-    botaoCarrinho.addEventListener("click", (e) => {
-        e.preventDefault();
-        carrinho.classList.add("ativo");
-        overlay.classList.add("ativo");
-    });
-
-    fechar.addEventListener("click", fecharCarrinho);
-    overlay.addEventListener("click", fecharCarrinho);
-
-    function fecharCarrinho() {
-        carrinho.classList.remove("ativo");
-        overlay.classList.remove("ativo");
-    }
-
-});
 document.querySelectorAll(".btn-add-carrinho").forEach(btn => {
     btn.addEventListener("click", () => {
         const produtoId = btn.dataset.id;

@@ -13,10 +13,8 @@ urlpatterns=[
     path('perfil/endereco',views.endereco,name="endereco"),
     path('perfil/pedidos/',views.pedidos,name="pedidos"),
     path('perfil/notificacao',views.notificacao,name="notificacao"),
-    path("carrinho/adicionar/", views.adicionar_ao_carrinho, name="adicionar_carrinho"),
+    path("adicionar_carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
     path('sair/', views.sair, name='logout'),
-    path("salvar-carrinho/", views.salvar_carrinho, name="salvar_carrinho"),
-    path("detalhes_pedido/", views.detalhes_pedido, name="detalhes_pedido"),
     path('accounts/', include('allauth.urls')),
     
 ]

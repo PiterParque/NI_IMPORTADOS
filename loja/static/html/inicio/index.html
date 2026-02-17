@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NL Importados</title>
         <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-        <script src="{% static 'javascript/index.js' %}"></script>
+        
         
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -135,33 +135,9 @@
        </footer>
        <!-- OVERLAY -->
 <div id="overlay-carrinho"></div>
-
-<!-- CARRINHO LATERAL -->
-<div id="carrinho-lateral">
-
-  <div class="carrinho-header">
-    <h2>Meu Carrinho</h2>
-    <button id="fechar-carrinho">✕</button>
-  </div>
-
-  <div class="carrinho-itens" id="carrinho-itens">
-
-    <div class="item">
-      <img src="{% static 'imagens/perfumes_1.jpg' %}">
-      <div class="info">
-        <p>Perfume Importado</p>
-        <span>R$ 299,90</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="carrinho-footer">
-    <p>Total: <strong>R$ 299,90</strong></p>
-    <a href="#" class="btn-finalizar">Finalizar compra</a>
-  </div>
-
-</div>
+{% include "./carrinho.html" %}
+<script src="{% static 'javascript/index.js' %}"></script>
+<script src="{% static 'javascript/carrinho.js' %}"></script>
 
     </body>
             
