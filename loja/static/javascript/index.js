@@ -121,27 +121,3 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-function atualizarCarrinho(carrinho) {
-    const container = document.getElementById("carrinho-itens");
-    container.innerHTML = "";
-
-    let total = 0;
-
-    Object.values(carrinho).forEach(item => {
-        total += item.preco * item.quantidade;
-
-        container.innerHTML += `
-            <div class="item">
-                <img src="${item.imagem}">
-                <div class="info">
-                    <p>${item.nome}</p>
-                    <span>R$ ${item.preco.toFixed(2)}</span>
-                    <small>Qtd: ${item.quantidade}</small>
-                </div>
-            </div>
-        `;
-    });
-
-    document.querySelector(".carrinho-footer strong").innerText =
-        `R$ ${total.toFixed(2)}`;
-}

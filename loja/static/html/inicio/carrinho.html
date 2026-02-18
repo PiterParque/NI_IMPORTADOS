@@ -1,4 +1,5 @@
 {% load static %}
+
 <!-- OVERLAY -->
 <div id="overlay-carrinho" class="carrinho-overlay"></div>
 
@@ -8,14 +9,14 @@
   <!-- HEADER -->
   <div class="carrinho-header">
     <h2>Meu Carrinho</h2>
-    <button type="button" id="fechar-carrinho" class="fechar-carrinho" name="fechar-carrinho" aria-label="Fechar carrinho">
+    <button type="button" onclick="fecharCarrinho()">
       ✕
     </button>
   </div>
 
-  <!-- ITENS (JS PREENCHE AQUI) -->
+  <!-- ITENS -->
   <div class="carrinho-itens" id="carrinho-itens">
-    <!-- Produtos inseridos dinamicamente -->
+    <p class="carrinho-vazio">Seu carrinho está vazio</p>
   </div>
 
   <!-- FOOTER -->
@@ -24,7 +25,7 @@
       Total: <strong id="carrinho-total">R$ 0,00</strong>
     </p>
 
-    <a href="" class="btn-finalizar">
+    <a href="{% url 'chekout' %}" class="btn-finalizar">
       Finalizar compra
     </a>
   </div>

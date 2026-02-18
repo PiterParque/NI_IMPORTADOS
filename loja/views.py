@@ -201,4 +201,9 @@ def adicionar_carrinho(request):
     return JsonResponse({
         "status": "sucesso",
         "carrinho": carrinho
-    })                      
+    })
+def chekout(request):
+    if not request.user.is_authenticated:
+        redirect("google")
+        
+    return render(request,"./loja/static/html/chekout/chekout.html")            

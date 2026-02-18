@@ -1,31 +1,38 @@
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* BODY */
 body {
-    background: black url("../imagens/logo_fundo.png") no-repeat center/cover;
+    background: black url("../imagens/logo_fundo.png") no-repeat center center fixed;
+    background-size: cover;
     color: #C1A675;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
 }
 
-/* CONTAINER */
+/* ================= PERFIL LAYOUT ================= */
+
 .perfil-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* MENU */
+/* MENU LATERAL */
 .perfil-menu {
     width: 250px;
     background: #2B1E14;
     padding: 30px 20px;
+    border-right: 1px solid #3A2A1A;
 }
 
 .perfil-menu h2 {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 20px;
+    color: #F5E6B8;
 }
 
 .perfil-menu ul {
@@ -40,61 +47,96 @@ body {
     color: #F5E6B8;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .perfil-menu a:hover {
     color: #C1A675;
+    padding-left: 5px;
 }
 
 /* CONTEÚDO */
 .perfil-conteudo {
     flex: 1;
     padding: 40px;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.85);
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .card {
     background: #111;
     border: 1px solid #3A2A1A;
     border-radius: 10px;
-    padding: 20px;
+    padding: 25px;
     margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 
-/* FORM */
+/* ================= FORM ================= */
+
 .form-perfil {
     max-width: 500px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .form-perfil input,
 .form-perfil select {
-    padding: 10px;
+    padding: 12px;
     border-radius: 6px;
     border: 1px solid #3A2A1A;
     background: #111;
     color: #F5E6B8;
+    outline: none;
+    transition: 0.3s;
 }
 
-/* BOTÕES */
+.form-perfil input:focus,
+.form-perfil select:focus {
+    border-color: #C1A675;
+    box-shadow: 0 0 5px #C1A675;
+}
+
+/* ================= BOTÕES ================= */
+
 .btn {
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: 15px;
+    padding: 12px;
     background: #2B1E14;
     color: #F5E6B8;
-    border: none;
+    border: 1px solid #3A2A1A;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .btn:hover {
     background: #3A2A1A;
+    transform: translateY(-2px);
 }
 
 .btn-add {
     margin-top: 20px;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media (max-width: 900px) {
+
+    .perfil-container {
+        flex-direction: column;
+    }
+
+    .perfil-menu {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #3A2A1A;
+    }
+
+    .perfil-conteudo {
+        padding: 20px;
+    }
 }

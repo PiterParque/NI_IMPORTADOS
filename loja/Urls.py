@@ -14,6 +14,7 @@ urlpatterns=[
     path('perfil/pedidos/',views.pedidos,name="pedidos"),
     path('perfil/notificacao',views.notificacao,name="notificacao"),
     path("adicionar_carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
+    path("chekout/",views.chekout,name="chekout"),
     path('sair/', views.sair, name='logout'),
     path('accounts/', include('allauth.urls')),
     
