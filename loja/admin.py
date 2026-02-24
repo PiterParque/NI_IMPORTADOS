@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produto, Categoria ,Usuario,ImagemProduto,Endereco
+from .models import Produto, Categoria ,Usuario,ImagemProduto,Endereco,Pedido,ItemPedido
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
@@ -32,3 +32,28 @@ class ImagemProdutoAdmin(admin.ModelAdmin):
 @admin.register(Endereco)
 class ImagemProdutoAdmin(admin.ModelAdmin):
     list_display=('user','endereco','cep')
+class ItemPedidoInline(admin.TabularInline):
+    model = ItemPedido
+    extra = 0  # não mostra linhas vazias extras
+
+@admin.register(Pedido)
+class PedidosAdmin(admin.ModelAdmin):
+    list_display = (
+        'numero_pedido',
+        'cliente',
+        'listar_itens',
+        'data_pedido',
+        'status',
+        'valor_total'
+    )
+
+    list_filter = ('status', 'data_pedido')
+    search_fields = ('numero_pedido', 'cliente__nome')
+    inlines = [ItemPedidoInline]
+
+    def listar_itens(self, obj):
+        return ", ".join(
+            [f"{item.quantidade}x {item.perfume.nome}" for item in obj.itens.all()]
+        )
+
+    listar_itens.short_description = "Produtos"
