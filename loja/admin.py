@@ -9,6 +9,15 @@ class ProdutoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('nome',)}  # gera o slug automaticamente no admin
     ordering = ('nome',)
     list_editable = ('ativo',)
+     
+    def has_add_permission(self, request):
+        return request.user.has_perm('loja.add_produto')
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.has_perm('loja.change_produto')
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.has_perm('loja.delete_produto')
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):

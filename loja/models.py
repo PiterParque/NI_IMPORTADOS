@@ -50,7 +50,10 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
-
+    class Meta:
+        permissions = [
+            ("aplicar_desconto", "Pode aplicar desconto em produto"),
+        ]
 
 class ImagemProduto(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, related_name='imagens')
