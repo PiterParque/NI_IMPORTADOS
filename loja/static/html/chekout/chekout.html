@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chekout</title>
+</head>
+<body>
+    <link rel="stylesheet" href="{% static 'css/chekout.css' %}">
+
+<div class="checkout-container">
+    <h1 class="checkout-title">Checkout</h1>
+  {% if carrinho %}
+        <div class="checkout-list">
+            {% for id, item in carrinho.items %}
+                <div class="checkout-item">
+                    <img src="{{ item.imagem }}" alt="{{ item.nome }}" class="checkout-img">
+                    <div class="checkout-info">
+                        <span class="checkout-nome">{{ item.nome }}</span>
+                        <span class="checkout-qtd">Qtd: {{ item.quantidade }}</span>
+                        <span class="checkout-preco">Preço: R$ {{ item.preco|floatformat:2 }}</span>
+                        <span class="checkout-subtotal">
+                            Subtotal: R$ {{ item.preco|floatformat:2|add:item.quantidade }}
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="checkout-total">
+            <strong>Total: R$ 
+             Total: R$ {{ total|floatformat:2 }}
+            </strong>
+        </div>
+        <a href="#" class="btn-finalizar">Finalizar Compra</a>
+    {% else %}
+        <p class="carrinho-vazio">Seu carrinho está vazio.</p>
+    {% endif %}
+</div>
+    
+</body>
+</html>

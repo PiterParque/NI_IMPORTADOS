@@ -1,0 +1,145 @@
+body {
+    background-color: black;
+    background-image: url("../imagens/logo_fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-content: center;
+    justify-content: center;
+}
+/* CONTAINER PRINCIPAL */
+.checkout-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #3A2A1A;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+    color: #F5E6B8;
+}
+
+/* TÍTULO */
+.checkout-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #C1A675;
+}
+
+/* LISTA */
+.checkout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ITEM */
+.checkout-item {
+    display: flex;
+    gap: 20px;
+    background: #111;
+    border: 1px solid #3A2A1A;
+    padding: 15px;
+    border-radius: 10px;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.checkout-item:hover {
+    background: #181818;
+}
+
+/* IMAGEM */
+.checkout-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #3A2A1A;
+}
+
+/* INFORMAÇÕES */
+.checkout-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.checkout-nome {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #D9B382;
+}
+
+.checkout-qtd,
+.checkout-preco {
+    font-size: 0.95rem;
+}
+
+.checkout-subtotal {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* TOTAL */
+.checkout-total {
+    text-align: right;
+    font-size: 1.4rem;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #3A2A1A;
+    color: #C1A675;
+}
+
+/* BOTÃO */
+.btn-finalizar {
+    display: block;
+    margin: 30px auto 0;
+    text-align: center;
+    background: #2B1E14;
+    color: #F5E6B8;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    width: 250px;
+}
+
+.btn-finalizar:hover {
+    background: #3A2A1A;
+    transform: translateY(-2px);
+}
+
+/* CARRINHO VAZIO */
+.carrinho-vazio {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 40px;
+    color: #C1A675;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .checkout-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .checkout-img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .checkout-total {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .btn-finalizar {
+        width: 100%;
+    }
+}

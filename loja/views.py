@@ -65,7 +65,7 @@ def criar_conta(request):
 def perfil(request):
     usuario_id = request.user
     usuario=Usuario.objects.filter(auth_user_id=usuario_id).first()
-    id_user_loja=usuario.id
+    
 
     return render(request,'./loja/static/html/perfil/perfil.html',{"cliente":usuario})
 def dados_pessoais(request):
@@ -204,6 +204,12 @@ def adicionar_carrinho(request):
     })
 def chekout(request):
     if not request.user.is_authenticated:
-        redirect("google")
-        
-    return render(request,"./loja/static/html/chekout/chekout.html")            
+        return redirect("/accounts/")
+    carrinho = request.session.get("carrinho", {})
+  # Calcula o total
+    total = sum(item["preco"] * item["quantidade"] for item in carrinho.values())
+    return render(
+        request,
+        "./loja/static/html/chekout/chekout.html",
+        {"carrinho": carrinho, "total": total}
+    )          
