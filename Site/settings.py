@@ -34,9 +34,8 @@ INSTALLED_APPS = [
     "allauth.usersessions",
 
     "loja",
-    "administracao_loja",
     "accounts",
-    
+    "jazzmin",
 ]
 
 MIDDLEWARE = [
@@ -69,7 +68,15 @@ TEMPLATES = [
         },
     },
 ]
+JAZZMIN_SETTINGS = {
+    "site_title": "NL Importados",
+    "site_header": "NL Administração",
+    "site_brand": "NL Store",
+    "welcome_sign": "Bem-vindo ao Painel NL",
+    "copyright": "NL Importados",
 
+    "theme": "cosmo",  # pode trocar tema
+}
 WSGI_APPLICATION = "Site.wsgi.application"
 
 # Database: SQLite em memória (somente para teste no Vercel)

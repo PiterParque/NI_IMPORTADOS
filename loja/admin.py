@@ -57,3 +57,7 @@ class PedidosAdmin(admin.ModelAdmin):
         )
 
     listar_itens.short_description = "Produtos"
+admin.site.site_header = "NL Importados - Administração"
+admin.site.site_title = "Painel NL"
+admin.site.index_title = "Bem-vindo ao painel administrativo"
+
