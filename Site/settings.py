@@ -18,6 +18,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -35,9 +36,18 @@ INSTALLED_APPS = [
 
     "loja",
     "accounts",
-    "jazzmin",
+    
 ]
-
+JAZZMIN_SETTINGS = {
+    "site_title": "NL Importados",
+    "site_header": "NL Administração",
+    "site_brand": "NL IMPORTADOS",
+    "welcome_sign": "Bem-vindo ao Painel NL",
+    "copyright": "NL Importados",
+     "custom_css": "./templates/admin/css/custom.css",
+    
+     # pode trocar tema
+}
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -68,15 +78,8 @@ TEMPLATES = [
         },
     },
 ]
-JAZZMIN_SETTINGS = {
-    "site_title": "NL Importados",
-    "site_header": "NL Administração",
-    "site_brand": "NL Store",
-    "welcome_sign": "Bem-vindo ao Painel NL",
-    "copyright": "NL Importados",
 
-    "theme": "cosmo",  # pode trocar tema
-}
+
 WSGI_APPLICATION = "Site.wsgi.application"
 
 # Database: SQLite em memória (somente para teste no Vercel)

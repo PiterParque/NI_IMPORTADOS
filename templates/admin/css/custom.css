@@ -1,10 +1,3 @@
-#header {
-    background-color: #111 !important;
-}
-
-.module h2 {
-    color: #ff4d4d !important;
-}
-a{
-    background-color: #ff4d4d;
+body{
+    background-color: rgb(255, 0, 0);
 }
