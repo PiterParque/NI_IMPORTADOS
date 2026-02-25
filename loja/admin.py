@@ -58,4 +58,3 @@ class PedidosAdmin(admin.ModelAdmin):
 
     listar_itens.short_description = "Produtos"
 
-
