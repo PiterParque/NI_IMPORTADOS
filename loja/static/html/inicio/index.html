@@ -45,6 +45,10 @@
                 <a href="{% url 'perfil' %}">
                     <i class="fa-solid fa-circle-user"></i>
                 </a>
+                <br>
+                <a href="{% url 'logout' %}">
+                   <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
             {% else %}
                 <a href="{% provider_login_url 'google' %}">
                     <i class="fa-solid fa-circle-user"></i>

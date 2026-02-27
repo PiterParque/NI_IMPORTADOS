@@ -165,5 +165,24 @@ def adicionar_carrinho(request):
 @login_required
 def checkout(request):
     carrinho = request.session.get("carrinho", {})
-    total = sum(item["preco"] * item["quantidade"] for item in carrinho.values())
-    return render(request, "./loja/static/html/chekout/chekout.html", {"carrinho": carrinho, "total": total})
+
+    total = sum(
+        item["preco"] * item["quantidade"]
+        for item in carrinho.values()
+    )
+
+    # Você já tem o usuário logado
+    usuario = request.user.id
+
+    # Busca os endereços corretamente
+    enderecos = Endereco.objects.filter(user=usuario)
+
+    return render(
+        request,
+        "./loja/static/html/chekout/chekout.html",  # caminho correto (sem ./ e sem static)
+        {
+            "carrinho": carrinho,
+            "total": total,
+            "enderecos": enderecos,
+        }
+    )
