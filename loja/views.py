@@ -166,25 +166,79 @@ def adicionar_carrinho(request):
 def checkout(request):
     carrinho = request.session.get("carrinho", {})
 
-    total = sum(
+    total_carrinho = sum(
         item["preco"] * item["quantidade"]
         for item in carrinho.values()
     )
 
-    # Você já tem o usuário logado
-    usuario = request.user.id
-    usuario=Usuario.objects.filter(auth_user=request.user.id).first()
-  
-    # Busca os endereços corretamente
+    # Usuário logado
+    usuario = Usuario.objects.filter(auth_user=request.user.id).first()
+
+    # Endereços do usuário
     enderecos = Endereco.objects.filter(user=usuario)
-    print(enderecos)
+
+    if request.method == "POST":
+        endereco_selecionado = request.POST.get("endereco_id")
+        metodo_pagamento = request.POST.get("pagamento")
+
+        # Validar
+        if not endereco_selecionado or not metodo_pagamento:
+            messages.error(request, "Escolha um endereço e método de pagamento.")
+            return redirect("checkout")
+
+        endereco = Endereco.objects.get(id=endereco_selecionado, user=usuario)
+
+        # Criar pedido
+        pedido = Pedido.objects.create(
+            cliente=usuario,
+            endereco_entrega=endereco,
+            metodo_pagamento=metodo_pagamento,
+            status='P',  # Pendente
+        )
+
+        # Adicionar itens do carrinho
+        total = 0
+        for id_item, item in carrinho.items():
+            produto = Produto.objects.get(id=id_item)
+            ItemPedido.objects.create(
+                pedido=pedido,
+                perfume=produto,
+                quantidade=item["quantidade"],
+                preco_unitario=item["preco"]
+            )
+            total += item["quantidade"] * item["preco"]
+
+        # Atualizar total
+        pedido.valor_total = total
+        pedido.save()
+
+        # Limpar carrinho
+        request.session["carrinho"] = {}
+
+        messages.success(request, f"Pedido {pedido.numero_pedido} criado com sucesso!")
+        return redirect("detalhes_pedido", pedido_id=pedido.id)
 
     return render(
         request,
-        "./loja/static/html/chekout/chekout.html",  # caminho correto (sem ./ e sem static)
+        "./loja/static/html/chekout/chekout.html",
         {
             "carrinho": carrinho,
-            "total": total,
+            "total": total_carrinho,
             "enderecos": enderecos,
+        }
+    )
+
+
+@login_required
+def detalhes_pedido(request, pedido_id):
+    pedido = Pedido.objects.get(id=pedido_id)
+    itens = pedido.itens.all()
+
+    return render(
+        request,
+        "./loja/static/html/chekout/detalhes_pedido.html",
+        {
+            "pedido": pedido,
+            "itens": itens,
         }
     )

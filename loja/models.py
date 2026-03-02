@@ -114,7 +114,7 @@ class Pedido(models.Model):
         ('F', 'Finalizado'),
         ('C', 'Cancelado'),
     ]
-
+    METODOS_PAGAMENTO=[('PIX'),('CARTÃO'),('BOLETO'),]
     #  Identificador interno seguro
     id = models.UUIDField(
         primary_key=True,
@@ -128,13 +128,21 @@ class Pedido(models.Model):
         unique=True,
         blank=True
     )
-
+    class MetodoPagamento(models.TextChoices):
+        PIX = 'pix', 'PIX'
+        CARTAO = 'cartao', 'Cartão'
+        BOLETO = 'boleto', 'Boleto'
     cliente = models.ForeignKey('Usuario', on_delete=models.CASCADE, related_name='pedidos')
     perfumes = models.ManyToManyField('Produto', through='ItemPedido')
     data_pedido = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='P')
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     endereco_entrega = models.ForeignKey('Endereco', on_delete=models.SET_NULL, null=True)
+    metodo_pagamento = models.CharField(
+        max_length=10,
+        choices=MetodoPagamento.choices,
+        default=MetodoPagamento.PIX,
+    )
 
     def gerar_numero_pedido(self):
         letras = string.ascii_uppercase

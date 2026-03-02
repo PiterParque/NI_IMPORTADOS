@@ -15,6 +15,7 @@ urlpatterns = [
     path('perfil/notificacao/', views.notificacao, name="notificacao"),
     path("adicionar_carrinho/", views.adicionar_carrinho, name="adicionar_carrinho"),
     path("checkout/", views.checkout, name="chekout"),
+    path("detalhes_pedido/<uuid:pedido_id>/", views.detalhes_pedido, name="detalhes_pedido"),
     path('sair/', views.sair, name='logout'),
     path('accounts/', include('allauth.urls')),  # se quiser usar django-allauth
 ]

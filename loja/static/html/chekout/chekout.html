@@ -26,6 +26,7 @@
                     </div>
                 </div>
             {% endfor %}
+                <strong>VALOR TOTAL :{{ total }}</strong>
         </div>
         <form method="POST">
     {% csrf_token %}
@@ -51,6 +52,7 @@
             <p>Você não possui endereços cadastrados.</p>
         {% endif %}
     </div>
+
 
     <!-- ================= PAGAMENTO ================= -->
     <div class="checkout-section">

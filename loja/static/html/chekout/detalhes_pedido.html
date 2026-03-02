@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pedido</title>
+    <link rel="stylesheet" href="{% static 'css/chekout.css' %}">
+</head>
+<body>
+
+<div class="checkout-container">
+    <h1 class="checkout-title">Detalhes do Pedido</h1>
+
+    <!-- Informações do pedido -->
+    <div class="checkout-section">
+        <h2 class="section-title">Informações do Pedido</h2>
+        <p><strong>Número do Pedido:</strong> {{ pedido.numero_pedido }}</p>
+        <p><strong>Status:</strong> {{ pedido.get_status_display }}</p>
+        <p><strong>Método de Pagamento:</strong> {{ pedido.get_metodo_pagamento_display }}</p>
+        <p><strong>Data:</strong> {{ pedido.data_pedido|date:"d/m/Y H:i" }}</p>
+    </div>
+
+    <!-- Endereço de entrega -->
+    <div class="checkout-section">
+        <h2 class="section-title">Endereço de Entrega</h2>
+        {% if pedido.endereco_entrega %}
+            <p>{{ pedido.endereco_entrega.endereco }}</p>
+            <p>CEP: {{ pedido.endereco_entrega.cep }}</p>
+        {% else %}
+            <p>Endereço não definido.</p>
+        {% endif %}
+    </div>
+
+    <!-- Itens do pedido -->
+    <div class="checkout-section">
+        <h2 class="section-title">Itens do Pedido</h2>
+        <div class="checkout-list">
+            {% for item in itens %}
+                <div class="checkout-item">
+                    <img src="{{ item.perfume.imagem.url }}" alt="{{ item.perfume.nome }}" class="checkout-img">
+                    <div class="checkout-info">
+                        <span class="checkout-nome">{{ item.perfume.nome }}</span>
+                        <span class="checkout-qtd">Qtd: {{ item.quantidade }}</span>
+                        <span class="checkout-preco">Preço unitário: R$ {{ item.preco_unitario|floatformat:2 }}</span>
+                        <span class="checkout-subtotal">Subtotal: R$ {{ item.subtotal|floatformat:2 }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="checkout-total">
+            <strong>Total: R$ {{ pedido.valor_total|floatformat:2 }}</strong>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+        <a href="{% url 'index' %}" class="btn-finalizar">Voltar para a Loja</a>
+    </div>
+</div>
+
+</body>
+</html>

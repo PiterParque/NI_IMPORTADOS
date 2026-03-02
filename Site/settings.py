@@ -120,8 +120,6 @@ USERSESSIONS_ADAPTER = "app.adapters.CustomUserSessionsAdapter"
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "loja" / "static",
-     BASE_DIR /"administracao_loja"/"static",
- 
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -145,9 +143,4 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_USERNAME_REQUIRED = False
 
