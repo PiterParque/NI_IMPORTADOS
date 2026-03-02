@@ -178,13 +178,14 @@ def checkout(request):
     enderecos = Endereco.objects.filter(user=usuario)
 
     if request.method == "POST":
+        
         endereco_selecionado = request.POST.get("endereco_id")
         metodo_pagamento = request.POST.get("pagamento")
 
         # Validar
         if not endereco_selecionado or not metodo_pagamento:
             messages.error(request, "Escolha um endereço e método de pagamento.")
-            return redirect("checkout")
+            return redirect("chekout")
 
         endereco = Endereco.objects.get(id=endereco_selecionado, user=usuario)
 

@@ -44,7 +44,6 @@ JAZZMIN_SETTINGS = {
     "site_brand": "NL IMPORTADOS",
     "welcome_sign": "Bem-vindo ao Painel NL",
     "copyright": "NL Importados",
-     "custom_css": "./templates/admin/css/custom.css",
     
      # pode trocar tema
 }
