@@ -96,8 +96,9 @@ header {
     z-index: 2000;
     transition: all 0.3s ease;
 }
-.dropdown{
+.dropdown {
     border-radius: 20px;
+    display: flex;
 }
 
 .menu li.dropdown:last-child .submenu {
@@ -115,6 +116,7 @@ header {
 
 .dropdown:hover .submenu {
     display: block;
+    
 }
 
 /* =========================
