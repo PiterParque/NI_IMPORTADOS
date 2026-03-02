@@ -121,6 +121,65 @@ body {
     padding: 40px;
     color: #C1A675;
 }
+/* SEÇÕES */
+.checkout-section {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #3A2A1A;
+}
+
+.section-title {
+    margin-bottom: 15px;
+    color: #C1A675;
+    font-size: 1.3rem;
+}
+
+/* ENDEREÇOS */
+.enderecos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.endereco-card {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background: #111;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #3A2A1A;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.endereco-card:hover {
+    background: #181818;
+}
+
+.endereco-card input {
+    margin-top: 5px;
+}
+
+/* PAGAMENTO */
+.pagamento-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pagamento-option {
+    background: #111;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #3A2A1A;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pagamento-option:hover {
+    background: #181818;
+}
 
 /* RESPONSIVO */
 @media (max-width: 768px) {

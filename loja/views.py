@@ -173,9 +173,11 @@ def checkout(request):
 
     # Você já tem o usuário logado
     usuario = request.user.id
-
+    usuario=Usuario.objects.filter(auth_user=request.user.id).first()
+  
     # Busca os endereços corretamente
     enderecos = Endereco.objects.filter(user=usuario)
+    print(enderecos)
 
     return render(
         request,

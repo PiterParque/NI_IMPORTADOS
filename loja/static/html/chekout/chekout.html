@@ -27,12 +27,57 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="checkout-total">
-            <strong>Total: R$ 
-             Total: R$ {{ total|floatformat:2 }}
-            </strong>
+        <form method="POST">
+    {% csrf_token %}
+
+    <!-- ================= ENDEREÇOS ================= -->
+    <div class="checkout-section">
+        <h2 class="section-title">Escolha o Endereço</h2>
+
+        {% if enderecos %}
+            <div class="enderecos-list">
+                {% for endereco in enderecos %}
+                    <label class="endereco-card">
+                        <input type="radio" name="endereco_id" value="{{ endereco.id }}" required>
+                        <div>
+                            <strong>{{ endereco.endereco }}</strong><br>
+                <br>
+                            CEP: {{ endereco.cep }}
+                        </div>
+                    </label>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Você não possui endereços cadastrados.</p>
+        {% endif %}
+    </div>
+
+    <!-- ================= PAGAMENTO ================= -->
+    <div class="checkout-section">
+        <h2 class="section-title">Método de Pagamento</h2>
+
+        <div class="pagamento-list">
+            <label class="pagamento-option">
+                <input type="radio" name="pagamento" value="pix" required>
+                PIX
+            </label>
+
+            <label class="pagamento-option">
+                <input type="radio" name="pagamento" value="cartao">
+                Cartão de Crédito
+            </label>
+
+            <label class="pagamento-option">
+                <input type="radio" name="pagamento" value="boleto">
+                Boleto
+            </label>
         </div>
-        <a href="#" class="btn-finalizar">Finalizar Compra</a>
+    </div>
+
+    <button type="submit" class="btn-finalizar">
+        Finalizar Compra
+    </button>
+</form>
     {% else %}
         <p class="carrinho-vazio">Seu carrinho está vazio.</p>
     {% endif %}
