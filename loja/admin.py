@@ -44,7 +44,8 @@ class PedidosAdmin(admin.ModelAdmin):
         'listar_itens',
         'data_pedido',
         'status',
-        'valor_total'
+        'valor_total',
+        
     )
 
     list_filter = ('status', 'data_pedido')
