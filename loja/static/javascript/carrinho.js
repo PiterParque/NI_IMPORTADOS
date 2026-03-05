@@ -69,9 +69,7 @@ async function adicionarCarrinho(produtoId) {
         if (data.status === "sucesso") {
             atualizarCarrinho(data.carrinho);
 
-            // abre automaticamente
-            document.getElementById("carrinho-lateral").classList.add("ativo");
-            document.getElementById("overlay-carrinho").classList.add("ativo");
+
         }
 
     } catch (error) {
