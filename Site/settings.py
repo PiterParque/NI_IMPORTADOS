@@ -66,7 +66,7 @@ SITE_ID = 1
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR,'./')],
+        "DIRS": [BASE_DIR / "templates", BASE_DIR / ""],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -118,7 +118,7 @@ USERSESSIONS_ADAPTER = "app.adapters.CustomUserSessionsAdapter"
 # Static files
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    BASE_DIR / "loja" / "static",
+    BASE_DIR  / "static",
  
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
