@@ -138,7 +138,7 @@ def produtos(request):
         imagens_produtos[produto.id] = imagens.first().imagem.url if imagens.exists() else '/static/imagens/perfumes_1.jpg'
     return render(request, "./loja/static/html/administrador/produtos.html", {'produtos': produtos_, 'imagens_produtos': imagens_produtos})
 
-@login_required
+
 @require_POST
 def adicionar_carrinho(request):
     produto_id = request.POST.get("produto_id")

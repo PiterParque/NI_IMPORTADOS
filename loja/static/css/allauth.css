@@ -101,7 +101,11 @@ input[type="submit"]:hover{
 
 /* Links */
 ul{
+    padding: 1;
+    margin: 0;
     list-style: none;
+    display: flex;
+    gap: 1%;
 }
 a{
     color:#F5E6B8;
