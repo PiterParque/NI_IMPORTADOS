@@ -1,13 +1,64 @@
-{% extends './perfil.html' %}
-
+{% extends "./perfil.html" %}
+{% load static %}
 {% block conteudo %}
+
+<link rel="stylesheet" href="{% static 'css/pedidos.css' %} ">
+
+<div class="pedidos-container">
+
 <h1>Meus Pedidos</h1>
+
 {% for pedido in pedidos %}
-<div class="card">
-   <p>{{pedidos}}</p>
+
+<div class="pedido-card">
+
+    <div class="pedido-header">
+
+        <div>
+            <strong>Pedido:</strong> {{ pedido.numero_pedido }} <br>
+            <small>{{ pedido.data_pedido|date:"d/m/Y H:i" }}</small>
+        </div>
+
+        <div class="status status-{{pedido.status}}">
+            {{ pedido.get_status_display }}
+        </div>
+
+    </div>
+
+    <p><strong>Método de pagamento:</strong> {{ pedido.get_metodo_pagamento_display }}</p>
+
+    <hr>
+
+    <h4>Itens do pedido</h4>
+
+    {% for item in pedido.itens.all %}
+
+    <div class="produto">
+
+        <div>
+            {{ item.quantidade }}x {{ item.perfume.nome }}
+        </div>
+
+        <div>
+            R$ {{ item.subtotal }}
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="total">
+        Total: R$ {{ pedido.valor_total }}
+    </div>
+
 </div>
+
 {% empty %}
-<h2>Não ha pedidos</h2>
+
+<h2>Você ainda não fez pedidos.</h2>
 
 {% endfor %}
+
+</div>
+
 {% endblock %}

@@ -1,0 +1,45 @@
+.pedidos-container{
+    max-width: 1000px;
+    margin: auto;
+}
+
+.pedido-card{
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+.pedido-header{
+    display:flex;
+    justify-content: space-between;
+    margin-bottom:15px;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.status-P{background:#fff3cd;color:#856404;}
+.status-PAGO{background:#d4edda;color:#155724;}
+.status-E{background:#cce5ff;color:#004085;}
+.status-F{background:#d1ecf1;color:#0c5460;}
+.status-C{background:#f8d7da;color:#721c24;}
+
+.produto{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
+}
+
+.total{
+    text-align:right;
+    font-weight:bold;
+    font-size:18px;
+    margin-top:10px;
+}
