@@ -111,7 +111,7 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = '/'  # ou use a URL que corresponde ao seu template
 # settings.py
 
-SOCIALACCOUNT_AUTO_SIGNUP = True
+
 USERSESSIONS_ADAPTER = "app.adapters.CustomUserSessionsAdapter"
 
 
@@ -148,4 +148,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_UNIQUE_EMAIL = True
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
