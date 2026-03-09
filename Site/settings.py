@@ -80,9 +80,8 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = "Site.wsgi.application"
+DATABASE_URL=os.getenv("DATABASE_URL")
 
-# Database: SQLite em memória (somente para teste no Vercel)
-DATABASE_URL="postgresql://neondb_owner:npg_hRnYHLI8Pl5K@ep-green-pine-aegf0im0-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 DATABASES = {
     'default': dj_database_url.config(
         default=DATABASE_URL,
