@@ -13,10 +13,20 @@ from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notifi
 # ----------------------------
 def index(request):
     produtos = Produto.objects.filter(ativo=True, estoque__gt=0).order_by('-data_cadastro')[:10]
+    marcas=[]
+    categorias=[]
+    tamanhos=[]
+    for produto in produtos:
+            marcas.append(produto.marca)
+            categorias.append(produto.categoria)
+            tamanhos.append(produto.tamanho)
     return render(
         request,
         "loja/static/html/inicio/index.html",
-        {"produtos": produtos, "usuario": request.user if request.user.is_authenticated else None}
+        {"produtos": produtos, "usuario": request.user if request.user.is_authenticated else None,
+         "marcas":marcas,
+         "categorias":categorias,
+         "tamanhos":tamanhos}
     )
 
 def produto(request, slug):

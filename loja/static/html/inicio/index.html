@@ -29,15 +29,28 @@
         <li class="dropdown">
             MARCAS
             <ul class="submenu">
-                <li>Marca A</li>
-                <li>Marca B</li>
-                <li>Marca C</li>
+                {% for marca in  marcas%}
+                  <li>{{marca}}</li>
+                {% endfor %}
             </ul>
         </li>
 
-        <li>FRAGRÂNCIA</li>
-        <li>ML</li>
-        <li>AROMAS</li>
+        <li class="dropdown">
+            CATEGORIAS
+            <ul class="submenu">
+                {% for categoria in  categorias%}
+                  <li>{{categoria}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="dropdown">
+            TAMANHOS
+            <ul class="submenu">
+                {% for tamanho in  tamanhos%}
+                  <li>{{tamanho}}</li>
+                {% endfor %}
+            </ul>
+        </li>
 
         <!-- PERFIL -->
         
