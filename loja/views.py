@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.http import JsonResponse
-from decimal import Decimal
 
 from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido
 
@@ -28,7 +27,12 @@ def index(request):
          "categorias":categorias,
          "tamanhos":tamanhos}
     )
-
+def categoria(request,categoria_id):
+    return render(request,'loja/static/html/inicio/categoria.html')
+def marca(request,marca_id):
+    return render(request,'loja/static/html/inicio/marca.html')
+def tamanho(request,tamanho_id):
+    return render(request,'loja/static/html/inicio/tamanho.html')
 def produto(request, slug):
     produto_principal = get_object_or_404(Produto, slug=slug)
     produtos = Produto.objects.filter(categoria=produto_principal.categoria).order_by('-data_cadastro')

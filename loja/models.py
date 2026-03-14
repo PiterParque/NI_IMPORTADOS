@@ -18,19 +18,31 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.nome
+class Marcas(models.Model):
+    nome = models.CharField(max_length=100)
+    slug = models.SlugField(unique=False)
+
+    def __str__(self):
+        return self.nome
+class Tamanhos(models.Model):
+    nome = models.CharField(max_length=100)
+    slug = models.SlugField(unique=False)
+
+    def __str__(self):
+        return self.nome
 
 
 class Produto(models.Model):
     nome = models.CharField(max_length=200)
     subtitulo = models.CharField(max_length=200)
     descricao = models.TextField()
-    marca = models.CharField(max_length=100)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos')
+    marca = models.ForeignKey(Marcas, on_delete=models.CASCADE, related_name='produtos',blank=True,null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos',blank=True,null=True)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     preco_promocional = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     estoque = models.PositiveIntegerField(default=0)
     sku = models.CharField(max_length=50, unique=True)
-    tamanho = models.CharField(max_length=50, blank=True, null=True)
+    tamanho = models.ForeignKey(Tamanhos, on_delete=models.CASCADE, related_name='produtos',blank=True,null=True)
     avaliacao_media = models.DecimalField(max_digits=3, decimal_places=2, default=0)
     quantidade_avaliacoes = models.PositiveIntegerField(default=0)
     ativo = models.BooleanField(default=True)

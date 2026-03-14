@@ -21,3 +21,6 @@ PyJWT==2.8.0
 whitenoise==6.11.0
 djangorestframework
 django-jazzmin
+psycopg2
+cffi
+Pillow

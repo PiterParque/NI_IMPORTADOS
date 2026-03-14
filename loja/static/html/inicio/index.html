@@ -27,19 +27,18 @@
 
     <ul class="opcoes_filtro menu">
         <li class="dropdown">
-            MARCAS
-            <ul class="submenu">
-                {% for marca in  marcas%}
-                  <li>{{marca}}</li>
-                {% endfor %}
-            </ul>
-        </li>
-
-        <li class="dropdown">
             CATEGORIAS
             <ul class="submenu">
                 {% for categoria in  categorias%}
-                  <li>{{categoria}}</li>
+                  <li> <a href="{% url 'categoria' categoria.id %}">{{categoria}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="dropdown">
+            MARCAS
+            <ul class="submenu">
+                {% for marca in  marcas%}
+                  <li> <a href="{% url 'marca' marca.id %}">{{marca}}</a></li>
                 {% endfor %}
             </ul>
         </li>
@@ -47,7 +46,7 @@
             TAMANHOS
             <ul class="submenu">
                 {% for tamanho in  tamanhos%}
-                  <li>{{tamanho}}</li>
+                <li> <a href="{% url 'tamanho' tamanho.id %}">{{tamanho}} </a></li>
                 {% endfor %}
             </ul>
         </li>
