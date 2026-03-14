@@ -2,7 +2,7 @@ html, body {
     width: 100%;
     min-height: 100%;
     margin: 0;
-    color: #C1A675;
+    color: #ffffff;
     max-width: 1000px;
 
     /* Flex para sticky footer */
@@ -101,11 +101,13 @@ input[type="submit"]:hover{
 
 /* Links */
 ul{
-    padding: 1;
+    padding: 1%;
     margin: 0;
     list-style: none;
     display: flex;
     gap: 1%;
+    display: flex;
+    flex-direction: column;
 }
 a{
     color:#F5E6B8;
