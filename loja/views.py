@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.http import JsonResponse
 
-from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido
+from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido,Marcas,Tamanhos
 
 # ----------------------------
 # PÁGINA INICIAL E PRODUTOS
@@ -28,11 +28,39 @@ def index(request):
          "tamanhos":tamanhos}
     )
 def categoria(request,categoria_id):
-    return render(request,'loja/static/html/inicio/categoria.html')
-def marca(request,marca_id):
-    return render(request,'loja/static/html/inicio/marca.html')
-def tamanho(request,tamanho_id):
-    return render(request,'loja/static/html/inicio/tamanho.html')
+    categoria = Categoria.objects.get(id=categoria_id)
+    produtos = Produto.objects.filter(categoria=categoria, ativo=True)
+
+    return render(request, 'loja/static/html/inicio/categoria.html', {
+        "categoria": categoria,
+        "produtos": produtos,
+        "categorias": Categoria.objects.all(),
+        "marcas": Marcas.objects.all(),
+        "tamanhos": Tamanhos.objects.all(),
+    })
+def marca(request, marca_id):
+    marca = Marcas.objects.get(id=marca_id)
+    produtos = Produto.objects.filter(marca=marca, ativo=True)
+
+    return render(request, "loja/static/html/inicio/marca.html", {
+        "marca": marca,
+        "produtos": produtos,
+        "categorias": Categoria.objects.all(),
+        "marcas": Marcas.objects.all(),
+        "tamanhos": Tamanhos.objects.all(),
+    })
+
+def tamanho(request, tamanho_id):
+    tamanho = Tamanhos.objects.get(id=tamanho_id)
+    produtos = Produto.objects.filter(tamanho=tamanho, ativo=True)
+
+    return render(request, "loja/static/html/inicio/tamanho.html", {
+        "tamanho": tamanho,
+        "produtos": produtos,
+        "categorias": Categoria.objects.all(),
+        "marcas": Marcas.objects.all(),
+        "tamanhos": Tamanhos.objects.all(),
+    })
 def produto(request, slug):
     produto_principal = get_object_or_404(Produto, slug=slug)
     produtos = Produto.objects.filter(categoria=produto_principal.categoria).order_by('-data_cadastro')

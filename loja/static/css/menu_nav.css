@@ -1,0 +1,45 @@
+/* =========================
+   PAGINA CATEGORIA
+============================= */
+
+.categoria-container {
+    padding: 40px;
+}
+
+.categoria-titulo {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.categoria-grid .product-card {
+    transition: transform 0.3s ease;
+}
+
+.categoria-grid .product-card:hover {
+    transform: translateY(-5px);
+}
+
+.preco.antigo {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 14px;
+}
+
+.preco.promocional {
+    color: #e63946;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sem-produtos {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 18px;
+}
