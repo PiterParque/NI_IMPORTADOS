@@ -7,7 +7,8 @@
     <title>chekout</title>
 </head>
 <body>
-    <link rel="stylesheet" href="{% static 'css/chekout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <script src="{% static 'javascript/checkout.js' %}"></script>
 
 <div class="checkout-container">
     <h1 class="checkout-title">Checkout</h1>
@@ -32,27 +33,27 @@
     {% csrf_token %}
 
     <!-- ================= ENDEREÇOS ================= -->
-    <div class="checkout-section">
-        <h2 class="section-title">Escolha o Endereço</h2>
+<div class="checkout-section" id="checkout-section">
+    <h2 class="section-title">Escolha o Endereço</h2>
 
-        {% if enderecos %}
-            <div class="enderecos-list">
-                {% for endereco in enderecos %}
-                    <label class="endereco-card">
-                        <input type="radio" name="endereco_id" value="{{ endereco.id }}" required>
-                        <div>
-                            <strong>{{ endereco.endereco }}</strong><br>
-                <br>
-                            CEP: {{ endereco.cep }}
-                        </div>
-                    </label>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>Você não possui endereços cadastrados.</p>
-            <p>Cadastre os endereços aqui <a href="{% url 'endereco' %}"></a></p>
-        {% endif %}
-    </div>
+    {% if enderecos %}
+        <div class="enderecos-list">
+            {% for endereco in enderecos %}
+                <label class="endereco-card">
+                    <input type="radio" name="endereco_id" value="{{ endereco.id }}" required>
+                    <div>
+                        <strong>{{ endereco.endereco }}</strong><br><br>
+                        CEP: {{ endereco.cep }}
+                    </div>
+                </label>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Não há endereços cadastrados</p>
+        <button class="btn btn-add" id="btn-add" onclick="adicionarDiv()">+ Adicionar novo endereço</button>
+        <div id="container"></div>
+    {% endif %}
+</div>
 
 
     <!-- ================= PAGAMENTO ================= -->
@@ -76,10 +77,11 @@
             </label>
         </div>
     </div>
-
-    <button type="submit" class="btn-finalizar">
+        
+    <button type="submit" class="btn-finalizar" >
         Finalizar Compra
     </button>
+    
 </form>
     {% else %}
         <p class="carrinho-vazio">Seu carrinho está vazio.</p>

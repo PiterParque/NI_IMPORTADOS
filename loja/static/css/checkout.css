@@ -179,7 +179,55 @@ body {
 
 .pagamento-option:hover {
     background: #181818;
+}/* BLOCO ENDEREÇO */
+.endereco {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto; /* endereço | cep | botão */
+    gap: 12px;
+
+    align-items: center;
+
+    background: #111;
+    border: 1px solid #3A2A1A;
+    border-radius: 15px;
+
+    padding: 15px 20px;
+    margin-bottom: 15px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
+
+/* INPUTS DENTRO DO ENDEREÇO */
+.endereco input {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #3A2A1A;
+    background: #000;
+    color: #F5E6B8;
+    outline: none;
+}
+
+.endereco input:focus {
+    border-color: #C1A675;
+}
+
+/* BOTÃO DENTRO DO ENDEREÇO */
+.endereco button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #2B1E14;
+    color: #F5E6B8;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.endereco button:hover {
+    background: #3A2A1A;
+    transform: scale(1.05);
+}
+
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
