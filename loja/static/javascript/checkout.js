@@ -1,4 +1,5 @@
 function adicionarDiv() {
+
     const container = document.getElementById("container");
 
     const div = document.createElement("div");
@@ -6,11 +7,13 @@ function adicionarDiv() {
 
     const inputEndereco = document.createElement("input");
     inputEndereco.type = "text";
+    inputEndereco.name = "novo_endereco";
     inputEndereco.placeholder = "Digite o endereço";
     inputEndereco.required = true;
 
     const inputCep = document.createElement("input");
     inputCep.type = "text";
+    inputCep.name = "novo_cep";
     inputCep.placeholder = "Digite o CEP";
     inputCep.required = true;
 
@@ -19,11 +22,16 @@ function adicionarDiv() {
 
     container.appendChild(div);
 
-    // Remove o botão de adicionar após criar os campos
-    const btnAdicionarEndereco = document.getElementById("btn-add");
-    const finalizar = document.getElementById("btn-finalizar");
-    
-    if (btnAdicionarEndereco) {
-        btnAdicionarEndereco.remove();
-    }
+    const btnAdicionar = document.getElementById("btn-add");
+    if (btnAdicionar) btnAdicionar.remove();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const btn = document.getElementById("btn-add");
+
+    if (btn){
+        btn.addEventListener("click", adicionarDiv);
+    }
+
+});

@@ -213,49 +213,60 @@ def checkout(request):
         for item in carrinho.values()
     )
 
-    # Usuário logado
     usuario = Usuario.objects.filter(auth_user=request.user.id).first()
-
-    # Endereços do usuário
     enderecos = Endereco.objects.filter(user=usuario)
 
     if request.method == "POST":
-        
+
         endereco_selecionado = request.POST.get("endereco_id")
+        novo_endereco = request.POST.get("novo_endereco")
+        novo_cep = request.POST.get("novo_cep")
         metodo_pagamento = request.POST.get("pagamento")
 
-        # Validar
-        if not endereco_selecionado or not metodo_pagamento:
-            messages.error(request, "Escolha um endereço e método de pagamento.")
+        # 🔹 Se usuário criou novo endereço
+        if not endereco_selecionado and novo_endereco and novo_cep:
+            endereco = Endereco.objects.create(
+                user=usuario,
+                endereco=novo_endereco,
+                cep=novo_cep
+            )
+
+        # 🔹 Se escolheu endereço existente
+        elif endereco_selecionado:
+            endereco = Endereco.objects.get(id=endereco_selecionado, user=usuario)
+
+        else:
+            messages.error(request, "Escolha ou cadastre um endereço.")
             return redirect("chekout")
 
-        endereco = Endereco.objects.get(id=endereco_selecionado, user=usuario)
+        if not metodo_pagamento:
+            messages.error(request, "Escolha um método de pagamento.")
+            return redirect("chekout")
 
-        # Criar pedido
         pedido = Pedido.objects.create(
             cliente=usuario,
             endereco_entrega=endereco,
             metodo_pagamento=metodo_pagamento,
-            status='P',  # Pendente
+            status='P'
         )
 
-        # Adicionar itens do carrinho
         total = 0
         for id_item, item in carrinho.items():
+
             produto = Produto.objects.get(id=id_item)
+
             ItemPedido.objects.create(
                 pedido=pedido,
                 perfume=produto,
                 quantidade=item["quantidade"],
                 preco_unitario=item["preco"]
             )
+
             total += item["quantidade"] * item["preco"]
 
-        # Atualizar total
         pedido.valor_total = total
         pedido.save()
 
-        # Limpar carrinho
         request.session["carrinho"] = {}
 
         messages.success(request, f"Pedido {pedido.numero_pedido} criado com sucesso!")
@@ -270,7 +281,6 @@ def checkout(request):
             "enderecos": enderecos,
         }
     )
-
 
 @login_required
 def detalhes_pedido(request, pedido_id):

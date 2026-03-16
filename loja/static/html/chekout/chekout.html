@@ -1,18 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chekout</title>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 </head>
 <body>
-    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
-    <script src="{% static 'javascript/checkout.js' %}"></script>
 
 <div class="checkout-container">
     <h1 class="checkout-title">Checkout</h1>
-  {% if carrinho %}
+
+    {% if carrinho %}
+        <!-- ================= ITENS DO CARRINHO ================= -->
         <div class="checkout-list">
             {% for id, item in carrinho.items %}
                 <div class="checkout-item">
@@ -22,71 +23,67 @@
                         <span class="checkout-qtd">Qtd: {{ item.quantidade }}</span>
                         <span class="checkout-preco">Preço: R$ {{ item.preco|floatformat:2 }}</span>
                         <span class="checkout-subtotal">
-                            Subtotal: R$ {{ item.preco|floatformat:2|add:item.quantidade }}
+                            Subtotal: R$ {{ item.subtotal|floatformat:2 }}
                         </span>
                     </div>
                 </div>
             {% endfor %}
-                <strong>VALOR TOTAL :{{ total }}</strong>
+            <strong class="checkout-total">VALOR TOTAL: R$ {{ total|floatformat:2 }}</strong>
         </div>
-        <form method="POST">
-    {% csrf_token %}
 
-    <!-- ================= ENDEREÇOS ================= -->
-<div class="checkout-section" id="checkout-section">
-    <h2 class="section-title">Escolha o Endereço</h2>
+        <form method="POST"  >
+            {% csrf_token %}
 
-    {% if enderecos %}
-        <div class="enderecos-list">
-            {% for endereco in enderecos %}
-                <label class="endereco-card">
-                    <input type="radio" name="endereco_id" value="{{ endereco.id }}" required>
-                    <div>
-                        <strong>{{ endereco.endereco }}</strong><br><br>
-                        CEP: {{ endereco.cep }}
+            <!-- ================= ENDEREÇOS ================= -->
+            <div class="checkout-section" id="checkout-section">
+                <h2 class="section-title">Escolha o Endereço</h2>
+
+                {% if enderecos %}
+                    <div class="enderecos-list">
+                        {% for endereco in enderecos %}
+                            <label class="endereco-card">
+                                <input type="radio" name="endereco_id" value="{{ endereco.id }}" required>
+                                <div>
+                                    <strong>{{ endereco.endereco }}</strong>
+                                    <p>CEP: {{ endereco.cep }}</p>
+                                </div>
+                            </label>
+                        {% endfor %}
                     </div>
-                </label>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>Não há endereços cadastrados</p>
-        <button class="btn btn-add" id="btn-add" onclick="adicionarDiv()">+ Adicionar novo endereço</button>
-        <div id="container"></div>
-    {% endif %}
-</div>
+                {% else %}
+                    <p>Não há endereços cadastrados</p>
+                    <button type="button" class="btn btn-add" id="btn-add">+ Adicionar novo endereço</button>
+                    <div id="container"></div>
+                {% endif %}
+            </div>
 
+            <!-- ================= PAGAMENTO ================= -->
+            <div class="checkout-section">
+                <h2 class="section-title">Método de Pagamento</h2>
+                <div class="pagamento-list">
+                    <label class="pagamento-option">
+                        <input type="radio" name="pagamento" value="pix" required> PIX
+                    </label>
+                    <label class="pagamento-option">
+                        <input type="radio" name="pagamento" value="cartao"> Cartão de Crédito
+                    </label>
+                    <label class="pagamento-option">
+                        <input type="radio" name="pagamento" value="boleto"> Boleto
+                    </label>
+                </div>
+            </div>
+            
 
-    <!-- ================= PAGAMENTO ================= -->
-    <div class="checkout-section">
-        <h2 class="section-title">Método de Pagamento</h2>
-
-        <div class="pagamento-list">
-            <label class="pagamento-option">
-                <input type="radio" name="pagamento" value="pix" required>
-                PIX
-            </label>
-
-            <label class="pagamento-option">
-                <input type="radio" name="pagamento" value="cartao">
-                Cartão de Crédito
-            </label>
-
-            <label class="pagamento-option">
-                <input type="radio" name="pagamento" value="boleto">
-                Boleto
-            </label>
-        </div>
-    </div>
-        
-    <button type="submit" class="btn-finalizar" >
-        Finalizar Compra
-    </button>
-    
-</form>
+            <button type="submit" class="btn-finalizar" >
+                Finalizar Compra
+            </button>
+        </form>
     {% else %}
         <p class="carrinho-vazio">Seu carrinho está vazio.</p>
     {% endif %}
 </div>
-    
+
+<script src="{% static 'javascript/checkout.js' %}"></script>
+
 </body>
 </html>
