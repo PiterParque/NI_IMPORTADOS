@@ -1,9 +1,22 @@
+async function carregarCarrinho() {
+    try {
+        const response = await fetch("/obter_carrinho/"); // endpoint que retorna o carrinho em JSON
+        const data = await response.json();
+
+        if (data.carrinho) {
+            atualizarCarrinho(data.carrinho);
+        }
+    } catch (error) {
+        console.error("Erro ao carregar carrinho:", error);
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
 
     const carrinhoEl = document.getElementById("carrinho-lateral");
     const overlay = document.getElementById("overlay-carrinho");
     const botaoCarrinho = document.querySelector(".carrinho");
     const fecharBtn = document.querySelector(".fechar-carrinho");
+    carregarCarrinho();
 
     /* ================= ABRIR / FECHAR ================= */
 

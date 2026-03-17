@@ -179,7 +179,11 @@ def produtos(request):
         imagens = ImagemProduto.objects.filter(produto=produto)
         imagens_produtos[produto.id] = imagens.first().imagem.url if imagens.exists() else '/static/imagens/perfumes_1.jpg'
     return render(request, "./loja/static/html/administrador/produtos.html", {'produtos': produtos_, 'imagens_produtos': imagens_produtos})
+from django.http import JsonResponse
 
+def obter_carrinho(request):
+    carrinho = request.session.get('carrinho', {})
+    return JsonResponse({'carrinho': carrinho})
 
 @require_POST
 def adicionar_carrinho(request):
@@ -198,11 +202,27 @@ def adicionar_carrinho(request):
             "nome": produto.nome,
             "preco": float(produto.preco),
             "quantidade": 1,
-            "imagem": produto.imagem_principal.url if produto.imagem_principal else ""
+            "imagem": produto.imagem_principal.url if produto.imagem_principal else "",
+            "subtotal": float(produto.preco) * carrinho[produto_id]["quantidade"],
         }
     request.session["carrinho"] = carrinho
     request.session.modified = True
     return JsonResponse({"status": "sucesso", "carrinho": carrinho})
+@require_POST
+def remover_carrinho(request):
+    produto_id = request.POST.get("produto_id")
+    if not produto_id:
+        return JsonResponse({"erro": "Produto não enviado"}, status=400)
+
+    carrinho = request.session.get("carrinho", {})
+
+    if produto_id in carrinho:
+        del carrinho[produto_id]
+        request.session["carrinho"] = carrinho
+        request.session.modified = True
+        return JsonResponse({"status": "sucesso", "carrinho": carrinho})
+    else:
+        return JsonResponse({"erro": "Produto não encontrado no carrinho"}, status=404)
 
 @login_required
 def checkout(request):
