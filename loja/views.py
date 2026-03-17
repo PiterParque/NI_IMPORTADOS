@@ -217,13 +217,16 @@ def checkout(request):
     enderecos = Endereco.objects.filter(user=usuario)
 
     if request.method == "POST":
+        if not carrinho:
+            messages.error(request, "Carrinho vazio.")
+            return redirect("checkout")
 
         endereco_selecionado = request.POST.get("endereco_id")
         novo_endereco = request.POST.get("novo_endereco")
         novo_cep = request.POST.get("novo_cep")
         metodo_pagamento = request.POST.get("pagamento")
 
-        # 🔹 Se usuário criou novo endereço
+        # ================= ENDEREÇO =================
         if not endereco_selecionado and novo_endereco and novo_cep:
             endereco = Endereco.objects.create(
                 user=usuario,
@@ -231,7 +234,6 @@ def checkout(request):
                 cep=novo_cep
             )
 
-        # 🔹 Se escolheu endereço existente
         elif endereco_selecionado:
             endereco = Endereco.objects.get(id=endereco_selecionado, user=usuario)
 
@@ -239,10 +241,24 @@ def checkout(request):
             messages.error(request, "Escolha ou cadastre um endereço.")
             return redirect("chekout")
 
+        # ================= PAGAMENTO =================
         if not metodo_pagamento:
             messages.error(request, "Escolha um método de pagamento.")
             return redirect("chekout")
 
+        # 🔴 VALIDAÇÃO DO CARTÃO (SÓ SE FOR CARTÃO)
+        if metodo_pagamento == "cartao":
+            numero = request.POST.get("numero_cartao")
+
+            if not numero:
+                messages.error(request, "Digite o número do cartão.")
+                return redirect("chekout")
+
+            if not validar_cartao(numero):
+                messages.error(request, "Cartão inválido.")
+                return redirect("chekout")
+
+        # ================= CRIAR PEDIDO =================
         pedido = Pedido.objects.create(
             cliente=usuario,
             endereco_entrega=endereco,
@@ -251,8 +267,8 @@ def checkout(request):
         )
 
         total = 0
-        for id_item, item in carrinho.items():
 
+        for id_item, item in carrinho.items():
             produto = Produto.objects.get(id=id_item)
 
             ItemPedido.objects.create(
@@ -267,6 +283,7 @@ def checkout(request):
         pedido.valor_total = total
         pedido.save()
 
+        # limpa carrinho
         request.session["carrinho"] = {}
 
         messages.success(request, f"Pedido {pedido.numero_pedido} criado com sucesso!")
@@ -281,7 +298,6 @@ def checkout(request):
             "enderecos": enderecos,
         }
     )
-
 @login_required
 def detalhes_pedido(request, pedido_id):
     pedido = Pedido.objects.get(id=pedido_id)
@@ -295,3 +311,20 @@ def detalhes_pedido(request, pedido_id):
             "itens": itens,
         }
     )
+def validar_cartao(numero):
+    numero = numero.replace(" ", "")
+    soma = 0
+    deve_dobrar = False
+
+    for digito in reversed(numero):
+        d = int(digito)
+
+        if deve_dobrar:
+            d *= 2
+            if d > 9:
+                d -= 9
+
+        soma += d
+        deve_dobrar = not deve_dobrar
+
+    return soma % 10 == 0

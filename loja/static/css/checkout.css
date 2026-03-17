@@ -227,7 +227,58 @@ body {
     background: #3A2A1A;
     transform: scale(1.05);
 }
+/* ================= CARTÃO ================= */
 
+#cartao-campos {
+    margin-top: 15px;
+    padding: 20px;
+    background: #111;
+    border: 1px solid #3A2A1A;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* INPUTS DO CARTÃO */
+#cartao-campos input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #3A2A1A;
+    background: #000;
+    color: #F5E6B8;
+    outline: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+/* FOCO */
+#cartao-campos input:focus {
+    border-color: #C1A675;
+    box-shadow: 0 0 5px rgba(193, 166, 117, 0.4);
+}
+
+/* GRID PARA ORGANIZAR */
+.cartao-linha {
+    display: grid;
+    grid-template-columns: 1fr 120px; /* validade | cvv */
+    gap: 10px;
+}
+
+/* ANIMAÇÃO */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* RESPONSIVO */
 @media (max-width: 768px) {

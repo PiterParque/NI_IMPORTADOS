@@ -35,3 +35,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+
+    const radiosPagamento = document.querySelectorAll('input[name="pagamento"]');
+    const cartaoCampos = document.getElementById("cartao-campos");
+
+    radiosPagamento.forEach(radio => {
+        radio.addEventListener("change", function () {
+
+            if (this.value === "cartao") {
+                cartaoCampos.style.display = "block";
+            } else {
+                cartaoCampos.style.display = "none";
+            }
+
+        });
+    });
+
+});
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function (e) {
+
+    const metodo = document.querySelector('input[name="pagamento"]:checked');
+
+    // Se não selecionou nada
+    if (!metodo) {
+        alert("Escolha um método de pagamento");
+        e.preventDefault();
+        return;
+    }
+
+    // Se for cartão → valida
+    if (metodo.value === "cartao") {
+
+        const numero = document.getElementById("numero_cartao").value;
+
+        if (!validarCartao(numero)) {
+            alert("Cartão inválido!");
+            e.preventDefault(); // ❌ BLOQUEIA ENVIO
+            return;
+        }
+    }
+
+    // ✅ Se passou → deixa enviar normal
+});

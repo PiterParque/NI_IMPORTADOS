@@ -67,6 +67,15 @@
                     <label class="pagamento-option">
                         <input type="radio" name="pagamento" value="cartao"> Cartão de Crédito
                     </label>
+                    <div id="cartao-campos" style="display: none; margin-top: 15px;">
+                        <input type="text" name="numero_cartao" placeholder="Número do Cartão" maxlength="16">
+                        
+                        <input type="text" name="nome_cartao" placeholder="Nome no Cartão">
+                        
+                        <input type="text" name="validade" placeholder="MM/AA" maxlength="5">
+                        
+                        <input type="text" name="cvv" placeholder="CVV" maxlength="3">
+                    </div>
                     <label class="pagamento-option">
                         <input type="radio" name="pagamento" value="boleto"> Boleto
                     </label>
