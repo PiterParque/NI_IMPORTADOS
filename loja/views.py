@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Q
 
 from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido,Marcas,Tamanhos
 
@@ -83,7 +84,8 @@ def pesquisa(request):
 
     if query:
         resultados = Produto.objects.filter(
-            nome__icontains=query,
+            Q(nome__icontains=query) |
+            Q(descricao__icontains=query),
             ativo=True
         )
 
