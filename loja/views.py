@@ -76,6 +76,21 @@ def produto(request, slug):
         "imagens_produto_principal": imagens_produto_principal,
         'cliente': usuario
     })
+def pesquisa(request):
+    query = request.GET.get("q")
+
+    resultados = []
+
+    if query:
+        resultados = Produto.objects.filter(
+            nome__icontains=query,
+            ativo=True
+        )
+
+    return render(request, "./loja/static/html/inicio/pesquisa.html", {
+        "query": query,
+        "resultados": resultados
+    })
 
 # ----------------------------
 # LOGIN, LOGOUT E CADASTRO

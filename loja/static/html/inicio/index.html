@@ -82,8 +82,8 @@
         
     </ul>
 </header>
-<form action="" method="post" class="barra-de-pesquisa">
-    <input type="search" name="pesquisa" id="pesquisa" placeholder="PESQUISAR">
+<form action="{% url 'pesquisa' %}" method="get" class="barra-de-pesquisa">
+    <input type="search" name="q" placeholder="PESQUISAR">
     <button type="submit" class="btn-lupa">
         <i class="fa-solid fa-magnifying-glass"></i>
     </button>
