@@ -337,6 +337,11 @@ footer {
 }
 
 /* CARRINHO */
+.carrinho-button{
+    color: #C1A675;
+    border-radius: 20px;
+    background-color: #2B1E14;
+}
 #carrinho-lateral {
     position: fixed;
     top: 0;

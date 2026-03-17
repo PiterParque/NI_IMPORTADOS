@@ -11,21 +11,24 @@ from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notifi
 # PÁGINA INICIAL E PRODUTOS
 # ----------------------------
 def index(request):
+    # Busca os 10 produtos ativos com estoque
     produtos = Produto.objects.filter(ativo=True, estoque__gt=0).order_by('-data_cadastro')[:10]
-    marcas=[]
-    categorias=[]
-    tamanhos=[]
-    for produto in produtos:
-            marcas.append(produto.marca)
-            categorias.append(produto.categoria)
-            tamanhos.append(produto.tamanho)
+
+    # Criar listas únicas de categorias, marcas e tamanhos
+    categorias = list({produto.categoria for produto in produtos})
+    marcas = list({produto.marca for produto in produtos})
+    tamanhos = list({produto.tamanho for produto in produtos})
+
     return render(
         request,
         "loja/static/html/inicio/index.html",
-        {"produtos": produtos, "usuario": request.user if request.user.is_authenticated else None,
-         "marcas":marcas,
-         "categorias":categorias,
-         "tamanhos":tamanhos}
+        {
+            "produtos": produtos,
+            "usuario": request.user if request.user.is_authenticated else None,
+            "marcas": marcas,
+            "categorias": categorias,
+            "tamanhos": tamanhos
+        }
     )
 def categoria(request,categoria_id):
     categoria = Categoria.objects.get(id=categoria_id)

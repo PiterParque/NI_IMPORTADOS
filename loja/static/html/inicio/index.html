@@ -13,10 +13,6 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
-          <!-- ================= SCRIPTS ================= -->
-<script src="{% static 'javascript/index.js' %}"></script>
-<script src="{% static 'javascript/carrinho.js' %}"></script>
-
 </head>
 
 <body>
@@ -62,7 +58,7 @@
                 <a href="{% url 'perfil' %}">
                     <i class="fa-solid fa-circle-user"></i>
                 </a>
-                <p>OLA {{user}}</p>
+
                </li>
                 <li class="dropdown">
                 <a href="{% url 'logout' %}">
@@ -79,11 +75,11 @@
         
 
         <!-- CARRINHO -->
-        <li>
-            <button type="button" class="carrinho">
+        
+            <button type="button" class="carrinho carrinho-button">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
-        </li>
+        
     </ul>
 </header>
 
@@ -194,6 +190,9 @@
 <!-- ================= CARRINHO LATERAL ================= -->
 {% include "./carrinho.html" %}
 
+<!-- ================= SCRIPTS ================= -->
+<script src="{% static 'javascript/index.js' %}"></script>
+<script src="{% static 'javascript/carrinho.js' %}"></script>
 
 </body>
 </html>
