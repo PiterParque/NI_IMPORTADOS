@@ -384,6 +384,34 @@ footer {
     cursor: pointer;
 }
 
+.barra-de-pesquisa {
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* 👈 IMPORTANTE */
+    margin: 10px auto; /* centraliza */
+}
+
+/* INPUT */
+.barra-de-pesquisa input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+/* LUPA */
+.barra-de-pesquisa .btn-lupa {
+    position: absolute;
+    right: 12px; /* ajusta aqui se quiser */
+    top: 50%;
+    transform: translateY(-50%);
+    
+    background: none;
+    border: none;
+    color: #C1A675;
+    cursor: pointer;
+}
 /* ITENS */
 .carrinho-itens {
     flex: 1;
