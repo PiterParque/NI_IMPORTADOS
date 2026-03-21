@@ -317,7 +317,7 @@ main {
    FOOTER
 ============================= */
 footer {
-    background-color: #2B1E14;
+   
     color: #C1A675;
     text-align: center;
     padding: 10px 0;
@@ -450,4 +450,18 @@ footer {
     color: #F5E6B8;
     text-decoration: none;
     border-radius: 6px;
+}
+
+
+.beneficios {
+    display: flex;
+    justify-content: space-around;
+    background: #111;
+    padding: 15px;
+    text-align: center;
+}
+
+.beneficio i {
+    color: #C1A675;
+    font-size: 20px;
 }
