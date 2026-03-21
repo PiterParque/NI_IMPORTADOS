@@ -205,7 +205,6 @@ def obter_carrinho(request):
     carrinho = request.session.get('carrinho', {})
     return JsonResponse({'carrinho': carrinho})
 
-@require_POST
 def adicionar_carrinho(request):
     produto_id = request.POST.get("produto_id")
     if not produto_id:
@@ -223,12 +222,11 @@ def adicionar_carrinho(request):
             "preco": float(produto.preco),
             "quantidade": 1,
             "imagem": produto.imagem_principal.url if produto.imagem_principal else "",
-            "subtotal": float(produto.preco) * carrinho[produto_id]["quantidade"],
         }
     request.session["carrinho"] = carrinho
     request.session.modified = True
     return JsonResponse({"status": "sucesso", "carrinho": carrinho})
-@require_POST
+
 def remover_carrinho(request):
     produto_id = request.POST.get("produto_id")
     if not produto_id:
@@ -255,6 +253,8 @@ def checkout(request):
 
     usuario = Usuario.objects.filter(auth_user=request.user.id).first()
     enderecos = Endereco.objects.filter(user=usuario)
+    for item in carrinho: 
+        carrinho[item]['subtotal']=carrinho[item]['preco'] * carrinho[item]['quantidade']
 
     if request.method == "POST":
         if not carrinho:

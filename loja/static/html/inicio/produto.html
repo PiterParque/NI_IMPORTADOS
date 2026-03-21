@@ -66,8 +66,16 @@
       {% endif %}
     </p>
 
-    <div>
-    
+   <div class="add-carrinho-box">
+
+  <!-- CONTROLE DE QUANTIDADE -->
+  <div class="quantidade-box">
+    <button type="button" class="qtd-btn diminuir">-</button>
+    <input type="number" value="1" min="1" class="qtd-input">
+    <button type="button" class="qtd-btn aumentar">+</button>
+  </div>
+
+  <!-- BOTÃO -->
       <button
         type="button"
         class="btn-comprar btn-add"
@@ -76,6 +84,7 @@
         <i class="fa-solid fa-cart-shopping"></i>
         Adicionar ao carrinho
       </button>
+
     </div>
 
   </div>

@@ -1,29 +1,27 @@
-async function carregarCarrinho() {
-    try {
-        const response = await fetch("/obter_carrinho/"); // endpoint que retorna o carrinho em JSON
-        const data = await response.json();
+// ================= INICIALIZAÇÃO =================
 
-        if (data.carrinho) {
-            atualizarCarrinho(data.carrinho);
-        }
-    } catch (error) {
-        console.error("Erro ao carregar carrinho:", error);
-    }
-}
 document.addEventListener("DOMContentLoaded", () => {
+
+    carregarCarrinho();
+
+    configurarCarrinho();
+    configurarAdicionar();
+    configurarQuantidadeProduto();
+
+});
+
+
+// ================= ABRIR / FECHAR =================
+
+function configurarCarrinho() {
 
     const carrinhoEl = document.getElementById("carrinho-lateral");
     const overlay = document.getElementById("overlay-carrinho");
     const botaoCarrinho = document.querySelector(".carrinho");
     const fecharBtn = document.querySelector(".fechar-carrinho");
-    carregarCarrinho();
-
-    /* ================= ABRIR / FECHAR ================= */
 
     if (botaoCarrinho) {
-        botaoCarrinho.addEventListener("click", () => {
-            abrirCarrinho();
-        });
+        botaoCarrinho.addEventListener("click", abrirCarrinho);
     }
 
     if (fecharBtn) {
@@ -44,7 +42,42 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.classList.remove("ativo");
     }
 
-    /* ================= ADICIONAR ================= */
+}
+
+
+// ================= CONTROLE QUANTIDADE (PÁGINA PRODUTO) =================
+
+function configurarQuantidadeProduto() {
+
+    const aumentar = document.querySelector(".aumentar");
+    const diminuir = document.querySelector(".diminuir");
+    const input = document.querySelector(".qtd-input");
+
+    if (!aumentar || !diminuir || !input) return;
+
+    // REMOVE eventos antigos (evita duplicação)
+    aumentar.replaceWith(aumentar.cloneNode(true));
+    diminuir.replaceWith(diminuir.cloneNode(true));
+
+    const novoAumentar = document.querySelector(".aumentar");
+    const novoDiminuir = document.querySelector(".diminuir");
+
+    novoAumentar.addEventListener("click", () => {
+        input.value = parseInt(input.value) + 1;
+    });
+
+    novoDiminuir.addEventListener("click", () => {
+        if (input.value > 1) {
+            input.value = parseInt(input.value) - 1;
+        }
+    });
+
+}
+
+
+// ================= ADICIONAR =================
+
+function configurarAdicionar() {
 
     document.querySelectorAll(".btn-add").forEach(botao => {
 
@@ -53,19 +86,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const produtoId = this.dataset.id;
             if (!produtoId) return;
 
-            adicionarCarrinho(produtoId);
+            // pega quantidade se existir
+            let quantidade = 1;
+            const input = document.querySelector(".qtd-input");
+
+            if (input) {
+                quantidade = parseInt(input.value) || 1;
+            }
+
+            adicionarCarrinho(produtoId, quantidade);
+
         });
 
     });
 
-});
+}
 
-/* ================= FUNÇÃO ADICIONAR ================= */
 
-async function adicionarCarrinho(produtoId) {
+// ================= FUNÇÃO ADICIONAR =================
+
+async function adicionarCarrinho(produtoId, quantidade = 1) {
 
     const formData = new FormData();
     formData.append("produto_id", produtoId);
+    formData.append("quantidade", quantidade);
 
     try {
 
@@ -80,11 +124,12 @@ async function adicionarCarrinho(produtoId) {
         const data = await response.json();
 
         if (data.status === "sucesso") {
+
             atualizarCarrinho(data.carrinho);
-            
 
             document.getElementById("carrinho-lateral").classList.add("ativo");
             document.getElementById("overlay-carrinho").classList.add("ativo");
+
         }
 
     } catch (error) {
@@ -92,7 +137,28 @@ async function adicionarCarrinho(produtoId) {
     }
 }
 
-/* ================= ATUALIZAR ================= */
+
+// ================= CARREGAR =================
+
+async function carregarCarrinho() {
+
+    try {
+
+        const response = await fetch("/obter_carrinho/");
+        const data = await response.json();
+
+        if (data.carrinho) {
+            atualizarCarrinho(data.carrinho);
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar carrinho:", error);
+    }
+
+}
+
+
+// ================= ATUALIZAR =================
 
 function atualizarCarrinho(carrinho) {
 
@@ -140,9 +206,11 @@ function atualizarCarrinho(carrinho) {
     });
 
     ativarRemover();
+
 }
 
-/* ================= REMOVER ================= */
+
+// ================= REMOVER =================
 
 function ativarRemover() {
 
@@ -163,13 +231,15 @@ function ativarRemover() {
 
             const data = await response.json();
             atualizarCarrinho(data.carrinho);
+
         });
 
     });
 
 }
 
-/* ================= CSRF ================= */
+
+// ================= CSRF =================
 
 function getCookie(name) {
 
