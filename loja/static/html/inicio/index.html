@@ -97,34 +97,28 @@
 
 <div class="carousel-container">
 
-    <div class="carousel-slides">
+        <div class="carousel-slides">
 
-        <div class="slide active">
-            <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Perfumes">
+        {% for produto in produtos %}
+        <div class="slide {% if forloop.first %}active{% endif %}">
+            {% if produto.imagem_principal %}
+                <img src="{{ produto.imagem_principal.url }}" alt="{{ produto.nome }}">
+            {% else %}
+                <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Imagem padrão">
+            {% endif %}
             <div class="caption">
-                <h2>Perfumes Importados</h2>
-                <p>Original • Qualidade Premium</p>
-                <a href="#" class="btn">Ver produtos</a>
+                <h2>{{ produto.nome }}</h2>
+                
+                {% if produto.preco_promocional %}
+                    <p>De R$ {{ produto.preco }} por R$ {{ produto.preco_promocional }}</p>
+                {% else %}
+                    <p>Preço: R$ {{ produto.preco }}</p>
+                {% endif %}
+                
+                <a href="{% url 'produto' produto.slug %}" class="btn">Ver produto</a>
             </div>
         </div>
-
-        <div class="slide">
-            <img src="{% static 'imagens/perfumes_2.jpg' %}" alt="Novidades">
-            <div class="caption">
-                <h2>Novidades da Semana</h2>
-                <p>As melhores fragrâncias</p>
-                <a href="#" class="btn">Conferir</a>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="{% static 'imagens/perfumes_3.jpg' %}" alt="Promoções">
-            <div class="caption">
-                <h2>Promoções Exclusivas</h2>
-                <p>Até 30% OFF</p>
-                <a href="#" class="btn">Aproveitar</a>
-            </div>
-        </div>
+        {% endfor %}
 
     </div>
 
