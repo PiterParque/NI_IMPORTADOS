@@ -121,3 +121,16 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+const dropdowns = document.querySelectorAll('.dropdown');
+
+dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('click', function(e) {
+        e.stopPropagation(); // evita que o clique feche outros dropdowns
+        this.classList.toggle('active'); // adiciona/remove a classe 'active'
+    });
+});
+
+// Fecha todos os dropdowns se clicar fora
+document.addEventListener('click', () => {
+    dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+});
