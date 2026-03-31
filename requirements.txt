@@ -20,4 +20,4 @@ sqlparse==0.5.5
 tzdata==2025.3
 urllib3==2.6.0
 whitenoise==6.11.0
-pandas
+pandas==2.2.2

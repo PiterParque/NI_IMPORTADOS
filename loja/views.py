@@ -6,8 +6,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido,Marcas,Tamanhos
-import pandas as pd
-from Site.settings import DATABASE_URL
+
 from sqlalchemy import create_engine
 from django.db.models import Count
 # ----------------------------
@@ -20,21 +19,7 @@ def index(request):
     categorias = list({produto.categoria for produto in produtos})
     marcas = list({produto.marca for produto in produtos})
     tamanhos = list({produto.tamanho for produto in produtos})
-    engine=create_engine(DATABASE_URL)
-
-    query = "SELECT * FROM loja_ItemPedido LIMIT 200;"
-
-    # Lê os dados com pandas
-    df = pd.read_sql(query, engine)
-    itens_mais_pedidos = (
-        ItemPedido.objects
-        .values('perfume')  # agrupa por produto
-        .annotate(total=Count('id'))  # conta quantas vezes aparece
-        .order_by('-total')[:5]  # top 5
-    )
-    top_ids = [item['perfume'] for item in itens_mais_pedidos]
-
-    produtos_populares = Produto.objects.filter(id__in=top_ids)
+    
     return render(
         request,
         "loja/static/html/inicio/index.html",
@@ -44,7 +29,6 @@ def index(request):
             "marcas": marcas,
             "categorias": categorias,
             "tamanhos": tamanhos,
-            "produtos_populares":produtos_populares
         }
     )
 def categoria(request,categoria_id):
