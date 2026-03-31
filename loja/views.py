@@ -6,9 +6,6 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from .models import Produto, Categoria, Usuario, ImagemProduto, Endereco, Notificacao, Pedido, ItemPedido,Marcas,Tamanhos
-
-from sqlalchemy import create_engine
-from django.db.models import Count
 # ----------------------------
 # PÁGINA INICIAL E PRODUTOS
 # ----------------------------
