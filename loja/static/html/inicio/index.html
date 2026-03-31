@@ -180,55 +180,7 @@
     </div>
 
 </section>
-{% if produtos_populares %}
-  <section class="product-carousel">
 
-    <h2 class="section-title">Produtos Populares</h2>
-
-    <div class="product-carousel-wrapper">
-
-        <button type="button" class="prod-btn prev-prod">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-
-        <div class="product-track">
-
-            {% for produto in produtos_populares %}
-            <div class="product-card">
-
-                {% if produto.imagem_principal %}
-                    <img src="{{ produto.imagem_principal.url }}" alt="{{ produto.nome }}">
-                {% else %}
-                    <img src="{% static 'imagens/perfumes_1.jpg' %}" alt="Imagem padrão">
-                {% endif %}
-
-                <h3>{{ produto.nome }}</h3>
-
-                {% if produto.preco_promocional %}
-                    <p class="preco antigo">R$ {{ produto.preco }}</p>
-                    <p class="preco promocional">R$ {{ produto.preco_promocional }}</p>
-                {% else %}
-                    <p class="preco">R$ {{ produto.preco }}</p>
-                {% endif %}
-
-                <a href="{% url 'produto' produto.slug %}" class="btn-prod">
-                    Ver detalhes
-                </a>
-
-            </div>
-            {% endfor %}
-
-        </div>
-
-        <button type="button" class="prod-btn next-prod">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
-    </div>
-
-</section>
-
-{% endif %}
 {% endblock main %}
 </main>
 

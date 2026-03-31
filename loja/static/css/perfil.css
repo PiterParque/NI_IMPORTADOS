@@ -48,11 +48,13 @@ body {
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
+    
 }
 
 .perfil-menu a:hover {
     color: #C1A675;
     padding-left: 5px;
+    border-radius: 20x;
 }
 
 /* CONTEÚDO */
