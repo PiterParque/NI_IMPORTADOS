@@ -149,4 +149,14 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_UNIQUE_EMAIL = True
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL CONFIG (SENDGRID)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp-relay.brevo.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "a72222001@smtp-brevo.com"  # sempre isso
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_API_KEY")
+
+DEFAULT_FROM_EMAIL = "lancanicolas205@gmail.com"
